@@ -37,12 +37,12 @@ class Enemy(pygame.sprite.Sprite):
         self.image = pygame.image.load("D:\\ΦΩΤΟ\\aaa.png")
         self.rect=self.image.get_rect()
         self.rect.center=(random.randint(40,display_width-40),0) #randomise
-    def movement(self):
-        enemy_speed=10
-        self.rect.move_ip(0,enemy_speed)
-        if(self.rect.top>600):
-            self.rect.top=0
-            self.rect.center = (random.randint(30,370),0)
+    #def movement(self):
+    #    enemy_speed=10
+    #    self.rect.move_ip(0,enemy_speed)
+    #    if(self.rect.top>600):
+    #        self.rect.top=0
+    #        self.rect.center = (random.randint(30,370),0)
     
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
@@ -55,7 +55,7 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("D:\\ΦΩΤΟ\\mqdefault__1_-removebg-preview.png")
+        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
         self.rect=self.image.get_rect()
         self.rect.center=(160,520)
 
@@ -126,10 +126,10 @@ while True:
 
     #GAME OVER
 
-    if P.rect.colliderect(E.rect):
+   # if P.rect.colliderect(E.rect):
         #P.destroy()
-        print("GAME OVER")
-        exit()
+   #     print("GAME OVER")
+    #    exit()//
         
 
     
