@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+import time
 #from turtle import delay
 from pygame.locals import *
 from pygame.sprite import Group 
@@ -93,6 +94,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.center=(160,520)
         self.speed=5
         self.maxspeed=10
+        self.stamina=100
 
     #PLAYER_MOVEMENT
     
@@ -100,9 +102,6 @@ class Player(pygame.sprite.Sprite):
        
         pressed_keys=pygame.key.get_pressed()
 
-        #SPRINT 
-        
-        #if pressed_keys[K_LSHIFT]:
         #    self.speed = self.maxspeed
         #else:
         #    self.speed = 5
@@ -123,18 +122,18 @@ class Player(pygame.sprite.Sprite):
                 self.rect.move_ip(-self.speed,0)
 
         if pressed_keys[K_SPACE]:
+            time.sleep(0.1)
             print("FIRE")
 
     def stop(self):
         self.speed = 0  
+    
+    def sprint(self):
+        if self.speed>0 :
+            self.speed = self.maxspeed
 
     def destroy(self):
         self.remove()
-     
-    def game_over(self):
-        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
-        self.rect.move_ip(display_center)
-        self.speed=0
 
     #PLAYER_SPAWN
 
@@ -146,6 +145,7 @@ E=Enemy()
        
 
 while True:
+
     for event in pygame.event.get():
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
@@ -154,7 +154,7 @@ while True:
     #INITIALIZE
 
     P.movement()
- #   E.movement()
+ #  E.movement()
     
     #BACKGROUND
 
@@ -172,7 +172,7 @@ while True:
 
     if P.rect.colliderect(E.rect):
          destroy(E)
-         P.game_over()
+         P.stop()
     #     game_over(P)
     #    print("GAME OVER")
     #    exit()
