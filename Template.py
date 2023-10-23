@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+#from turtle import delay
 from pygame.locals import *
 from pygame.sprite import Group 
 
@@ -33,7 +34,7 @@ enemy_scale=5
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("D:\\ΦΩΤΟ\\SHREKORLOS.png")
+        self.image = pygame.image.load("D:\\ΦΩΤΟ\\aaa.png")
         self.rect=self.image.get_rect()
         self.rect.center=(random.randint(40,display_width-40),0) #randomise
     def movement(self):
@@ -52,7 +53,6 @@ class Enemy(pygame.sprite.Sprite):
 #PLAYER
 
 class Player(pygame.sprite.Sprite):
-    player_quit=False
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load("D:\\ΦΩΤΟ\\mqdefault__1_-removebg-preview.png")
@@ -86,6 +86,9 @@ class Player(pygame.sprite.Sprite):
             if pressed_keys[K_a]:
                 self.rect.move_ip(-player_speed,0)
 
+        if pressed_keys[K_SPACE]:
+            print("FIRE")
+
     def destroy(self):
         self.remove()
 
@@ -113,7 +116,6 @@ while True:
 
     display_window.fill(color_white)
 
-
     #SPAWN
 
     P.spawn(display_window)
@@ -123,8 +125,11 @@ while True:
     game_fps.tick(FPS)
 
     #GAME OVER
+
     if P.rect.colliderect(E.rect):
-        P.destroy()
-        #exit()
+        #P.destroy()
+        print("GAME OVER")
+        exit()
+        
 
     
