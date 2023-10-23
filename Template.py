@@ -28,27 +28,57 @@ FPS=60
 player_scale=10
 enemy_scale=5
 
+#FUNCTIONS
+
+#def get_display_center(display):
+#    x,y=pygame.display.get_window_size()
+#    center=(x//2 - display.get_width()//2,)
+#    display_center=(display_width-(display_width/2),display_height-(display_height/2))
+
+def destroy(Actor):
+    Actor.rect.move_ip(display_width+500,display_height+500)
+    Actor.kill()
+
+#def game_over(screen):
+#    #game_over_screen=pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
+#    font=pygame.font.Font(None,25)
+#    text=font.render(" GAME OVER ! ", True , color_black)
+#    text_rect=text.get_rect()
+#    text_rect.center = (display_center)
+#    screen.blit(text,text_rect)
+    
+
 #CLASSES
+
+#GAME OVER
+#class GameOverScreen(pygame.sprite.Sprite):
+#    def __init__(self):
+#        super().__init__()
+#        self.image=pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
+#        self.rect=self.image.get_rect()
+#        self.rect.center=(display_width/2,display_height/2)
+#    def game_over(self,surface):
+#        surface.blit(self.image,self.rect)
 
 #ENEMY
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("D:\\ΦΩΤΟ\\aaa.png")
+        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Enemy.png")
         self.rect=self.image.get_rect()
         self.rect.center=(random.randint(40,display_width-40),0) #randomise
-    #def movement(self):
+        self.speed=5
+    #def teleport(self):
     #    enemy_speed=10
     #    self.rect.move_ip(0,enemy_speed)
     #    if(self.rect.top>600):
-    #        self.rect.top=0
-    #        self.rect.center = (random.randint(30,370),0)
+    #    self.rect.top= (random.randint(30,display_width),random.randint(30,display_width))
+    #    self.rect.center = (random.randint(30,display_height),random.randint(30,display_height))
     
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
 
-    def destroy(self):
-        self.kill()
+    
 
 #PLAYER
 
@@ -58,39 +88,50 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
         self.rect=self.image.get_rect()
         self.rect.center=(160,520)
+        self.speed=5
+        self.maxspeed=10
 
     #PLAYER_MOVEMENT
     
     def movement(self):
+       
         pressed_keys=pygame.key.get_pressed()
 
         #SPRINT 
-    
-        if pressed_keys[K_LSHIFT]:
-            player_speed=10
-        else:
-            player_speed=5
+        
+        #if pressed_keys[K_LSHIFT]:
+        #    self.speed = self.maxspeed
+        #else:
+        #    self.speed = 5
 
         #WALK
 
         if self.rect.top>0:
             if pressed_keys[K_w]:
-                self.rect.move_ip(0,-player_speed) #movecmd
+                self.rect.move_ip(0,-self.speed) #movecmd
         if self.rect.bottom<display_height:
             if pressed_keys[K_s]:
-                self.rect.move_ip(0,player_speed)
+                self.rect.move_ip(0,self.speed)
         if self.rect.right < display_width:
             if pressed_keys[K_d]:
-                self.rect.move_ip(player_speed,0) 
+                self.rect.move_ip(self.speed,0) 
         if self.rect.left > 0:
             if pressed_keys[K_a]:
-                self.rect.move_ip(-player_speed,0)
+                self.rect.move_ip(-self.speed,0)
 
         if pressed_keys[K_SPACE]:
             print("FIRE")
 
+    def stop(self):
+        self.speed = 0  
+
     def destroy(self):
         self.remove()
+     
+    def game_over(self):
+        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
+        self.rect.move_ip()
+        self.speed=0
 
     #PLAYER_SPAWN
 
@@ -110,7 +151,7 @@ while True:
     #INITIALIZE
 
     P.movement()
-    E.movement()
+ #   E.movement()
     
     #BACKGROUND
 
@@ -126,10 +167,12 @@ while True:
 
     #GAME OVER
 
-   # if P.rect.colliderect(E.rect):
-        #P.destroy()
-   #     print("GAME OVER")
-    #    exit()//
+    if P.rect.colliderect(E.rect):
+         destroy(E)
+         P.game_over()
+    #     game_over(P)
+    #    print("GAME OVER")
+    #    exit()
         
 
     
