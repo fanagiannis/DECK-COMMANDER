@@ -27,13 +27,6 @@ FPS=60
 player_scale=10
 enemy_scale=5
 
-#OBJECTS
-#object1=pygame.rect((20,50),(50,100))
-#object2=pygame.rect((10,10),(100,100))
-
-#VARIABLES
-player_speed=5
-
 #CLASSES
 
 #ENEMY
@@ -53,6 +46,9 @@ class Enemy(pygame.sprite.Sprite):
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
 
+    def destroy(self):
+        self.kill()
+
 #PLAYER
 
 class Player(pygame.sprite.Sprite):
@@ -64,12 +60,10 @@ class Player(pygame.sprite.Sprite):
         self.rect.center=(160,520)
 
     #PLAYER_MOVEMENT
-
     
-
     def movement(self):
         pressed_keys=pygame.key.get_pressed()
-        
+
         #SPRINT 
     
         if pressed_keys[K_LSHIFT]:
@@ -92,11 +86,8 @@ class Player(pygame.sprite.Sprite):
             if pressed_keys[K_a]:
                 self.rect.move_ip(-player_speed,0)
 
-        
-
-        
-        
-        
+    def destroy(self):
+        self.remove()
 
     #PLAYER_SPAWN
 
@@ -109,7 +100,7 @@ E=Enemy()
 
 while True:
     for event in pygame.event.get():
-        if event.type==QUIT:
+        if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
             sys.exit(0)
 
@@ -130,5 +121,10 @@ while True:
 
     pygame.display.update()
     game_fps.tick(FPS)
+
+    #GAME OVER
+    if P.rect.colliderect(E.rect):
+        P.destroy()
+        #exit()
 
     
