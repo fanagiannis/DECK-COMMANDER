@@ -1,6 +1,7 @@
 import pygame
 import sys
-from pygame.locals import * 
+from pygame.locals import *
+from pygame.sprite import _Group 
 
 pygame.init()
 
@@ -11,7 +12,11 @@ color_grey=pygame.color(128,128,128)
 color_red=pygame.color(255,0,0)
 
 #DISPLAY WINDOW
-window_size= pygame.display.set_mode((300,300))
+display_width=400
+display_height=600
+display_window= pygame.display.set_mode((display_width,display_height))
+display_window.fill(color_white)
+pygame.display.set_caption("Test")
 
 #FPS 
 game_fps=pygame.time.clock()
@@ -20,6 +25,38 @@ game_fps.tick(60)
 #OBJECTS
 object1=pygame.rect((20,50),(50,100))
 object2=pygame.rect((10,10),(100,100))
+
+#CLASSES
+
+#PLAYER
+class Player(pygame.sprite.Sprite):
+    global player_speed
+    player_speed=5
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("D:\ΦΩΤΟ\mqdefault__1_-removebg-preview")
+        self.rect=self.image.get_rect()
+        self.rect.center=(160,520)
+
+    #PLAYER_MOVEMENT
+
+    def update(self):
+        pressed_keys=pygame.key.get_pressed()
+        if pressed_keys[K_RIGHT]:
+            self.rect.move_ip(player_speed,0) #movecmd
+        if pressed_keys[K_LEFT]:
+            self.rect.move_ip(-player_speed,0)
+        if pressed_keys[K_UP]:
+            self.rect.move_ip(0,-player_speed)
+        if pressed_keys[K_DOWN]:
+            self.rect.move_ip(0,player_speed)
+
+    #PLAYER_SPAWN
+
+    def spawn(self,surface):
+        surface.blit(self.image,self.rect)
+
+        
 
 while True:
     for event in pygame.event.get():
