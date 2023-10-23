@@ -17,6 +17,9 @@ color_red=pygame.Color(255,0,0)
 display_width=1240
 display_height=720
 display_window= pygame.display.set_mode((display_width,display_height))
+
+display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
+
 display_window.fill(color_white)
 pygame.display.set_caption("Test")
 
@@ -130,7 +133,7 @@ class Player(pygame.sprite.Sprite):
      
     def game_over(self):
         self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
-        self.rect.move_ip()
+        self.rect.move_ip(display_center)
         self.speed=0
 
     #PLAYER_SPAWN
