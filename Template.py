@@ -17,6 +17,10 @@ window_size= pygame.display.set_mode((300,300))
 game_fps=pygame.time.clock()
 game_fps.tick(60)
 
+#OBJECTS
+object1=pygame.rect((20,50),(50,100))
+object2=pygame.rect((10,10),(100,100))
+
 while True:
     for event in pygame.event.get():
         if event.type()==QUIT:
