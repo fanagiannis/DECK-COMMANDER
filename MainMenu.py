@@ -11,6 +11,8 @@ pygame.init()
 Button_main_pos=(160,220)
 Button_2_pos=(50,220)
 
+
+
 #FPS 
 game_fps=pygame.time.Clock()
 FPS=60
@@ -31,6 +33,11 @@ display_center=((display_width-(display_width/2)),(display_height-(display_heigh
 display_window.fill(color_white)
 pygame.display.set_caption("Main Menu")
 
+#SHOW TEXT
+font=pygame.font.Font('freesansbold.ttf', 32)
+text=font.render('HELLO',True,color_grey,color_red)
+text_rect=text.get_rect()
+text_rect.center = (display_width/2,display_height/2)
 
 
 #CLASSES
@@ -68,25 +75,25 @@ button_2=Button()
 button_2.name="Button 2"
 button_2.rect.move_ip(Button_2_pos)
 
+display_window.fill(color_grey)
 
 while True:
-
+    
+    #pygame.draw.rect(display_window,color_red,button_size,width=50)
+    button_main.draw_button(display_window)
+    button_2.draw_button(display_window)
     for event in pygame.event.get():
         if event.type==pygame.MOUSEBUTTONUP:
             mouse_pos = pygame.mouse.get_pos()
             mouse_posx , mouse_posy=mouse_pos
             if button_main.rect.collidepoint(mouse_pos):
                 button_click(button_main)
+                display_window.blit(text,text_rect)
             print((mouse_posx,mouse_posy))
 
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
             sys.exit(0)
-    
-    display_window.fill(color_grey)
-    #pygame.draw.rect(display_window,color_red,button_size,width=50)
-    button_main.draw_button(display_window)
-    button_2.draw_button(display_window)
     
     pygame.display.update()
     game_fps.tick(FPS)
