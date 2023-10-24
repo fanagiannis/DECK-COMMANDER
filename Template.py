@@ -15,8 +15,8 @@ color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 
 #DISPLAY WINDOW
-display_width=600
-display_height=400
+display_width=1240
+display_height=720
 display_window= pygame.display.set_mode((display_width,display_height))
 
 display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
@@ -60,15 +60,15 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Enemy.png")
         self.rect=self.image.get_rect()
-        self.rect.center=(random.randint(40,display_width-40),0) #randomise
+        self.rect.center=(random.randrange(40,display_width-40),random.randrange(40,display_height-40)) #randomise
         self.speed=5
 
     def teleport(self):
-    #    enemy_speed=10
-     #   self.rect.move_ip(0,enemy_speed)
+        enemy_speed=10
+        self.rect.move_ip(random.randrange(40,display_width-40),random.randrange(40,display_height-40))
         if(self.rect.top>600):
-            self.rect.top= (random.randint(30,display_width),random.randint(30,display_width))
-            self.rect.center = (random.randint(30,display_height),random.randint(30,display_height))
+            self.rect.top= 0
+        #if self.rect.
     
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
@@ -163,8 +163,9 @@ while True:
 
     if P.rect.colliderect(E.rect):
          message("GAME OVER ! ",color_black,220,150)
-         destroy(E)
-         P.stop()
+         #destroy(E
+         #P.stop()
+         E.teleport()
         
     #     game_over(P)
     #    print("GAME OVER")
