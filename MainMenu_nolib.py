@@ -1,4 +1,5 @@
 import pygame
+import pygame_menu
 import sys
 import random
 import time
@@ -45,7 +46,7 @@ text_rect.center = (display_width/2,display_height/2)
 class Button(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
+        self.image=pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
         self.button_size=[(display_width/2 ,display_height/2),display_center]
         self.position=(160,220)
         self.name="Default name"
