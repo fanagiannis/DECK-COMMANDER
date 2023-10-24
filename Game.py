@@ -43,6 +43,11 @@ enemy_scale=5
 #    center=(x//2 - display.get_width()//2,)
 #    display_center=(display_width-(display_width/2),display_height-(display_height/2))
 
+def find_mouse_pos():
+    mouse_pos=pygame.mouse.get_pos()
+    #print(mouse_pos)
+    return mouse_pos
+
 def destroy(Actor):
     Actor.rect.move_ip(display_width+500,display_height+500)
     Actor.kill()
@@ -53,6 +58,37 @@ def message(txt,txt_color,pos_x,pos_y):
     
 
 #CLASSES
+
+#AIM
+
+class Aim(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Aim.png")
+        self.rect=self.image.get_rect()
+        self.rect.center=find_mouse_pos()
+        self.IsAiming=False
+    def spawn(self,surface):
+        surface.blit(self.image,self.rect)
+    def move(self):
+        if event.type==MOUSEMOTION :
+            self.rect.center=find_mouse_pos()
+    def aiming(self,surface,Player):
+        if self.IsAiming==False:
+            print("AIM")
+            self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Aim2.png")
+            Player.speed=1
+            self.IsAiming=True
+            surface.blit(self.image,self.rect)
+        elif self.IsAiming== True:
+            print("NO AIM")
+            self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Aim.png")
+            Player.speed=5
+            self.IsAiming=False
+            surface.blit(self.image,self.rect)
+        
+        
+
 
 #ENEMY
 class Enemy(pygame.sprite.Sprite):
@@ -115,9 +151,14 @@ class Player(pygame.sprite.Sprite):
             if pressed_keys[K_a]:
                 self.rect.move_ip(-self.speed,0)
 
-        if pressed_keys[K_SPACE]:
-            time.sleep(0.1)
-            print("FIRE")
+        #if pressed_keys[K_SPACE]:
+        #    time.sleep(0.1)
+        #    print("FIRE")
+    def shoot(self):
+        mousepos=pygame.mouse.get_pos()
+        rand_string=["BANG","BING","BONG"]
+        print(rand_string[random.randint(0,2)],mousepos)
+
 
     def stop(self):
         self.speed = 0  
@@ -135,48 +176,52 @@ class Player(pygame.sprite.Sprite):
         surface.blit(self.image,self.rect)
 
 P=Player()
+HUD_AIM=Aim()
 E=Enemy()
-       
+
+pygame.mouse.set_visible(False)
 
 while True:
 
+#BACKGROUND
+
+    display_window.fill(color_white)
     for event in pygame.event.get():
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
             sys.exit(0)
-
+        #if event.type==pygame.KEYDOWN:
+            #key_down=pygame.key.get_pressed()
+            #if key_down[K_SPACE]:
+               # P.shoot()
+        if event.type==pygame.MOUSEBUTTONUP:
+             if event.button == 1: #RIGHT KEY
+                P.shoot()
+        if event.type==pygame.MOUSEMOTION:
+            find_mouse_pos()
+            HUD_AIM.move()
+        if event.type==MOUSEBUTTONDOWN:
+            if event.button == 3: #RIGHT KEY
+                print("Right")
+                HUD_AIM.aiming(display_window,P)
     #INITIALIZE
 
     P.movement()
- #  E.movement()
+    HUD_AIM.spawn(display_window)
+    #print(find_mouse_pos())
+   
     
-    #BACKGROUND
-
-    display_window.fill(color_white)
 
     #GAME OVER
 
     if P.rect.colliderect(E.rect):
          message("GAME OVER ! ",color_black,220,150)
-         #destroy(E
-         #P.stop()
-         E.teleport()
-
-    
 
     #SPAWN
 
     P.spawn(display_window)
-    E.spawn(display_window)
-
     pygame.display.update()
     game_fps.tick(FPS)
 
-    
-        
-    #     game_over(P)
-    #    print("GAME OVER")
-    #    exit()
-        
 
     
