@@ -58,7 +58,7 @@ def message(txt,txt_color,pos_x,pos_y):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Enemy.png")
+        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Enemy.png")
         self.rect=self.image.get_rect()
         self.rect.center=(random.randrange(40,display_width-40),random.randrange(40,display_height-40)) #randomise
         self.speed=5
@@ -80,7 +80,7 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
+        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
         self.rect=self.image.get_rect()
         self.rect.center=(160,220)
         self.speed=5
