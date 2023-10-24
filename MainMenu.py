@@ -5,7 +5,7 @@ import random
 import time
 import subprocess 
 from pygame.locals import *
-from CollisionGame import *
+#from CollisionGame import *
 
 pygame.init()
 
@@ -30,7 +30,7 @@ def set_difficulty(stage,difficulty):
   print("difficulty:1")
 
 def game_start(py):
-  subprocess.Popen(py)
+  #subprocess.Popen(py)
   print("Game Started ! ")
 
 #DIFFICULTY 
