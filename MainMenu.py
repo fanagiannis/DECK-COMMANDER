@@ -4,7 +4,7 @@ import random
 import time
 #from turtle import delay
 from pygame.locals import *
-from pygame.sprite import _Group, Group 
+from pygame.sprite import Group 
 
 pygame.init()
 
@@ -40,19 +40,43 @@ class Button(pygame.sprite.Sprite):
         self.position=(160,220)
         self.rect=self.image.get_rect()
         self.rect.center=self.position
-    pygame.draw.polygon(display_window,color_red,button_size,width=10)
+        self.posx,self.posy=self.position
+    def draw_button(self,surface):
+        surface.blit(self.image,self.rect)
+    def click(self):
+        print("Click")
+
+    #pygame.draw.polygon(display_window,color_red,button_size,width=10)
 
     def spawn(self):
         pygame.draw.polygon(display_window,color_red,self.button_size,width=10)
 
+#FUNCTIONS
+
+def button_click(Button):
+    print(Button," Clicked!")
+
+
+button_main=Button()
+
+
 while True:
 
     for event in pygame.event.get():
+        if event.type==pygame.MOUSEBUTTONUP:
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_posx , mouse_posy=mouse_pos
+            if button_main.rect.collidepoint(mouse_pos):
+                button_click(button_main)
+            print((mouse_posx,mouse_posy))
+
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
             sys.exit(0)
     
     display_window.fill(color_grey)
-    pygame.draw.rect(display_window,color_red,button_size,width=50)
+    #pygame.draw.rect(display_window,color_red,button_size,width=50)
+    button_main.draw_button(display_window)
+    
     pygame.display.update()
     game_fps.tick(FPS)

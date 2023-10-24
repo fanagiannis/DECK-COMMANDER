@@ -147,6 +147,14 @@ while True:
     P.movement()
  #  E.movement()
     
+    #GAME OVER
+
+    if P.rect.colliderect(E.rect):
+         message("GAME OVER ! ",color_black,220,150)
+         #destroy(E
+         #P.stop()
+         E.teleport()
+
     #BACKGROUND
 
     display_window.fill(color_white)
@@ -159,13 +167,7 @@ while True:
     pygame.display.update()
     game_fps.tick(FPS)
 
-    #GAME OVER
-
-    if P.rect.colliderect(E.rect):
-         message("GAME OVER ! ",color_black,220,150)
-         #destroy(E
-         #P.stop()
-         E.teleport()
+    
         
     #     game_over(P)
     #    print("GAME OVER")
