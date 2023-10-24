@@ -8,6 +8,9 @@ from pygame.sprite import Group
 
 pygame.init()
 
+Button_main_pos=(160,220)
+Button_2_pos=(50,220)
+
 #FPS 
 game_fps=pygame.time.Clock()
 FPS=60
@@ -38,6 +41,7 @@ class Button(pygame.sprite.Sprite):
         self.image=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
         self.button_size=[(display_width/2 ,display_height/2),display_center]
         self.position=(160,220)
+        self.name="Default name"
         self.rect=self.image.get_rect()
         self.rect.center=self.position
         self.posx,self.posy=self.position
@@ -54,10 +58,15 @@ class Button(pygame.sprite.Sprite):
 #FUNCTIONS
 
 def button_click(Button):
-    print(Button," Clicked!")
+    print(Button.name," Clicked!")
 
 
 button_main=Button()
+button_main.name="Button Main"
+
+button_2=Button()
+button_2.name="Button 2"
+button_2.rect.move_ip(Button_2_pos)
 
 
 while True:
@@ -77,6 +86,7 @@ while True:
     display_window.fill(color_grey)
     #pygame.draw.rect(display_window,color_red,button_size,width=50)
     button_main.draw_button(display_window)
+    button_2.draw_button(display_window)
     
     pygame.display.update()
     game_fps.tick(FPS)
