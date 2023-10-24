@@ -3,7 +3,7 @@ import pygame_menu
 import sys
 import random
 import time
-import subprocess 
+#import subprocess 
 from pygame.locals import *
 #from CollisionGame import *
 
@@ -29,7 +29,7 @@ FPS=60
 def set_difficulty(stage,difficulty):
   print("difficulty:1")
 
-def game_start(py):
+def game_start():
   #subprocess.Popen(py)
   print("Game Started ! ")
 
@@ -43,7 +43,7 @@ menu=pygame_menu.Menu("Main Menu",600,500,theme=pygame_menu.themes.THEME_BLUE)
 
 menu.add.text_input(" Username : ",default="Uknown Player")
 menu.add.selector(" Difficulty : ",[("Hard",1),("Easy",2)],onchange=set_difficulty)
-menu.add.button(" Start Game ",game_start())
+menu.add.button(" Start Game ",game_start)
 menu.add.button(" Quit ",pygame_menu.events.EXIT)
 
 while True:
