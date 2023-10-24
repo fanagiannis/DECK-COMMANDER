@@ -24,6 +24,10 @@ display_center=((display_width-(display_width/2)),(display_height-(display_heigh
 display_window.fill(color_white)
 pygame.display.set_caption("Test")
 
+#GAME OVER
+font=pygame.font.SysFont("Arial",30)
+game_over_screen=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
+
 #FPS 
 game_fps=pygame.time.Clock()
 FPS=60
@@ -43,41 +47,21 @@ def destroy(Actor):
     Actor.rect.move_ip(display_width+500,display_height+500)
     Actor.kill()
 
-#def game_over(screen):
-#    #game_over_screen=pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
-#    font=pygame.font.Font(None,25)
-#    text=font.render(" GAME OVER ! ", True , color_black)
-#    text_rect=text.get_rect()
-#    text_rect.center = (display_center)
-#    screen.blit(text,text_rect)
+def message(txt,font,txt_color,pos_x,pos_y):
+    display_text=font.render(txt,True,txt_color)
+    display_window.blit(display_text,(pos_x,pos_y))
     
 
 #CLASSES
-
-#GAME OVER
-#class GameOverScreen(pygame.sprite.Sprite):
-#    def __init__(self):
-#        super().__init__()
-#        self.image=pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
-#        self.rect=self.image.get_rect()
-#        self.rect.center=(display_width/2,display_height/2)
-#    def game_over(self,surface):
-#        surface.blit(self.image,self.rect)
 
 #ENEMY
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Enemy.png")
+        self.image = pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Enemy.png")
         self.rect=self.image.get_rect()
         self.rect.center=(random.randint(40,display_width-40),0) #randomise
         self.speed=5
-    #def teleport(self):
-    #    enemy_speed=10
-    #    self.rect.move_ip(0,enemy_speed)
-    #    if(self.rect.top>600):
-    #    self.rect.top= (random.randint(30,display_width),random.randint(30,display_width))
-    #    self.rect.center = (random.randint(30,display_height),random.randint(30,display_height))
     
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
@@ -89,7 +73,7 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
+        self.image = pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
         self.rect=self.image.get_rect()
         self.rect.center=(160,520)
         self.speed=5
@@ -171,8 +155,10 @@ while True:
     #GAME OVER
 
     if P.rect.colliderect(E.rect):
+         message("GAME OVER ! ",font,color_black,220,150)
          destroy(E)
          P.stop()
+        
     #     game_over(P)
     #    print("GAME OVER")
     #    exit()
