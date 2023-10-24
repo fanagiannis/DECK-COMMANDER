@@ -65,7 +65,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def teleport(self):
     #    enemy_speed=10
-        self.rect.move_ip(0,enemy_speed)
+     #   self.rect.move_ip(0,enemy_speed)
         if(self.rect.top>600):
             self.rect.top= (random.randint(30,display_width),random.randint(30,display_width))
             self.rect.center = (random.randint(30,display_height),random.randint(30,display_height))
