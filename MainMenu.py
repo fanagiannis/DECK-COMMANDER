@@ -3,7 +3,9 @@ import pygame_menu
 import sys
 import random
 import time
+import subprocess 
 from pygame.locals import *
+from CollisionGame import *
 
 pygame.init()
 
@@ -14,8 +16,8 @@ color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 
 #DISPLAY WINDOW
-display_width=600
-display_height=400
+display_width=1240
+display_height=720
 display_window=pygame.display.set_mode((display_width,display_height))
 
 #FPS 
@@ -27,7 +29,8 @@ FPS=60
 def set_difficulty(stage,difficulty):
   print("difficulty:1")
 
-def game_start():
+def game_start(py):
+  subprocess.Popen(py)
   print("Game Started ! ")
 
 #DIFFICULTY 
@@ -36,11 +39,11 @@ def game_start():
 
 #MENU
 
-menu=pygame_menu.Menu("Main Menu",400,300,theme=pygame_menu.themes.THEME_BLUE)
+menu=pygame_menu.Menu("Main Menu",600,500,theme=pygame_menu.themes.THEME_BLUE)
 
 menu.add.text_input(" Username : ",default="Uknown Player")
 menu.add.selector(" Difficulty : ",[("Hard",1),("Easy",2)],onchange=set_difficulty)
-menu.add.button(" Start Game ",game_start)
+menu.add.button(" Start Game ",game_start())
 menu.add.button(" Quit ",pygame_menu.events.EXIT)
 
 while True:
