@@ -15,8 +15,8 @@ color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 
 #DISPLAY WINDOW
-display_width=1240
-display_height=720
+display_width=600
+display_height=400
 display_window= pygame.display.set_mode((display_width,display_height))
 
 display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
@@ -25,8 +25,8 @@ display_window.fill(color_white)
 pygame.display.set_caption("Test")
 
 #GAME OVER
-font=pygame.font.SysFont("Arial",30)
-game_over_screen=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
+font=pygame.font.SysFont(None,30,bold=True)
+#game_over_screen=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
 
 #FPS 
 game_fps=pygame.time.Clock()
@@ -47,7 +47,7 @@ def destroy(Actor):
     Actor.rect.move_ip(display_width+500,display_height+500)
     Actor.kill()
 
-def message(txt,font,txt_color,pos_x,pos_y):
+def message(txt,txt_color,pos_x,pos_y):
     display_text=font.render(txt,True,txt_color)
     display_window.blit(display_text,(pos_x,pos_y))
     
@@ -62,6 +62,13 @@ class Enemy(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.rect.center=(random.randint(40,display_width-40),0) #randomise
         self.speed=5
+
+    def teleport(self):
+    #    enemy_speed=10
+        self.rect.move_ip(0,enemy_speed)
+        if(self.rect.top>600):
+            self.rect.top= (random.randint(30,display_width),random.randint(30,display_width))
+            self.rect.center = (random.randint(30,display_height),random.randint(30,display_height))
     
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
@@ -75,7 +82,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
         self.rect=self.image.get_rect()
-        self.rect.center=(160,520)
+        self.rect.center=(160,220)
         self.speed=5
         self.maxspeed=10
         self.stamina=100
@@ -155,7 +162,7 @@ while True:
     #GAME OVER
 
     if P.rect.colliderect(E.rect):
-         message("GAME OVER ! ",font,color_black,220,150)
+         message("GAME OVER ! ",color_black,220,150)
          destroy(E)
          P.stop()
         
