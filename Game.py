@@ -55,6 +55,12 @@ def destroy(Actor):
 def message(txt,txt_color,pos_x,pos_y):
     display_text=font.render(txt,True,txt_color)
     display_window.blit(display_text,(pos_x,pos_y))
+
+def map(image):
+    background=pygame.image.load(image)
+    display_width,display_height=background.get_size()
+    display_window= pygame.display.set_mode((display_width,display_height))
+    display_window.blit(background,(0,0))
     
 
 #CLASSES
@@ -175,6 +181,8 @@ class Player(pygame.sprite.Sprite):
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
 
+map1="D:\\ΦΩΤΟ\\darksouls.jpg"
+map2="D:\\ΦΩΤΟ\\Rodos.jpg"
 P=Player()
 HUD_AIM=Aim()
 E=Enemy()
@@ -205,7 +213,7 @@ while True:
                 print("Right")
                 HUD_AIM.aiming(display_window,P)
     #INITIALIZE
-
+    map(map2)
     P.movement()
     HUD_AIM.spawn(display_window)
     #print(find_mouse_pos())
