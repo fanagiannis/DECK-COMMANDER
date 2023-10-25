@@ -31,6 +31,7 @@ pygame.display.set_caption("(Local) Two Player Collision Game")
 
 Players=[]
 SpawnPoints=[(160,220),(1060,220),(1060,520)]
+ObjSpawnPoints=[(620,360),(390,50),(550,680),(460,360),(),(),(),(),()]
 MaxPlayers=2
 Multiplayer=True
 
@@ -119,15 +120,15 @@ class Enemy(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(link_op+"\\Enemy.png")
         self.rect=self.image.get_rect()
-        self.rect.center=(random.randrange(40,display_width-40),random.randrange(40,display_height-40)) #randomise
+        self.rect.center=(random.randrange(320,display_width-320),random.randrange(40,display_height-40)) #randomise
         self.speed=5
 
     def teleport(self):
         enemy_speed=10
         oldposx,oldposy=self.rect.center
-        randpos=(random.randrange(40,display_width-100)-oldposx,random.randrange(40,display_height-100)-oldposy)
+        randpos=[(random.randrange(320,display_width-320)-oldposx),(random.randrange(40,display_height-40)-oldposy)]
         print(randpos)
-        self.rect.center(randpos)
+        self.rect.center[randpos]
         if(self.rect.top>600):
             self.rect.top= 0
         #if self.rect.
@@ -278,15 +279,16 @@ while True:
     #GAME OVER
 
     if P.check_collision_Object(E.rect):
-        message("PLAYER 1 WINS ! ",color_black,220,150)
-        if Multiplayer:
-            P2.stop()
+        E.teleport()
+        #message("PLAYER 1 WINS ! ",color_black,220,150)
+       # if Multiplayer:
+           # P2.stop()
     if P2.check_collision_Object(E.rect):
-        message("PLAYER 2 WINS ! ",color_black,220,150)
-        P.stop()
+        #message("PLAYER 2 WINS ! ",color_black,220,150)
+        E.teleport()
     if P.check_collision_Object(P2.rect):
-        if Multiplayer:
-            P2.stop()
+        #if Multiplayer:
+        #    P2.stop()
         message("GAME OVER ! ",color_black,220,150)
 
     #SPAWN
