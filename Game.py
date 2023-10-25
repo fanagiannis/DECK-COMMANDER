@@ -27,11 +27,12 @@ display_window= pygame.display.set_mode((display_width,display_height))
 display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
 
 #display_window.fill(color_white)
-pygame.display.set_caption("Test")
+pygame.display.set_caption("(Local) Two Player Collision Game")
 
 Players=[]
 SpawnPoints=[(160,220),(1060,220),(1060,520)]
 MaxPlayers=2
+Multiplayer=True
 
 #GAME OVER
 font=pygame.font.SysFont(None,30,bold=True)
@@ -227,8 +228,9 @@ map1="D:\\ΦΩΤΟ\\darksouls.jpg"
 map2="D:\\ΦΩΤΟ\\Rodos.jpg"
 P=Player()
 set_players(P)
-P2=Player()
-set_players(P2)
+if Multiplayer:
+    P2=Player()
+    set_players(P2)
 
 HUD_AIM=Aim()
 #E=Enemy()
@@ -261,23 +263,24 @@ while True:
     #INITIALIZE
     #map(map2)
     P.movement()
-    P2.movement()
+    if Multiplayer:
+        P2.movement()
     HUD_AIM.spawn(display_window)
     #print(find_mouse_pos())
    
-    
-
     #GAME OVER
 
-    if P.rect.colliderect(P2.rect):
-         P.stop()
-         P2.stop()
-         message("GAME OVER ! ",color_black,220,150)
+    if Multiplayer:
+        if P.rect.colliderect(P2.rect):
+            P.stop()
+            P2.stop()
+            message("GAME OVER ! ",color_black,220,150)
 
     #SPAWN
 
     P.spawn(display_window)
-    P2.spawn(display_window)
+    if Multiplayer:
+        P2.spawn(display_window)
     pygame.display.update()
     game_fps.tick(FPS)
 
