@@ -72,12 +72,9 @@ def map(image):
     #display_window= pygame.display.set_mode((display_width,display_height))
     display_window.blit(background,(0,0))
 
-def set_players(num):
-    counter=
-    while counter<2:
-        Obj_player="P"
-        Obj_player=Player()
-        Player.player_count(Obj_player)
+def set_players(Player):
+    Player.player_count()
+
     
     
 
@@ -163,19 +160,35 @@ class Player(pygame.sprite.Sprite):
         #    self.speed = 5
 
         #WALK
+        if self.name==Players[0]:
 
-        if self.rect.top>0:
-            if pressed_keys[K_w]:
-                self.rect.move_ip(0,-self.speed) #movecmd
-        if self.rect.bottom<display_height:
-            if pressed_keys[K_s]:
-                self.rect.move_ip(0,self.speed)
-        if self.rect.right < display_width:
-            if pressed_keys[K_d]:
-                self.rect.move_ip(self.speed,0) 
-        if self.rect.left > 0:
-            if pressed_keys[K_a]:
-                self.rect.move_ip(-self.speed,0)
+            if self.rect.top>0:
+                if pressed_keys[K_w]:
+                    self.rect.move_ip(0,-self.speed) #movecmd
+            if self.rect.bottom<display_height:
+                if pressed_keys[K_s]:
+                    self.rect.move_ip(0,self.speed)
+            if self.rect.right < display_width:
+                if pressed_keys[K_d]:
+                    self.rect.move_ip(self.speed,0) 
+            if self.rect.left > 0:
+                if pressed_keys[K_a]:
+                    self.rect.move_ip(-self.speed,0)
+        
+        else:
+            if self.rect.top>0:
+                if pressed_keys[K_UP]:
+                    self.rect.move_ip(0,-self.speed) #movecmd
+            if self.rect.bottom<display_height:
+                if pressed_keys[K_DOWN]:
+                    self.rect.move_ip(0,self.speed)
+            if self.rect.right < display_width:
+                if pressed_keys[K_RIGHT]:
+                    self.rect.move_ip(self.speed,0) 
+            if self.rect.left > 0:
+                if pressed_keys[K_LEFT]:
+                    self.rect.move_ip(-self.speed,0)
+        
 
         #if pressed_keys[K_SPACE]:
         #    time.sleep(0.1)
@@ -212,8 +225,10 @@ class Player(pygame.sprite.Sprite):
 
 map1="D:\\ΦΩΤΟ\\darksouls.jpg"
 map2="D:\\ΦΩΤΟ\\Rodos.jpg"
-
-set_players("Player1")
+P=Player()
+set_players(P)
+P2=Player()
+set_players(P2)
 
 HUD_AIM=Aim()
 #E=Enemy()
@@ -246,6 +261,7 @@ while True:
     #INITIALIZE
     #map(map2)
     P.movement()
+    P2.movement()
     HUD_AIM.spawn(display_window)
     #print(find_mouse_pos())
    
