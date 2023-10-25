@@ -97,7 +97,8 @@ class Projectile(pygame.sprite.Sprite):
         self.speed=15
 
     def fire(self,Player,surface):
-        self.center=Player.get_pos()
+        startpoint= Player.find_pos()
+        self.center = startpoint
         surface.blit(self.image,self.rect)
         while self.rect.centerx>0 and self.rect.centerx<display_width:
             self.rect.move_ip(0,self.speed)
@@ -218,9 +219,11 @@ class Player(pygame.sprite.Sprite):
         #    time.sleep(0.1)
         #    print("FIRE")
     def shoot(self):
-        mousepos=pygame.mouse.get_pos()
+        mousepos=find_mouse_pos()
         rand_string=["BANG","BING","BONG"]
         print(rand_string[random.randint(0,2)],mousepos)
+        Bullet=Projectile()
+        Bullet.fire(self,display_window)
 
 
     def stop(self):
@@ -229,6 +232,9 @@ class Player(pygame.sprite.Sprite):
     def sprint(self):
         if self.speed>0 :
             self.speed = self.maxspeed
+        
+    def find_pos(self):
+        return self.rect.centerx,self.rect.centery
 
     def destroy(self):
         self.remove()
@@ -274,10 +280,9 @@ while True:
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
             sys.exit(0)
-        #if event.type==pygame.KEYDOWN:
-            #key_down=pygame.key.get_pressed()
-            #if key_down[K_SPACE]:
-               # P.shoot()
+        if event.type==pygame.KEYUP:
+            if event.key == pygame.K_SPACE:
+                P.shoot()
         if event.type==pygame.MOUSEBUTTONUP:
              if event.button == 1: #RIGHT KEY
                 P.shoot()
