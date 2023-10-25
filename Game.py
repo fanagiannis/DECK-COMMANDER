@@ -8,18 +8,18 @@ from pygame.sprite import Group
 
 pygame.init()
 
-#PATHS
+#+++++PATHS+++++
 link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_op=link_laptop
 
-#COLORS
+#+++++COLORS+++++
 color_black=pygame.Color(0,0,0)
 color_white=pygame.Color(255,255,255)
 color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 
-#DISPLAY WINDOW
+#+++++DISPLAY WINDOW+++++
 display_width=1240
 display_height=720
 display_window= pygame.display.set_mode((display_width,display_height))
@@ -29,25 +29,28 @@ display_center=((display_width-(display_width/2)),(display_height-(display_heigh
 #display_window.fill(color_white)
 pygame.display.set_caption("(Local) Two Player Collision Game")
 
+#+++++COUNTERS+++++
+
 Players=[]
 SpawnPoints=[(160,220),(1060,220),(1060,520)]
 ObjSpawnPoints=[(620,360),(390,50),(550,680),(460,360),(),(),(),(),()]
 MaxPlayers=2
 Multiplayer=True
 
-#GAME OVER
+#+++++GAME OVER+++++
 font=pygame.font.SysFont(None,30,bold=True)
 #game_over_screen=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
 
-#FPS 
+#+++++FPS+++++ 
 game_fps=pygame.time.Clock()
 FPS=60
 
-#SCALES
+#+++++SCALES+++++
+
 player_scale=10
 enemy_scale=5
 
-#FUNCTIONS
+#+++++FUNCTIONS+++++
 
 #def get_display_center(display):
 #    x,y=pygame.display.get_window_size()
@@ -80,7 +83,26 @@ def set_players(Player):
     
     
 
-#CLASSES
+#+++++CLASSES+++++
+
+#PROJECTILE
+
+class Projectile(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load(link_op+"\\Aim.png")
+        self.rect=self.image.get_rect()
+        self.rect.center=(10,10)
+        self.type="AR"
+        self.speed=15
+
+    def fire(self,Player,surface):
+        self.center=Player.get_pos()
+        surface.blit(self.image,self.rect)
+        while self.rect.centerx>0 and self.rect.centerx<display_width:
+            self.rect.move_ip(0,self.speed)
+          
+         
 
 #AIM
 
