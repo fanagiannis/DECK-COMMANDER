@@ -220,7 +220,12 @@ class Player(pygame.sprite.Sprite):
             Players.append(self.name)
         print(Players)
 
+    def check_collision_Object(self,rect):
+        if self.rect.colliderect(rect):
+            self.stop()
+            return True
 
+       
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
 
@@ -233,7 +238,7 @@ if Multiplayer:
     set_players(P2)
 
 HUD_AIM=Aim()
-#E=Enemy()
+E=Enemy()
 
 pygame.mouse.set_visible(False)
 
@@ -260,7 +265,9 @@ while True:
             if event.button == 3: #RIGHT KEY
                 print("Right")
                 HUD_AIM.aiming(display_window,P)
+
     #INITIALIZE
+
     #map(map2)
     P.movement()
     if Multiplayer:
@@ -270,15 +277,22 @@ while True:
    
     #GAME OVER
 
-    if Multiplayer:
-        if P.rect.colliderect(P2.rect):
-            P.stop()
+    if P.check_collision_Object(E.rect):
+        message("PLAYER 1 WINS ! ",color_black,220,150)
+        if Multiplayer:
             P2.stop()
-            message("GAME OVER ! ",color_black,220,150)
+    if P2.check_collision_Object(E.rect):
+        message("PLAYER 2 WINS ! ",color_black,220,150)
+        P.stop()
+    if P.check_collision_Object(P2.rect):
+        if Multiplayer:
+            P2.stop()
+        message("GAME OVER ! ",color_black,220,150)
 
     #SPAWN
 
     P.spawn(display_window)
+    E.spawn(display_window)
     if Multiplayer:
         P2.spawn(display_window)
     pygame.display.update()
