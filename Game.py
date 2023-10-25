@@ -72,9 +72,12 @@ def map(image):
     #display_window= pygame.display.set_mode((display_width,display_height))
     display_window.blit(background,(0,0))
 
-def set_players(P):
-    P=Player()
-    Player.player_count(P)
+def set_players(num):
+    counter=
+    while counter<2:
+        Obj_player="P"
+        Obj_player=Player()
+        Player.player_count(Obj_player)
     
     
 
@@ -259,7 +262,6 @@ while True:
 
     P.spawn(display_window)
     P2.spawn(display_window)
-    P3.spawn(display_window)
     pygame.display.update()
     game_fps.tick(FPS)
 
