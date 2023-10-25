@@ -8,6 +8,11 @@ from pygame.sprite import Group
 
 pygame.init()
 
+#PATHS
+link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
+link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
+link_op=link_laptop
+
 #COLORS
 color_black=pygame.Color(0,0,0)
 color_white=pygame.Color(255,255,255)
@@ -23,6 +28,10 @@ display_center=((display_width-(display_width/2)),(display_height-(display_heigh
 
 #display_window.fill(color_white)
 pygame.display.set_caption("Test")
+
+Players=[]
+SpawnPoints=[(160,220),(1060,220),(1060,520)]
+MaxPlayers=2
 
 #GAME OVER
 font=pygame.font.SysFont(None,30,bold=True)
@@ -56,11 +65,17 @@ def message(txt,txt_color,pos_x,pos_y):
     display_text=font.render(txt,True,txt_color)
     display_window.blit(display_text,(pos_x,pos_y))
 
+
 def map(image):
     background=pygame.image.load(image)
     display_width,display_height=background.get_size()
     #display_window= pygame.display.set_mode((display_width,display_height))
     display_window.blit(background,(0,0))
+
+def set_players(P):
+    P=Player()
+    Player.player_count(P)
+    
     
 
 #CLASSES
@@ -70,7 +85,7 @@ def map(image):
 class Aim(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Aim.png")
+        self.image = pygame.image.load(link_op+"\\Aim.png")
         self.rect=self.image.get_rect()
         self.rect.center=find_mouse_pos()
         self.IsAiming=False
@@ -82,13 +97,13 @@ class Aim(pygame.sprite.Sprite):
     def aiming(self,surface,Player):
         if self.IsAiming==False:
             print("AIM")
-            self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Aim2.png")
+            self.image = pygame.image.load(link_op+"\\Aim2.png")
             Player.speed=1
             self.IsAiming=True
             surface.blit(self.image,self.rect)
         elif self.IsAiming== True:
             print("NO AIM")
-            self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Aim.png")
+            self.image = pygame.image.load(link_op+"\\Aim.png")
             Player.speed=5
             self.IsAiming=False
             surface.blit(self.image,self.rect)
@@ -97,10 +112,11 @@ class Aim(pygame.sprite.Sprite):
 
 
 #ENEMY
+
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Enemy.png")
+        self.image = pygame.image.load(link_op+"\\Enemy.png")
         self.rect=self.image.get_rect()
         self.rect.center=(random.randrange(40,display_width-40),random.randrange(40,display_height-40)) #randomise
         self.speed=5
@@ -125,9 +141,10 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Player.png")
+        self.image = pygame.image.load(link_op+"\\Player.png")
         self.rect=self.image.get_rect()
-        self.rect.center=(160,220)
+        self.rect.center=SpawnPoints[len(Players)]
+        self.name="Player"
         self.speed=5
         self.maxspeed=10
         self.stamina=100
@@ -178,14 +195,25 @@ class Player(pygame.sprite.Sprite):
 
     #PLAYER_SPAWN
 
+    def player_count(self):
+        if len(Players)==1:
+            Players.append(self.name)
+        else:
+            self.name="Player"+str(len(Players)+1)
+            Players.append(self.name)
+        print(Players)
+
+
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
 
 map1="D:\\ΦΩΤΟ\\darksouls.jpg"
 map2="D:\\ΦΩΤΟ\\Rodos.jpg"
-P=Player()
+
+set_players("Player1")
+
 HUD_AIM=Aim()
-E=Enemy()
+#E=Enemy()
 
 pygame.mouse.set_visible(False)
 
@@ -213,7 +241,7 @@ while True:
                 print("Right")
                 HUD_AIM.aiming(display_window,P)
     #INITIALIZE
-    map(map2)
+    #map(map2)
     P.movement()
     HUD_AIM.spawn(display_window)
     #print(find_mouse_pos())
@@ -222,12 +250,16 @@ while True:
 
     #GAME OVER
 
-    if P.rect.colliderect(E.rect):
+    if P.rect.colliderect(P2.rect):
+         P.stop()
+         P2.stop()
          message("GAME OVER ! ",color_black,220,150)
 
     #SPAWN
 
     P.spawn(display_window)
+    P2.spawn(display_window)
+    P3.spawn(display_window)
     pygame.display.update()
     game_fps.tick(FPS)
 
