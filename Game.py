@@ -21,7 +21,7 @@ display_window= pygame.display.set_mode((display_width,display_height))
 
 display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
 
-display_window.fill(color_white)
+#display_window.fill(color_white)
 pygame.display.set_caption("Test")
 
 #GAME OVER
@@ -59,7 +59,7 @@ def message(txt,txt_color,pos_x,pos_y):
 def map(image):
     background=pygame.image.load(image)
     display_width,display_height=background.get_size()
-    display_window= pygame.display.set_mode((display_width,display_height))
+    #display_window= pygame.display.set_mode((display_width,display_height))
     display_window.blit(background,(0,0))
     
 
