@@ -88,7 +88,7 @@ class Projectile(pygame.sprite.Sprite):
     def __init__(self,posx,posy):
         super().__init__()
         self.image = pygame.image.load(link_op+"\\Enemy.png")
-        self.image.fill(color_black)
+        #self.image.fill(color_black)
         self.rect=self.image.get_rect()
         self.rect.center=(posx,posy)
         self.posx=posx
@@ -96,7 +96,9 @@ class Projectile(pygame.sprite.Sprite):
         self.speed=15
 
     def fire(self,surface):
-       surface.blit(surface,self.rect)
+        surface.blit(self.image,self.rect)
+        
+        
         
           
          
@@ -167,6 +169,7 @@ class Player(pygame.sprite.Sprite):
         self.speed=5
         self.maxspeed=10
         self.stamina=100
+        self.Fire=False
 
     #PLAYER_MOVEMENT
     
@@ -212,14 +215,17 @@ class Player(pygame.sprite.Sprite):
         print(posx,posy)
         Bullet=Projectile(posx,posy)
         print(Bullet.posx,Bullet.posy)
-        #Bullet.fire(display_window)
         print(rand_string[random.randint(0,2)])
-        while Bullet.rect.centerx<=display_width:
-            
-            #Bullet.rect.centerx+=Bullet.speed
+        while Bullet.rect.centerx<display_width:
+            #print(Bullet.rect.center)
+            #Bullet.posx+= Bullet.speed
             Bullet.rect.move_ip(Bullet.speed,0)
-            print(Bullet.rect.center)
             Bullet.fire(display_window)
+            #Bullet.update()
+        return Projectile
+    
+            
+        
             
 
 
@@ -259,6 +265,8 @@ class Player(pygame.sprite.Sprite):
 
 map1="D:\\ΦΩΤΟ\\darksouls.jpg"
 map2="D:\\ΦΩΤΟ\\Rodos.jpg"
+
+
 P=Player()
 set_players(P)
 if Multiplayer:
@@ -272,19 +280,22 @@ pygame.mouse.set_visible(False)
 
 while True:
 
+    
+
 #BACKGROUND
 
     display_window.fill(color_white)
-
-
 
     for event in pygame.event.get():
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
             sys.exit(0)
-        if event.type==pygame.KEYUP:
+        if event.type==pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                P.shoot()
+                if P.Fire:
+                    P.Fire=False
+                else:
+                    P.Fire=True
         if event.type==pygame.MOUSEBUTTONUP:
              if event.button == 1: #RIGHT KEY
                 P.shoot()
@@ -313,13 +324,17 @@ while True:
     #SPAWN
 
     P.spawn(display_window)
-    
+    if P.Fire:
+        P.shoot()
     if Multiplayer:
         P2.spawn(display_window)
+
     HUD_AIM.spawn(display_window)
 
     pygame.display.update()
+    
     game_fps.tick(FPS)
 
+    
 
     
