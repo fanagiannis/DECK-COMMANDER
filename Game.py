@@ -97,8 +97,11 @@ class Projectile(pygame.sprite.Sprite):
         self.speed=15
 
     def fire(self,surface):
-        self.rect.move_ip(self.speed,0)
-        surface.blit(self.image,self.rect)
+        self.rect.x+=self.speed
+        if self.rect.x >= display_width:
+            self.kill()
+        surface.blit(surface,(self.posx,self.posy))
+        
         
           
          
@@ -209,12 +212,13 @@ class Player(pygame.sprite.Sprite):
     def shoot(self):
         mousepos=find_mouse_pos()
         rand_string=["BANG","BING","BONG"]
-        print(mousepos)
+        #print(mousepos)
         posx , posy = self.find_pos()
-        print(posx,posy)
-
+        #print(posx,posy)
         Bullet=Projectile(posx,posy)
         Bullet.fire(display_window)
+        print(rand_string[random.randint(0,2)])
+        #display_window.blit(Bullet.image,Bullet.rect)
 
 
     def stop(self):
