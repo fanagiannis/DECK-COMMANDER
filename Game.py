@@ -87,18 +87,19 @@ def set_players(Player):
 
 #PROJECTILE
 
-class Projectile(object):
+class Projectile(pygame.sprite.Sprite):
     def __init__(self,posx,posy):
         super().__init__()
-        #self.image = pygame.image.load(link_op+"\\Aim.png")
-        #self.rect=self.image.get_rect()
-        #self.rect.center=(10,10)
+        self.image = pygame.Surface((50,10))
+        self.image.fill(color_red)
+        self.rect=self.image.get_rect()
+        self.rect.center=(posx,posy)
         self.posx=posx
         self.posy=posy
         self.speed=15
 
-    def fire(self,surface):
-        pygame.draw.circle(surface,color_black,(self.posx,self.posy),10)
+    def fire(self):
+        self.rect.x += self.speed
           
          
 
@@ -222,7 +223,7 @@ class Player(pygame.sprite.Sprite):
         posx , posy = self.find_pos()
         print(posx,posy)
         Bullet=Projectile(posx,posy)
-        Bullet.fire(display_window)
+        Bullet.fire()
 
 
     def stop(self):
