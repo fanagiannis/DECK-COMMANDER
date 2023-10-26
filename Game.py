@@ -300,7 +300,7 @@ while True:
     P.movement()
     if Multiplayer:
         P2.movement()
-    HUD_AIM.spawn(display_window)
+    
     #print(find_mouse_pos())
    
     #GAME OVER
@@ -322,8 +322,10 @@ while True:
 
     P.spawn(display_window)
     E.spawn(display_window)
+    
     if Multiplayer:
         P2.spawn(display_window)
+    HUD_AIM.spawn(display_window)
     pygame.display.update()
     game_fps.tick(FPS)
 
