@@ -87,21 +87,25 @@ def set_players(Player):
 
 #PROJECTILE
 
-class Projectile(pygame.sprite.Sprite):
-    def __init__(self):
-        super().__init__()
-        self.image = pygame.image.load(link_op+"\\Aim.png")
-        self.rect=self.image.get_rect()
-        self.rect.center=(10,10)
-        self.type="AR"
+class Projectile(object):
+    def __init__(self,posx,posy,color,radius,width,height,type,facing):
+        #super().__init__()
+        #self.image = pygame.image.load(link_op+"\\Aim.png")
+        #self.rect=self.image.get_rect()
+        #self.rect.center=(10,10)
+        self.posx=posx
+        self.posy=posy
+        self.width=width
+        self.height=height
+        self.radius=radius
+        self.facing=1
+        self.vel=8*facing
+        self.color=color
+        self.type=type
         self.speed=15
 
-    def fire(self,Player,surface):
-        startpoint= Player.find_pos()
-        self.center = startpoint
-        surface.blit(self.image,self.rect)
-        while self.rect.centerx>0 and self.rect.centerx<display_width:
-            self.rect.move_ip(0,self.speed)
+    def fire(self,surface):
+        pygame.draw.circle(surface,self.color,(self.posx,self.posy),self.radius)
           
          
 
@@ -221,8 +225,10 @@ class Player(pygame.sprite.Sprite):
     def shoot(self):
         mousepos=find_mouse_pos()
         rand_string=["BANG","BING","BONG"]
-        print(rand_string[random.randint(0,2)],mousepos)
-        Bullet=Projectile()
+        print(mousepos)
+        posx , posy = self.find_pos()
+        print(posx,posy)
+        Bullet=Projectile(posx,posy,color_black,10,10,10,"AR",1)
         Bullet.fire(self,display_window)
 
 
@@ -234,7 +240,9 @@ class Player(pygame.sprite.Sprite):
             self.speed = self.maxspeed
         
     def find_pos(self):
-        return self.rect.centerx,self.rect.centery
+        x=self.rect.centerx
+        y=self.rect.centery
+        return x , y
 
     def destroy(self):
         self.remove()
