@@ -90,16 +90,13 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.image.load(link_op+"\\Enemy.png")
         self.image.fill(color_black)
         self.rect=self.image.get_rect()
-        self.rect.center=(posx,posy)
+        self.rect.center=[posx,posy]
         self.posx=posx
         self.posy=posy
         self.speed=15
 
     def fire(self,surface):
-        self.rect.move_ip(self.speed,0)
-        if self.rect.x >= display_width:
-            self.kill()
-        surface.blit(surface,(self.posx+self.speed,self.posy))
+       surface.blit(surface,self.rect)
         
           
          
@@ -214,9 +211,13 @@ class Player(pygame.sprite.Sprite):
         posx , posy = self.find_pos()
         print(posx,posy)
         Bullet=Projectile(posx,posy)
+        print(Bullet.posx,Bullet.posy)
         Bullet.fire(display_window)
         print(rand_string[random.randint(0,2)])
-        #display_window.blit(Bullet.image,Bullet.rect)
+        while Bullet.posx<=display_width:
+            Bullet.fire(display_window)
+            Bullet.posx+=Bullet.speed
+            print(Bullet.posx,display_width)
 
 
     def stop(self):
@@ -314,7 +315,6 @@ while True:
         P2.spawn(display_window)
     HUD_AIM.spawn(display_window)
 
-   
     pygame.display.update()
     game_fps.tick(FPS)
 
