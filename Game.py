@@ -90,7 +90,7 @@ class Projectile(pygame.sprite.Sprite):
         self.image = pygame.image.load(link_op+"\\Enemy.png")
         self.image.fill(color_black)
         self.rect=self.image.get_rect()
-        self.rect.center=[posx,posy]
+        self.rect.center=(posx,posy)
         self.posx=posx
         self.posy=posy
         self.speed=15
@@ -212,12 +212,15 @@ class Player(pygame.sprite.Sprite):
         print(posx,posy)
         Bullet=Projectile(posx,posy)
         print(Bullet.posx,Bullet.posy)
-        Bullet.fire(display_window)
+        #Bullet.fire(display_window)
         print(rand_string[random.randint(0,2)])
-        while Bullet.posx<=display_width:
+        while Bullet.rect.centerx<=display_width:
+            
+            #Bullet.rect.centerx+=Bullet.speed
+            Bullet.rect.move_ip(Bullet.speed,0)
+            print(Bullet.rect.center)
             Bullet.fire(display_window)
-            Bullet.posx+=Bullet.speed
-            print(Bullet.posx,display_width)
+            
 
 
     def stop(self):
