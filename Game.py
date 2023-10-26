@@ -91,15 +91,16 @@ class Projectile(pygame.sprite.Sprite):
     def __init__(self,posx,posy):
         super().__init__()
         self.image = pygame.Surface((50,10))
-        self.image.fill(color_red)
+        self.image.fill(color_black)
         self.rect=self.image.get_rect()
         self.rect.center=(posx,posy)
         self.posx=posx
         self.posy=posy
         self.speed=15
 
-    def fire(self):
-        self.rect.x += self.speed
+    def fire(self,surface):
+        surface.blit(self.image,self.rect)
+        
           
          
 
@@ -222,8 +223,13 @@ class Player(pygame.sprite.Sprite):
         print(mousepos)
         posx , posy = self.find_pos()
         print(posx,posy)
+
         Bullet=Projectile(posx,posy)
-        Bullet.fire()
+        Bullet.rect.move_ip(Bullet.speed,0)
+        Bullet.fire(display_window)
+        if Bullet.posx>display_width:
+            Bullet.kill()
+       
 
 
     def stop(self):
@@ -273,11 +279,13 @@ E=Enemy()
 
 pygame.mouse.set_visible(False)
 
+
 while True:
 
 #BACKGROUND
 
     display_window.fill(color_white)
+
     for event in pygame.event.get():
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
@@ -314,7 +322,7 @@ while True:
            P2.stop()
     if P2.check_collision_Object(E.rect):
         message("PLAYER 2 WINS ! ",color_black,220,150)
-        E.teleport()
+        #E.teleport()
     if P.check_collision_Object(P2.rect):
         if Multiplayer:
             P2.stop()
@@ -323,7 +331,7 @@ while True:
     #SPAWN
 
     P.spawn(display_window)
-    E.spawn(display_window)
+    #E.spawn(display_window)
     
     if Multiplayer:
         P2.spawn(display_window)
