@@ -99,6 +99,7 @@ class Projectile(pygame.sprite.Sprite):
         self.speed=15
 
     def fire(self,surface):
+        self.rect.move_ip(self.speed,0)
         surface.blit(self.image,self.rect)
         
           
@@ -225,11 +226,7 @@ class Player(pygame.sprite.Sprite):
         print(posx,posy)
 
         Bullet=Projectile(posx,posy)
-        Bullet.rect.move_ip(Bullet.speed,0)
         Bullet.fire(display_window)
-        if Bullet.posx>display_width:
-            Bullet.kill()
-       
 
 
     def stop(self):
@@ -275,7 +272,7 @@ if Multiplayer:
     set_players(P2)
 
 HUD_AIM=Aim()
-E=Enemy()
+#E=Enemy()
 
 pygame.mouse.set_visible(False)
 
@@ -315,13 +312,13 @@ while True:
    
     #GAME OVER
 
-    if P.check_collision_Object(E.rect):
-        E.teleport()
-        message("PLAYER 1 WINS ! ",color_black,220,150)
-        if Multiplayer:
-           P2.stop()
-    if P2.check_collision_Object(E.rect):
-        message("PLAYER 2 WINS ! ",color_black,220,150)
+    #if P.check_collision_Object(E.rect):
+        #E.teleport()
+       # message("PLAYER 1 WINS ! ",color_black,220,150)
+        #if Multiplayer:
+        #   P2.stop()
+    #if P2.check_collision_Object(E.rect):
+        #message("PLAYER 2 WINS ! ",color_black,220,150)
         #E.teleport()
     if P.check_collision_Object(P2.rect):
         if Multiplayer:
