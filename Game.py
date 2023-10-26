@@ -11,7 +11,7 @@ pygame.init()
 #+++++PATHS+++++
 link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
-link_op=link_laptop
+link_op=link_pc
 
 #+++++COLORS+++++
 color_black=pygame.Color(0,0,0)
@@ -150,8 +150,8 @@ class Enemy(pygame.sprite.Sprite):
         enemy_speed=10
         oldposx,oldposy=self.rect.center
         randpos=[(random.randrange(320,display_width-320)-oldposx),(random.randrange(40,display_height-40)-oldposy)]
-        print(randpos)
-        self.rect.center[randpos]
+        #print(randpos)
+        #self.rect.center[randpos]
         if(self.rect.top>600):
             self.rect.top= 0
         #if self.rect.
@@ -307,15 +307,15 @@ while True:
 
     if P.check_collision_Object(E.rect):
         E.teleport()
-        #message("PLAYER 1 WINS ! ",color_black,220,150)
-       # if Multiplayer:
-           # P2.stop()
+        message("PLAYER 1 WINS ! ",color_black,220,150)
+        if Multiplayer:
+           P2.stop()
     if P2.check_collision_Object(E.rect):
-        #message("PLAYER 2 WINS ! ",color_black,220,150)
+        message("PLAYER 2 WINS ! ",color_black,220,150)
         E.teleport()
     if P.check_collision_Object(P2.rect):
-        #if Multiplayer:
-        #    P2.stop()
+        if Multiplayer:
+            P2.stop()
         message("GAME OVER ! ",color_black,220,150)
 
     #SPAWN
