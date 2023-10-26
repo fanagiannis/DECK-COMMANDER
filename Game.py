@@ -90,9 +90,10 @@ def set_players(Player):
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,posx,posy):
         super().__init__()
-        self.image = pygame.Surface((50,10))
-        self.image.fill(color_black)
+        self.image = pygame.image.load(link_op+"\\Bullet.png")
+        #self.image.fill(color_black)
         self.rect=self.image.get_rect()
+        
         self.rect.center=(posx,posy)
         self.posx=posx
         self.posy=posy
@@ -215,9 +216,6 @@ class Player(pygame.sprite.Sprite):
                     self.rect.move_ip(-self.speed,0)
         
 
-        #if pressed_keys[K_SPACE]:
-        #    time.sleep(0.1)
-        #    print("FIRE")
     def shoot(self):
         mousepos=find_mouse_pos()
         rand_string=["BANG","BING","BONG"]
@@ -303,23 +301,12 @@ while True:
 
     #INITIALIZE
 
-    #map(map2)
     P.movement()
     if Multiplayer:
         P2.movement()
-    
-    #print(find_mouse_pos())
    
     #GAME OVER
 
-    #if P.check_collision_Object(E.rect):
-        #E.teleport()
-       # message("PLAYER 1 WINS ! ",color_black,220,150)
-        #if Multiplayer:
-        #   P2.stop()
-    #if P2.check_collision_Object(E.rect):
-        #message("PLAYER 2 WINS ! ",color_black,220,150)
-        #E.teleport()
     if P.check_collision_Object(P2.rect):
         if Multiplayer:
             P2.stop()
@@ -328,7 +315,6 @@ while True:
     #SPAWN
 
     P.spawn(display_window)
-    #E.spawn(display_window)
     
     if Multiplayer:
         P2.spawn(display_window)
