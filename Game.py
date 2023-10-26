@@ -87,21 +87,19 @@ def set_players(Player):
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,posx,posy):
         super().__init__()
-        self.image = pygame.image.load(link_op+"\\Bullet.png")
-        #self.image.fill(color_black)
+        self.image = pygame.image.load(link_op+"\\Enemy.png")
+        self.image.fill(color_black)
         self.rect=self.image.get_rect()
-        
         self.rect.center=(posx,posy)
         self.posx=posx
         self.posy=posy
         self.speed=15
 
     def fire(self,surface):
-        self.rect.x+=self.speed
+        self.rect.move_ip(self.speed,0)
+        surface.blit(surface,(self.posx,self.posy))
         if self.rect.x >= display_width:
             self.kill()
-        surface.blit(surface,(self.posx,self.posy))
-        
         
           
          
