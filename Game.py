@@ -12,7 +12,7 @@ pygame.init()
 
 link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
-link_op=link_pc
+link_op=link_laptop
 
 #+++++COLORS+++++
 
