@@ -88,20 +88,18 @@ class Projectile(pygame.sprite.Sprite):
     def __init__(self,posx,posy):
         super().__init__()
         self.image = pygame.image.load(link_op+"\\Enemy.png")
-        #self.image.fill(color_black)
         self.rect=self.image.get_rect()
         self.rect.center=(posx,posy)
-        self.posx=posx
-        self.posy=posy
         self.speed=15
 
-    def fire(self,surface):
+    def fire(self,surface,x,y):
+        posx=x
+        posy=y
+        while posx<display_width:
+            #self.rect.move_ip(self.speed,0)
+            posx+=self.speed
+            self.update()
         surface.blit(self.image,self.rect)
-        
-        
-        
-          
-         
 
 #AIM
 
@@ -208,21 +206,7 @@ class Player(pygame.sprite.Sprite):
                     self.rect.move_ip(-self.speed,0)
         
     def shoot(self):
-        mousepos=find_mouse_pos()
-        rand_string=["BANG","BING","BONG"]
-        #print(mousepos)
-        posx , posy = self.find_pos()
-        print(posx,posy)
-        Bullet=Projectile(posx,posy)
-        print(Bullet.posx,Bullet.posy)
-        print(rand_string[random.randint(0,2)])
-        while Bullet.rect.centerx<display_width:
-            #print(Bullet.rect.center)
-            #Bullet.posx+= Bullet.speed
-            Bullet.rect.move_ip(Bullet.speed,0)
-            Bullet.fire(display_window)
-            #Bullet.update()
-        return Projectile
+       mouse_pos=find_mouse_pos()
     
             
         
@@ -292,10 +276,9 @@ while True:
             sys.exit(0)
         if event.type==pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
-                if P.Fire:
-                    P.Fire=False
-                else:
-                    P.Fire=True
+                x,y=P.find_pos()
+                Bullet=Projectile(x,y)
+                Bullet.fire(display_window,x,y)
         if event.type==pygame.MOUSEBUTTONUP:
              if event.button == 1: #RIGHT KEY
                 P.shoot()
@@ -324,8 +307,7 @@ while True:
     #SPAWN
 
     P.spawn(display_window)
-    if P.Fire:
-        P.shoot()
+ 
     if Multiplayer:
         P2.spawn(display_window)
 
