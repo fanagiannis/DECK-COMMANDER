@@ -97,9 +97,9 @@ class Projectile(pygame.sprite.Sprite):
 
     def fire(self,surface):
         self.rect.move_ip(self.speed,0)
-        surface.blit(surface,(self.posx,self.posy))
         if self.rect.x >= display_width:
             self.kill()
+        surface.blit(surface,self.rect)
         
           
          
@@ -152,9 +152,9 @@ class Enemy(pygame.sprite.Sprite):
 
         if(self.rect.top>600):
             self.rect.top= 0
-    
+            
     def spawn(self,surface):
-        surface.blit(self.image,self.rect)
+        surface.blit(self.image,self.rect.center)
 
     
 
@@ -212,7 +212,7 @@ class Player(pygame.sprite.Sprite):
         rand_string=["BANG","BING","BONG"]
         #print(mousepos)
         posx , posy = self.find_pos()
-        #print(posx,posy)
+        print(posx,posy)
         Bullet=Projectile(posx,posy)
         Bullet.fire(display_window)
         print(rand_string[random.randint(0,2)])
@@ -272,6 +272,14 @@ while True:
 
     display_window.fill(color_white)
 
+ #SPAWN
+
+    P.spawn(display_window)
+    
+    if Multiplayer:
+        P2.spawn(display_window)
+    HUD_AIM.spawn(display_window)
+
     for event in pygame.event.get():
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
             pygame.quit()
@@ -304,13 +312,7 @@ while True:
             P2.stop()
         message("GAME OVER ! ",color_black,220,150)
 
-    #SPAWN
-
-    P.spawn(display_window)
-    
-    if Multiplayer:
-        P2.spawn(display_window)
-    HUD_AIM.spawn(display_window)
+   
     pygame.display.update()
     game_fps.tick(FPS)
 
