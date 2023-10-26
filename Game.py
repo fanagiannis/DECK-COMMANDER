@@ -99,7 +99,7 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.move_ip(self.speed,0)
         if self.rect.x >= display_width:
             self.kill()
-        surface.blit(surface,(self.posx,self.posy))
+        surface.blit(surface,(self.posx+self.speed,self.posy))
         
           
          
