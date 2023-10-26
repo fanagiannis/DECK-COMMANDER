@@ -9,24 +9,26 @@ from pygame.sprite import Group
 pygame.init()
 
 #+++++PATHS+++++
+
 link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_op=link_pc
 
 #+++++COLORS+++++
+
 color_black=pygame.Color(0,0,0)
 color_white=pygame.Color(255,255,255)
 color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 
 #+++++DISPLAY WINDOW+++++
+
 display_width=1240
 display_height=720
 display_window= pygame.display.set_mode((display_width,display_height))
 
 display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
 
-#display_window.fill(color_white)
 pygame.display.set_caption("(Local) Two Player Collision Game")
 
 #+++++COUNTERS+++++
@@ -51,11 +53,6 @@ player_scale=10
 enemy_scale=5
 
 #+++++FUNCTIONS+++++
-
-#def get_display_center(display):
-#    x,y=pygame.display.get_window_size()
-#    center=(x//2 - display.get_width()//2,)
-#    display_center=(display_width-(display_width/2),display_height-(display_height/2))
 
 def find_mouse_pos():
     mouse_pos=pygame.mouse.get_pos()
@@ -151,11 +148,9 @@ class Enemy(pygame.sprite.Sprite):
         enemy_speed=10
         oldposx,oldposy=self.rect.center
         randpos=[(random.randrange(320,display_width-320)-oldposx),(random.randrange(40,display_height-40)-oldposy)]
-        #print(randpos)
-        #self.rect.center[randpos]
+
         if(self.rect.top>600):
             self.rect.top= 0
-        #if self.rect.
     
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
@@ -180,10 +175,6 @@ class Player(pygame.sprite.Sprite):
     def movement(self):
        
         pressed_keys=pygame.key.get_pressed()
-
-        #    self.speed = self.maxspeed
-        #else:
-        #    self.speed = 5
 
         #WALK
         if self.name==Players[0]:
@@ -215,7 +206,6 @@ class Player(pygame.sprite.Sprite):
                 if pressed_keys[K_LEFT]:
                     self.rect.move_ip(-self.speed,0)
         
-
     def shoot(self):
         mousepos=find_mouse_pos()
         rand_string=["BANG","BING","BONG"]
@@ -270,7 +260,6 @@ if Multiplayer:
     set_players(P2)
 
 HUD_AIM=Aim()
-#E=Enemy()
 
 pygame.mouse.set_visible(False)
 
@@ -300,7 +289,8 @@ while True:
                 HUD_AIM.aiming(display_window,P)
 
     #INITIALIZE
-
+    
+    # map(map2)
     P.movement()
     if Multiplayer:
         P2.movement()
