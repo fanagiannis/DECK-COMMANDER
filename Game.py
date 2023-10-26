@@ -99,7 +99,7 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.move_ip(self.speed,0)
         if self.rect.x >= display_width:
             self.kill()
-        surface.blit(surface,self.rect)
+        surface.blit(surface,(self.posx,self.posy))
         
           
          
@@ -154,7 +154,7 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.top= 0
             
     def spawn(self,surface):
-        surface.blit(self.image,self.rect.center)
+        surface.blit(self.image,self.rect)
 
     
 
@@ -272,13 +272,7 @@ while True:
 
     display_window.fill(color_white)
 
- #SPAWN
 
-    P.spawn(display_window)
-    
-    if Multiplayer:
-        P2.spawn(display_window)
-    HUD_AIM.spawn(display_window)
 
     for event in pygame.event.get():
         if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
@@ -311,6 +305,14 @@ while True:
         if Multiplayer:
             P2.stop()
         message("GAME OVER ! ",color_black,220,150)
+    
+    #SPAWN
+
+    P.spawn(display_window)
+    
+    if Multiplayer:
+        P2.spawn(display_window)
+    HUD_AIM.spawn(display_window)
 
    
     pygame.display.update()
