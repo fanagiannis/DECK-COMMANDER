@@ -48,7 +48,7 @@ def game_init():
     global link_op
     link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
     link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
-    link_op=link_pc
+    link_op=link_laptop
 
     global sprite_p1,sprite_hud,sprite_hud_aim,sprite_enemy
     sprite_hud=link_op+"\\Aim.png"
@@ -207,6 +207,8 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(sprite_p1)
         self.rect=self.image.get_rect()
         #self.rect.center=SpawnPoints[len(Players)]
+        self.sizex=self.image.get_width()
+        self.sizey=self.image.get_height()
         self.x=posx
         self.y=posy
         self.name="Player"
@@ -224,35 +226,36 @@ class Player(pygame.sprite.Sprite):
         #WALK
         if self.name==Players[0]:
 
-            if self.rect.top>0:
+            if self.y>0:
                 if pressed_keys[K_w]:
-                    self.x+=self.speed #movecmd
-            if self.rect.bottom<display_height:
+                    self.y-=self.speed #movecmd
+            if self.y < display_height-self.sizey:
                 if pressed_keys[K_s]:
-                    self.x-=self.speed
-            if self.rect.right < display_width:
-                if pressed_keys[K_d]:
                     self.y+=self.speed
-            if self.rect.left > 0:
+            if self.x < display_width-self.sizex:
+                if pressed_keys[K_d]:
+                    self.x+=self.speed
+            if self.x > 0:
                 if pressed_keys[K_a]:
-                    self.y-=self.speed
+                    self.x-=self.speed
         
         else:
-            if self.x>0:
+            if self.y>0:
                 if pressed_keys[K_UP]:
                     self.y-=self.speed #movecmd
-            if self.rect.bottom<display_height:
+            if self.y<display_height-self.sizey:
                 if pressed_keys[K_DOWN]:
                     self.y+=self.speed
-            if self.rect.right < display_width:
+            if self.x < display_width-self.sizex:
                 if pressed_keys[K_RIGHT]:
                     self.x+=self.speed
-            if self.rect.left > 0:
+            if self.x > 0:
                 if pressed_keys[K_LEFT]:
                     self.x-=self.speed
         
     def shoot(self):
        mouse_pos=find_mouse_pos()
+       print(self.x,self.y)
 
     def stop(self):
         self.speed = 0  
@@ -350,6 +353,7 @@ while True:
         P2.movement()
     if bullet.fired:
         bullet.x+=bullet.speed
+        P.shoot()
     if bullet2.fired:
         bullet2.x-=bullet.speed
    
