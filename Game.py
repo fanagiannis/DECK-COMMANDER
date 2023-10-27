@@ -2,6 +2,7 @@ import pygame
 import sys
 import random
 import time
+import math
 #from turtle import delay
 from pygame.locals import *
 from pygame.sprite import Group 
@@ -174,17 +175,19 @@ class Projectile(pygame.sprite.Sprite):
         #self.x=x
         #self.y=y
         
-        print("BOOM")
+        #print("BOOM")
+        self.speed=15
         if Player.name=="Player":
             self.x -= self.speed
         else:
             self.x += self.speed
-        print(self.x)
+        #print(self.x)
         self.hitbox=(self.x,self.y,self.sizex,self.sizey)
         pygame.draw.rect(display_window,color_black,self.hitbox,1)
         display_window.blit(self.image,(self.x,self.y))
         if self.x > display_width:
             self.fired=False
+            self.speed=0
     
     def stop(self):
         self.speed=0
@@ -246,19 +249,28 @@ class Enemy(pygame.sprite.Sprite):
 class Player(pygame.sprite.Sprite):
     def __init__(self,posx,posy):
         super().__init__()
+        self.x=posx
+        self.y=posy
+        self.pos=pygame.math.Vector2(self.x,self.y)
         self.image = pygame.image.load(sprite_p1)
         self.rect=self.image.get_rect()
         #self.rect.center=SpawnPoints[len(Players)]
         self.sizex=self.image.get_width()
         self.sizey=self.image.get_height()
-        self.x=posx
-        self.y=posy
         self.name="Player"
         self.speed=5
         self.maxspeed=10
         self.stamina=100
         self.Fire=False
         self.hitbox=(self.x ,self.y,self.sizex,self.sizey)
+
+    def player_rotation(self):
+        self.mouse_coords=find_mouse_pos()
+        self.mouse_dx= (self.mouse_coords[0]-self.rect.centerx)
+        self.mouse_dy= (self.mouse_coords[1]-self.rect.centery)
+        self.angle=math.degrees(math.atan2(self.mouse_dy,self.mouse_dx))
+        self.image=pygame.transform.rotate(self.image,-self.angle)
+        self.rect=self.image.get_rect(center=self.rect.center)
 
     #PLAYER_MOVEMENT
     
@@ -328,7 +340,7 @@ class Player(pygame.sprite.Sprite):
         print(Players)
    
     def spawn(self,surface):
-        surface.blit(self.image,(self.x,self.y))
+        surface.blit(self.image,self.rect)
 
 game_init()
 
@@ -350,8 +362,6 @@ while True:
                     x,y=P.find_pos()
                     bullet.x=x
                     bullet.y=y
-                    #Bullet=Projectile(x,y)
-                    #Bullet.fire(display_window,x,y)
                     bullet.fired=True
                     
                 if Multiplayer:
@@ -359,11 +369,9 @@ while True:
                         x2,y2=P2.find_pos()
                         bullet2.x=x2
                         bullet2.y=y2
-                        #Bullet=Projectile(x,y)
-                        #Bullet.fire(display_window,x,y)
+                       
                         bullet2.fired=True
-                        #bullet2.x=x2 - bullet2.width/2
-                        #bullet2.y=y2 
+                      
 
             if event.type==pygame.MOUSEBUTTONUP:
                 if event.button == 1: #RIGHT KEY
@@ -376,32 +384,20 @@ while True:
                     print("Right")
                     HUD_AIM.aiming(display_window,P)
 
-    #INITIALIZE
-    
-    # map(map2)
     P.movement()
     if Multiplayer:
         P2.movement()
     if bullet.fired:
-        
-        
         bullet.fire(x,y,P)
         bullet.spawn(display_window)
-        #bullet.x+=bullet.speed
-        #P.shoot()
     if bullet2.fired:
-       # x,y=P.find_pos()
         bullet2.fire(x2,y2,P2)
         bullet2.spawn(display_window)
-        #bullet2.x-=bullet.speed
    
     #GAME OVER
 
     if Multiplayer:
         game_over=check_game_over() 
-            
-            #P.stop()
-        #    #print ("hit")
     
     #SPAWN
 
@@ -411,13 +407,5 @@ while True:
         P2.spawn(display_window)
 
     HUD_AIM.spawn(display_window)
-    #if bullet.fired:
-        #bullet.spawn(display_window)
-    #if bullet2.fired:
-        #bullet2.spawn(display_window)
-    #bullet.spawn(display_window)
-    #if Multiplayer:
-    #bullet2.spawn(display_window)
-
     pygame.display.update()
     game_fps.tick(FPS)    
