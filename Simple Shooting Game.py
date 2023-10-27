@@ -42,8 +42,6 @@ enemy_scale=5
 
 def game_init():
 
-    global game_over
-    game_over=False
     
     #PATHS
 
@@ -69,10 +67,7 @@ def game_init():
     sp=0
     ObjSpawnPoints=[(620,360),(390,50),(550,680),(460,360),(),(),(),(),()]
     MaxPlayers=2
-
-    #Multiplayer
-
-    Multiplayer=False
+    Multiplayer=True
 
     #PLAYERS
 
@@ -131,22 +126,6 @@ def map(image):
 def set_players(Player):
     Player.player_count()
 
-def check_game_over():
-    if P.hitbox == bullet2.hitbox:
-        message("P2 wins!",color_black,220,150)
-        P.stop()
-        P2.stop()
-        bullet.stop()
-        bullet2.stop()
-        return True
-    elif P2.hitbox == bullet.hitbox:
-        message("P1 wins!",color_black,220,150)
-        P.stop()
-        P2.stop()
-        bullet.stop()
-        bullet2.stop()
-        return True
-
     
     
 
@@ -159,38 +138,17 @@ class Projectile(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(sprite_enemy)
         self.rect=self.image.get_rect()
-        self.sizex=self.image.get_width()
-        self.sizey=self.image.get_height()
-        #self.rect.center=(posx,posy)
+        self.rect.center=(posx,posy)
         self.x=posx
         self.y=posy
         self.width=width
         self.height=height
         self.speed=speed
         self.fired=False
-        self.hitbox=(self.x ,self.y,self.sizex,self.sizey)
 
-    def fire(self,x,y,Player):
-        #self.x=x
-        #self.y=y
-        
-        print("BOOM")
-        if Player.name=="Player":
-            self.x -= self.speed
-        else:
-            self.x += self.speed
-        print(self.x)
-        self.hitbox=(self.x,self.y,self.sizex,self.sizey)
-        pygame.draw.rect(display_window,color_black,self.hitbox,1)
-        display_window.blit(self.image,(self.x,self.y))
-        if self.x > display_width:
-            self.fired=False
-    
-    def stop(self):
-        self.speed=0
-
-    def spawn(self,surface):
-        surface.blit(self.image,(self.x,self.y))
+    def fire(self):
+        if self.fired:
+            display_window.blit(self.image,(self.x,self.y))
 
 #AIM
 
@@ -249,8 +207,6 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load(sprite_p1)
         self.rect=self.image.get_rect()
         #self.rect.center=SpawnPoints[len(Players)]
-        self.sizex=self.image.get_width()
-        self.sizey=self.image.get_height()
         self.x=posx
         self.y=posy
         self.name="Player"
@@ -258,7 +214,6 @@ class Player(pygame.sprite.Sprite):
         self.maxspeed=10
         self.stamina=100
         self.Fire=False
-        self.hitbox=(self.x ,self.y,self.sizex,self.sizey)
 
     #PLAYER_MOVEMENT
     
@@ -269,38 +224,35 @@ class Player(pygame.sprite.Sprite):
         #WALK
         if self.name==Players[0]:
 
-            if self.y>0:
+            if self.rect.top>0:
                 if pressed_keys[K_w]:
-                    self.y-=self.speed #movecmd
-            if self.y < display_height-self.sizey:
+                    self.x+=self.speed #movecmd
+            if self.rect.bottom<display_height:
                 if pressed_keys[K_s]:
-                    self.y+=self.speed
-            if self.x < display_width-self.sizex:
-                if pressed_keys[K_d]:
-                    self.x+=self.speed
-            if self.x > 0:
-                if pressed_keys[K_a]:
                     self.x-=self.speed
+            if self.rect.right < display_width:
+                if pressed_keys[K_d]:
+                    self.y+=self.speed
+            if self.rect.left > 0:
+                if pressed_keys[K_a]:
+                    self.y-=self.speed
         
         else:
-            if self.y>0:
+            if self.x>0:
                 if pressed_keys[K_UP]:
                     self.y-=self.speed #movecmd
-            if self.y<display_height-self.sizey:
+            if self.rect.bottom<display_height:
                 if pressed_keys[K_DOWN]:
                     self.y+=self.speed
-            if self.x < display_width-self.sizex:
+            if self.rect.right < display_width:
                 if pressed_keys[K_RIGHT]:
                     self.x+=self.speed
-            if self.x > 0:
+            if self.rect.left > 0:
                 if pressed_keys[K_LEFT]:
                     self.x-=self.speed
-        self.hitbox=(self.x ,self.y,self.sizex,self.sizey)
-        pygame.draw.rect(display_window,color_black,self.hitbox,1) #last option thickness
         
     def shoot(self):
        mouse_pos=find_mouse_pos()
-       print(self.x,self.y)
 
     def stop(self):
         self.speed = 0  
@@ -326,7 +278,26 @@ class Player(pygame.sprite.Sprite):
             self.name="Player"+str(len(Players)+1)
             Players.append(self.name)
         print(Players)
-   
+
+    def check_collision_Object(self,rect):
+        if abs(rect.top - self.rect.bottom) < 10:
+            self.stop()
+            P2.stop()
+            return True
+        if abs(rect.bottom - self.rect.top) < 10:
+            self.stop()
+            P2.stop()
+            return True
+        if abs(rect.right - self.rect.left) < 10:
+            self.stop()
+            P2.stop()
+            return True
+        if abs(rect.left - self.rect.right) < 10:
+            self.stop()
+            P2.stop()
+            return True
+
+       
     def spawn(self,surface):
         surface.blit(self.image,(self.x,self.y))
 
@@ -337,44 +308,39 @@ while True:
 #BACKGROUND
 
     display_window.fill(color_white)
-    if game_over:
-        print ("Game over!")
-    else:
 
-        for event in pygame.event.get():
-            if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
-                pygame.quit()
-                sys.exit(0)
-            if event.type==pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    x,y=P.find_pos()
-                    bullet.x=x
-                    bullet.y=y
+    for event in pygame.event.get():
+        if event.type==QUIT or pygame.key.get_pressed()==[K_ESCAPE]:
+            pygame.quit()
+            sys.exit(0)
+        if event.type==pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                x,y=P.find_pos()
+                #Bullet=Projectile(x,y)
+                #Bullet.fire(display_window,x,y)
+                bullet.fired=True
+                bullet.x=x - bullet.width/2
+                bullet.y=y 
+            if Multiplayer:
+                if event.key == pygame.K_RSHIFT:
+                    x2,y2=P2.find_pos()
                     #Bullet=Projectile(x,y)
                     #Bullet.fire(display_window,x,y)
-                    bullet.fired=True
-                    
-                if Multiplayer:
-                    if event.key == pygame.K_RSHIFT:
-                        x2,y2=P2.find_pos()
-                        bullet2.x=x2
-                        bullet2.y=y2
-                        #Bullet=Projectile(x,y)
-                        #Bullet.fire(display_window,x,y)
-                        bullet2.fired=True
-                        #bullet2.x=x2 - bullet2.width/2
-                        #bullet2.y=y2 
+                    bullet2.fired=True
+                    bullet2.x=x2 - bullet2.width/2
+                    bullet2.y=y2 
+                    pygame.time.set_timer(pygame.K_RSHIFT,2000)
 
-            if event.type==pygame.MOUSEBUTTONUP:
-                if event.button == 1: #RIGHT KEY
-                    P.shoot()
-            if event.type==pygame.MOUSEMOTION:
-                find_mouse_pos()
-                HUD_AIM.move()
-            if event.type==MOUSEBUTTONDOWN:
-                if event.button == 3: #RIGHT KEY
-                    print("Right")
-                    HUD_AIM.aiming(display_window,P)
+        if event.type==pygame.MOUSEBUTTONUP:
+             if event.button == 1: #RIGHT KEY
+                P.shoot()
+        if event.type==pygame.MOUSEMOTION:
+            find_mouse_pos()
+            HUD_AIM.move()
+        if event.type==MOUSEBUTTONDOWN:
+            if event.button == 3: #RIGHT KEY
+                print("Right")
+                HUD_AIM.aiming(display_window,P)
 
     #INITIALIZE
     
@@ -383,24 +349,16 @@ while True:
     if Multiplayer:
         P2.movement()
     if bullet.fired:
-        
-        
-        bullet.fire(x,y,P)
-        bullet.spawn(display_window)
-        #bullet.x+=bullet.speed
-        #P.shoot()
+        bullet.x+=bullet.speed
     if bullet2.fired:
-       # x,y=P.find_pos()
-        bullet2.fire(x2,y2,P2)
-        bullet2.spawn(display_window)
-        #bullet2.x-=bullet.speed
+        bullet2.x-=bullet.speed
    
     #GAME OVER
 
-    if Multiplayer:
-        game_over=check_game_over() 
-            
-            #P.stop()
+    #if Multiplayer:
+        #if pygame.sprite.collide_rect(P,bullet2):
+        #    message("GAME OVER ! ",color_black,220,150)
+        #    P.stop(),P2.stop()
         #    #print ("hit")
     
     #SPAWN
@@ -411,13 +369,9 @@ while True:
         P2.spawn(display_window)
 
     HUD_AIM.spawn(display_window)
-    #if bullet.fired:
-        #bullet.spawn(display_window)
-    #if bullet2.fired:
-        #bullet2.spawn(display_window)
-    #bullet.spawn(display_window)
+    bullet.fire()
     #if Multiplayer:
-    #bullet2.spawn(display_window)
+    bullet2.fire()
 
     pygame.display.update()
     game_fps.tick(FPS)    
