@@ -5,13 +5,19 @@ import time
 import math
 #from turtle import delay
 from pygame.locals import *
-from pygame.sprite import _Group, Group 
+from pygame.sprite import Group 
 
 pygame.init()
 
 pygame.display.set_caption("GAME")
 
 clock=pygame.time.Clock()
+
+
+    #+++++LINKS+++++
+
+link_assets_base="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+link_assets_player=link_assets_base+"\\Player.png"
 
     #+++++COLORS+++++
 
@@ -47,9 +53,27 @@ def spawner():
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pygame.transform.ro
-        self.pos=SpawnPoints[1]
+        self.image=pygame.image.load(link_assets_player)
+        self.pos=SpawnPoints[0]
+        self.speed=15
+    
+    def input(self):
+        self.velocity_x=0
+        self.velocity_y=0
+        pressed_keys=pygame.key.get_pressed()
 
+        if pressed_keys[K_w]:
+            self.velocity_y=-self.speed
+        if pressed_keys[K_s]:
+            self.velocity_y=self.speed
+        if pressed_keys[K_d]:
+            self.velocity_x=self.speed
+        if pressed_keys[K_a]:
+            self.velocity_x=-self.speed
+        
+
+
+game_init()
 while True:
     display_window.fill(color_white)   #SET BACKGROUND
 
@@ -58,7 +82,7 @@ while True:
             pygame.quit()
             sys.exit(0)
 
-    print (SpawnPoints)
+    print (SpawnPoints[1])
 
     pygame.display.update()
     game_fps.tick(FPS)
