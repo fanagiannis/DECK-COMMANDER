@@ -117,18 +117,14 @@ class HUD (pygame.sprite.Sprite):
             self.pos=get_mouse_pos()
     def aim(self,Player):
         if self.IsAiming==False:
-            print("Taking Aim")
             self.image=pygame.image.load(link_assets_aimcursor)
             Player.speed=1
-            self.IsAiming=True
-            
-           
+            self.IsAiming=True  
         elif self.IsAiming==True:
-            print("No Aim")
             self.image=pygame.image.load(link_assets_cursor)
             Player.speed=5
             self.IsAiming=False 
-
+            
     def update(self):
         self.motion()
         
