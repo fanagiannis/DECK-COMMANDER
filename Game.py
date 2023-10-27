@@ -12,7 +12,7 @@ pygame.init()
 
 link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
-link_op=link_laptop
+link_op=link_pc
 
 #+++++COLORS+++++
 
@@ -85,21 +85,21 @@ def set_players(Player):
 #PROJECTILE
 
 class Projectile(pygame.sprite.Sprite):
-    def __init__(self,posx,posy):
+    def __init__(self,posx,posy,width,height,speed):
         super().__init__()
         self.image = pygame.image.load(link_op+"\\Enemy.png")
-        self.rect=self.image.get_rect()
-        self.rect.center=(posx,posy)
-        self.speed=15
+        #self.rect=self.image.get_rect()
+        #self.rect.center=(posx,posy)
+        self.x=posx
+        self.y=posy
+        self.width=width
+        self.height=height
+        self.speed=speed
+        self.fired=False
 
-    def fire(self,surface,x,y):
-        posx=x
-        posy=y
-        while posx<display_width:
-            #self.rect.move_ip(self.speed,0)
-            posx+=self.speed
-            self.update()
-        surface.blit(self.image,self.rect)
+    def fire(self):
+        if self.fired:
+            display_window.blit(self.image,(self.x,self.y))
 
 #AIM
 
@@ -250,12 +250,23 @@ class Player(pygame.sprite.Sprite):
 map1="D:\\ΦΩΤΟ\\darksouls.jpg"
 map2="D:\\ΦΩΤΟ\\Rodos.jpg"
 
-
 P=Player()
+
 set_players(P)
 if Multiplayer:
     P2=Player()
     set_players(P2)
+
+bullet_width=32
+bullet_height=32
+bullet_posx=P.rect.centerx
+bullet_posy=P.rect.centery
+bullet_speed=15
+
+
+bullet = Projectile(bullet_width,bullet_height,bullet_posx,bullet_posy,bullet_speed)
+
+
 
 HUD_AIM=Aim()
 
@@ -263,8 +274,6 @@ pygame.mouse.set_visible(False)
 
 
 while True:
-
-    
 
 #BACKGROUND
 
@@ -277,8 +286,12 @@ while True:
         if event.type==pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 x,y=P.find_pos()
-                Bullet=Projectile(x,y)
-                Bullet.fire(display_window,x,y)
+                #Bullet=Projectile(x,y)
+                #Bullet.fire(display_window,x,y)
+                bullet.fired=True
+                bullet.x=x - bullet.width/2
+                bullet.y=y 
+
         if event.type==pygame.MOUSEBUTTONUP:
              if event.button == 1: #RIGHT KEY
                 P.shoot()
@@ -296,6 +309,8 @@ while True:
     P.movement()
     if Multiplayer:
         P2.movement()
+    if bullet.fired:
+        bullet.x+=bullet.speed
    
     #GAME OVER
 
@@ -312,6 +327,7 @@ while True:
         P2.spawn(display_window)
 
     HUD_AIM.spawn(display_window)
+    bullet.fire()
 
     pygame.display.update()
     
