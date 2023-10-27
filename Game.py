@@ -49,8 +49,8 @@ def game_init():
     link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
     link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
     link_op=link_pc
-    global sprite_p1,sprite_hud,sprite_hud_aim,sprite_enemy
 
+    global sprite_p1,sprite_hud,sprite_hud_aim,sprite_enemy
     sprite_hud=link_op+"\\Aim.png"
     sprite_hud_aim=link_op+"\\Aim2.png"
     sprite_enemy=link_op+"\\Enemy.png"
@@ -64,6 +64,7 @@ def game_init():
     global Players,SpawnPoints,ObjSpawnPoints,MaxPlayers,Multiplayer
     Players=[]
     SpawnPoints=[(160,220),(1060,220),(1060,520)]
+    sp=0
     ObjSpawnPoints=[(620,360),(390,50),(550,680),(460,360),(),(),(),(),()]
     MaxPlayers=2
     Multiplayer=True
@@ -71,11 +72,15 @@ def game_init():
     #PLAYERS
 
     global P,P2
-
-    P=Player()
+    x,y=SpawnPoints[sp]
+    print(x,y)
+    P=Player(x,y)
     set_players(P)
     if Multiplayer:
-        P2=Player()
+        sp+=1
+        x,y=SpawnPoints[sp]
+        print(x,y)
+        P2=Player(x,y)
         set_players(P2)
 
     #BULLETS
@@ -197,11 +202,13 @@ class Enemy(pygame.sprite.Sprite):
 #PLAYER
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self,posx,posy):
         super().__init__()
         self.image = pygame.image.load(sprite_p1)
         self.rect=self.image.get_rect()
-        self.rect.center=SpawnPoints[len(Players)]
+        #self.rect.center=SpawnPoints[len(Players)]
+        self.x=posx
+        self.y=posy
         self.name="Player"
         self.speed=5
         self.maxspeed=10
@@ -219,30 +226,30 @@ class Player(pygame.sprite.Sprite):
 
             if self.rect.top>0:
                 if pressed_keys[K_w]:
-                    self.rect.move_ip(0,-self.speed) #movecmd
+                    self.x+=self.speed #movecmd
             if self.rect.bottom<display_height:
                 if pressed_keys[K_s]:
-                    self.rect.move_ip(0,self.speed)
+                    self.x-=self.speed
             if self.rect.right < display_width:
                 if pressed_keys[K_d]:
-                    self.rect.move_ip(self.speed,0) 
+                    self.y+=self.speed
             if self.rect.left > 0:
                 if pressed_keys[K_a]:
-                    self.rect.move_ip(-self.speed,0)
+                    self.y-=self.speed
         
         else:
-            if self.rect.top>0:
+            if self.x>0:
                 if pressed_keys[K_UP]:
-                    self.rect.move_ip(0,-self.speed) #movecmd
+                    self.y-=self.speed #movecmd
             if self.rect.bottom<display_height:
                 if pressed_keys[K_DOWN]:
-                    self.rect.move_ip(0,self.speed)
+                    self.y+=self.speed
             if self.rect.right < display_width:
                 if pressed_keys[K_RIGHT]:
-                    self.rect.move_ip(self.speed,0) 
+                    self.x+=self.speed
             if self.rect.left > 0:
                 if pressed_keys[K_LEFT]:
-                    self.rect.move_ip(-self.speed,0)
+                    self.x-=self.speed
         
     def shoot(self):
        mouse_pos=find_mouse_pos()
@@ -255,8 +262,8 @@ class Player(pygame.sprite.Sprite):
             self.speed = self.maxspeed
         
     def find_pos(self):
-        x=self.rect.centerx
-        y=self.rect.centery
+        x=self.x
+        y=self.y
         return x , y
 
     def destroy(self):
@@ -292,7 +299,7 @@ class Player(pygame.sprite.Sprite):
 
        
     def spawn(self,surface):
-        surface.blit(self.image,self.rect)
+        surface.blit(self.image,(self.x,self.y))
 
 game_init()
 
@@ -348,11 +355,11 @@ while True:
    
     #GAME OVER
 
-    if Multiplayer:
-        if pygame.sprite.collide_rect(P,bullet2):
-            message("GAME OVER ! ",color_black,220,150)
-            P.stop(),P2.stop()
-            #print ("hit")
+    #if Multiplayer:
+        #if pygame.sprite.collide_rect(P,bullet2):
+        #    message("GAME OVER ! ",color_black,220,150)
+        #    P.stop(),P2.stop()
+        #    #print ("hit")
     
     #SPAWN
 
