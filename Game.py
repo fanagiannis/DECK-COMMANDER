@@ -44,6 +44,10 @@ FPS=60
 def game_init():
     global SpawnPoints
     SpawnPoints=[(160,220),(560,340)]
+
+    global P 
+    P=Player()
+
     pass
 
 def spawner():
@@ -55,7 +59,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image=pygame.image.load(link_assets_player)
         self.pos=SpawnPoints[0]
-        self.speed=15
+        self.speed=5
     
     def input(self):
         self.velocity_x=0
@@ -70,7 +74,13 @@ class Player(pygame.sprite.Sprite):
             self.velocity_x=self.speed
         if pressed_keys[K_a]:
             self.velocity_x=-self.speed
-        
+    
+    def movement(self):
+        self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
+    
+    def update(self):
+        self.input()
+        self.movement()
 
 
 game_init()
@@ -82,7 +92,7 @@ while True:
             pygame.quit()
             sys.exit(0)
 
-    print (SpawnPoints[1])
-
+    display_window.blit(P.image,P.pos)
+    P.update()
     pygame.display.update()
     game_fps.tick(FPS)
