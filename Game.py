@@ -216,6 +216,7 @@ class Player(pygame.sprite.Sprite):
         self.maxspeed=10
         self.stamina=100
         self.Fire=False
+        self.hitbox=pygame.draw.rect(display_window,color_black,self.rect)
 
     #PLAYER_MOVEMENT
     
