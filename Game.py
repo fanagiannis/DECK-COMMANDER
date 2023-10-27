@@ -18,6 +18,8 @@ clock=pygame.time.Clock()
 
 link_assets_base="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
 link_assets_player=link_assets_base+"\\Player.png"
+link_assets_cursor=link_assets_base+"\\Aim.png"
+link_assets_aimcursor=link_assets_base+"\\AimBig.png"
 
     #+++++COLORS+++++
 
@@ -42,22 +44,36 @@ FPS=60
 
     #+++++FUNCTIONS+++++
 def game_init():
+    pygame.mouse.set_visible(False)
+
     global SpawnPoints
     SpawnPoints=[(160,220),(560,340)]
 
     global P 
     P=Player()
 
-    pass
+    global cursor 
+    cursor=HUD()
+
+
+
+def get_mouse_pos():
+    mouse_pos= pygame.mouse.get_pos()
+    return mouse_pos
 
 def spawner():
-    pass
+    display_window.blit(P.image,P.pos)
+    P.update()
+    display_window.blit(cursor.image,cursor.pos)
+    cursor.update()
+
 
     #+++++CLASSES+++++
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image=pygame.image.load(link_assets_player)
+        self.rect=self.image.get_rect()
         self.pos=SpawnPoints[0]
         self.speed=5
     
@@ -66,23 +82,56 @@ class Player(pygame.sprite.Sprite):
         self.velocity_y=0
         pressed_keys=pygame.key.get_pressed()
 
-        if pressed_keys[K_w]:
-            self.velocity_y=-self.speed
-        if pressed_keys[K_s]:
-            self.velocity_y=self.speed
-        if pressed_keys[K_d]:
-            self.velocity_x=self.speed
-        if pressed_keys[K_a]:
-            self.velocity_x=-self.speed
-    
+        self.posx=self.rect.centerx
+        self.posy=self.rect.centery
+        self.offset=50
+        #print(posx,posy)
+        if self.posy>0:
+            if pressed_keys[K_w]:
+                self.velocity_y=-self.speed
+        if self.posy<display_height-self.offset:
+            if pressed_keys[K_s]:
+                self.velocity_y=self.speed
+        if self.posx<display_width-self.offset:
+            if pressed_keys[K_d]:
+                self.velocity_x=self.speed
+        if self.posx>0:
+            if pressed_keys[K_a]:
+                self.velocity_x=-self.speed
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
-    
+        self.rect.center=self.pos
     def update(self):
         self.input()
         self.movement()
 
+class HUD (pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image=pygame.image.load(link_assets_cursor)
+        self.rect=self.image.get_rect()
+        self.pos=get_mouse_pos()
+        self.IsAiming=False
+    def motion(self):
+        if event.type==MOUSEMOTION: 
+            self.pos=get_mouse_pos()
+    def aim(self,Player):
+        if self.IsAiming==False:
+            print("Taking Aim")
+            self.image=pygame.image.load(link_assets_aimcursor)
+            Player.speed=1
+            self.IsAiming=True
+            
+           
+        elif self.IsAiming==True:
+            print("No Aim")
+            self.image=pygame.image.load(link_assets_cursor)
+            Player.speed=5
+            self.IsAiming=False 
 
+    def update(self):
+        self.motion()
+        
 game_init()
 while True:
     display_window.fill(color_white)   #SET BACKGROUND
@@ -91,8 +140,9 @@ while True:
         if event.type== QUIT:
             pygame.quit()
             sys.exit(0)
-
-    display_window.blit(P.image,P.pos)
-    P.update()
+        if event.type==MOUSEBUTTONUP:
+            if event.button==3:
+                cursor.aim(P)
+    spawner()
     pygame.display.update()
     game_fps.tick(FPS)
