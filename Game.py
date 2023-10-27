@@ -95,7 +95,7 @@ class Projectile(pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(link_op+"\\Enemy.png")
         self.rect=self.image.get_rect()
-        #self.rect.center=(posx,posy)
+        self.rect.center=(posx,posy)
         self.x=posx
         self.y=posy
         self.width=width
@@ -106,6 +106,8 @@ class Projectile(pygame.sprite.Sprite):
     def fire(self):
         if self.fired:
             display_window.blit(self.image,(self.x,self.y))
+    def get_proj_rect(self):
+        return self.rect
 
 #AIM
 
@@ -213,11 +215,6 @@ class Player(pygame.sprite.Sprite):
         
     def shoot(self):
        mouse_pos=find_mouse_pos()
-    
-            
-        
-            
-
 
     def stop(self):
         self.speed = 0  
@@ -245,8 +242,21 @@ class Player(pygame.sprite.Sprite):
         print(Players)
 
     def check_collision_Object(self,rect):
-        if self.rect.colliderect(rect):
+        if abs(rect.top - self.rect.bottom) < 10:
             self.stop()
+            P2.stop()
+            return True
+        if abs(rect.bottom - self.rect.top) < 10:
+            self.stop()
+            P2.stop()
+            return True
+        if abs(rect.right - self.rect.left) < 10:
+            self.stop()
+            P2.stop()
+            return True
+        if abs(rect.left - self.rect.right) < 10:
+            self.stop()
+            P2.stop()
             return True
 
        
@@ -333,10 +343,10 @@ while True:
    
     #GAME OVER
 
-    if P.check_collision_Object(bullet2.rect):
-        if Multiplayer:
-            P2.stop()
-        message("GAME OVER ! ",color_black,220,150)
+    if Multiplayer:
+        if P.check_collision_Object(bullet2.rect):
+            message("GAME OVER ! ",color_black,220,150)
+            print ("hit")
     
     
     #SPAWN
