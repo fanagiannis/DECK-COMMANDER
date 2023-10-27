@@ -8,20 +8,27 @@ from pygame.sprite import Group
 
 pygame.init()
 
-#+++++PATHS+++++
+ #+++++PATHS+++++
 
 link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
 link_op=link_pc
 
-#+++++COLORS+++++
+pygame.display.set_caption("(Local) Two Player Collision Game")
+
+
+#+++++FUNCTIONS+++++
+
+
+
+    #+++++COLORS+++++
 
 color_black=pygame.Color(0,0,0)
 color_white=pygame.Color(255,255,255)
 color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 
-#+++++DISPLAY WINDOW+++++
+    #+++++DISPLAY WINDOW+++++
 
 display_width=1240
 display_height=720
@@ -29,9 +36,9 @@ display_window= pygame.display.set_mode((display_width,display_height))
 
 display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
 
-pygame.display.set_caption("(Local) Two Player Collision Game")
 
-#+++++COUNTERS+++++
+
+    #+++++COUNTERS+++++
 
 Players=[]
 SpawnPoints=[(160,220),(1060,220),(1060,520)]
@@ -39,20 +46,19 @@ ObjSpawnPoints=[(620,360),(390,50),(550,680),(460,360),(),(),(),(),()]
 MaxPlayers=2
 Multiplayer=True
 
-#+++++GAME OVER+++++
+    #+++++GAME OVER+++++
 font=pygame.font.SysFont(None,30,bold=True)
-#game_over_screen=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
+    #game_over_screen=pygame.image.load("G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\Game_Over.png")
 
-#+++++FPS+++++ 
+    #+++++FPS+++++ 
 game_fps=pygame.time.Clock()
 FPS=60
 
-#+++++SCALES+++++
+    #+++++SCALES+++++
 
 player_scale=10
 enemy_scale=5
 
-#+++++FUNCTIONS+++++
 
 def find_mouse_pos():
     mouse_pos=pygame.mouse.get_pos()
@@ -88,7 +94,7 @@ class Projectile(pygame.sprite.Sprite):
     def __init__(self,posx,posy,width,height,speed):
         super().__init__()
         self.image = pygame.image.load(link_op+"\\Enemy.png")
-        #self.rect=self.image.get_rect()
+        self.rect=self.image.get_rect()
         #self.rect.center=(posx,posy)
         self.x=posx
         self.y=posy
@@ -247,6 +253,8 @@ class Player(pygame.sprite.Sprite):
     def spawn(self,surface):
         surface.blit(self.image,self.rect)
 
+#init_game()
+
 map1="D:\\ΦΩΤΟ\\darksouls.jpg"
 map2="D:\\ΦΩΤΟ\\Rodos.jpg"
 
@@ -265,7 +273,7 @@ bullet_speed=15
 
 
 bullet = Projectile(bullet_width,bullet_height,bullet_posx,bullet_posy,bullet_speed)
-
+bullet2 = Projectile(bullet_width,bullet_height,bullet_posx,bullet_posy,bullet_speed)
 
 
 HUD_AIM=Aim()
@@ -291,6 +299,15 @@ while True:
                 bullet.fired=True
                 bullet.x=x - bullet.width/2
                 bullet.y=y 
+            if Multiplayer:
+                if event.key == pygame.K_RSHIFT:
+                    x2,y2=P2.find_pos()
+                    #Bullet=Projectile(x,y)
+                    #Bullet.fire(display_window,x,y)
+                    bullet2.fired=True
+                    bullet2.x=x2 - bullet2.width/2
+                    bullet2.y=y2 
+                    pygame.time.set_timer(pygame.K_RSHIFT,2000)
 
         if event.type==pygame.MOUSEBUTTONUP:
              if event.button == 1: #RIGHT KEY
@@ -311,13 +328,16 @@ while True:
         P2.movement()
     if bullet.fired:
         bullet.x+=bullet.speed
+    if bullet2.fired:
+        bullet2.x-=bullet.speed
    
     #GAME OVER
 
-    if P.check_collision_Object(P2.rect):
+    if P.check_collision_Object(bullet2.rect):
         if Multiplayer:
             P2.stop()
         message("GAME OVER ! ",color_black,220,150)
+    
     
     #SPAWN
 
@@ -328,6 +348,8 @@ while True:
 
     HUD_AIM.spawn(display_window)
     bullet.fire()
+    #if Multiplayer:
+    bullet2.fire()
 
     pygame.display.update()
     
