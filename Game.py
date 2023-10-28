@@ -62,7 +62,7 @@ def get_mouse_pos():
     return mouse_pos
 
 def spawner():
-    display_window.blit(P.base_image,P.hitbox)
+    display_window.blit(P.image,P.hitbox)
     P.update()
     display_window.blit(cursor.image,cursor.pos)
     cursor.update()
