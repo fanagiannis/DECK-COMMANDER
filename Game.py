@@ -103,8 +103,9 @@ class Player(pygame.sprite.Sprite):
     def rotation(self):
         
         self.mouse_posx,self.mouse_posy=get_mouse_pos()
-        self.angle=math.degrees(math.atan2(self.mouse_posy,self.mouse_posx))
-        self.image=pygame.transform.rotate(self.base_image,self.angle)
+
+        self.angle=math.degrees(math.atan2(self.posy-self.mouse_posy,self.posx-self.mouse_posx))
+        self.image=pygame.transform.rotate(self.base_image,-self.angle)
         self.hitbox=self.image.get_rect(center=self.rect.center)
         print(self.angle,self.hitbox.center,self.rect.center)
     
