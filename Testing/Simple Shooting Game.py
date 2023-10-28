@@ -46,11 +46,12 @@ def game_init():
     #PATHS
 
     global link_op
-    link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
+    link_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
     link_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON"
     link_op=link_pc
 
     global sprite_p1,sprite_hud,sprite_hud_aim,sprite_enemy
+   
     sprite_hud=link_op+"\\Aim.png"
     sprite_hud_aim=link_op+"\\Aim2.png"
     sprite_enemy=link_op+"\\Enemy.png"
