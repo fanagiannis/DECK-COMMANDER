@@ -5,7 +5,7 @@ import time
 import math
 #from turtle import delay
 from pygame.locals import *
-from pygame.sprite import Group 
+from pygame.sprite import _Group, Group 
 
 pygame.init()
 
@@ -20,6 +20,7 @@ link_assets_base="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYT
 link_assets_player=link_assets_base+"\\Player.png"
 link_assets_cursor=link_assets_base+"\\Aim.png"
 link_assets_aimcursor=link_assets_base+"\\AimBig.png"
+link_assets_bullets=link_assets_base+"\\Enemy.png"
 
     #+++++COLORS+++++
 
@@ -88,7 +89,6 @@ class Player(pygame.sprite.Sprite):
         self.posx=self.rect.centerx
         self.posy=self.rect.centery
         self.offset=25
-        #print(posx,posy)
         if self.posy-self.offset>0:
             if pressed_keys[K_w]:
                 self.velocity_y=-self.speed
@@ -101,13 +101,13 @@ class Player(pygame.sprite.Sprite):
         if self.posx-self.offset>0:
             if pressed_keys[K_a]:
                 self.velocity_x=-self.speed
-                
+
     def rotation(self):  
         self.mouse_posx,self.mouse_posy=get_mouse_pos()
         self.angle=math.degrees(math.atan2(self.posy-self.mouse_posy,self.posx-self.mouse_posx))
         self.image=pygame.transform.rotate(self.base_image,-self.angle)
         self.hitbox=self.image.get_rect(center=self.rect.center)
-
+  
     
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
@@ -142,6 +142,20 @@ class HUD (pygame.sprite.Sprite):
             
     def update(self):
         self.motion()
+
+class Projectile(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image=pygame.image.load(link_assets_bullets)
+        self.image_resized = pygame.transform.scale(self.image,10)
+    
+    def fire(self):
+        if event.type == MOUSEBUTTONUP:
+            if event.button==3:
+                print("fired")
+
+    def update(self):
+        self.fire()
         
 game_init()
 while True:
