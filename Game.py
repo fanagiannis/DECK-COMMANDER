@@ -99,14 +99,18 @@ class Player(pygame.sprite.Sprite):
             if pressed_keys[K_a]:
                 self.velocity_x=-self.speed
     def rotation(self):
-
+        self.mouse_posx,self.mouse_posy=get_mouse_pos()
+        self.angle=math.degrees(math.atan2(self.mouse_posy,self.mouse_posx))
+        pygame.transform.rotate(self.image,self.angle)
         pass        
     
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
         self.rect.center=self.pos
+  
     def update(self):
         self.input()
+        self.rotation()
         self.movement()
 
 class HUD (pygame.sprite.Sprite):
