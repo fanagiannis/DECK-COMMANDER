@@ -5,7 +5,7 @@ import time
 import math
 #from turtle import delay
 from pygame.locals import *
-from pygame.sprite import _Group, Group 
+from pygame.sprite import Group 
 
 pygame.init()
 
@@ -20,7 +20,7 @@ link_assets_base="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYT
 link_assets_player=link_assets_base+"\\Player.png"
 link_assets_cursor=link_assets_base+"\\Aim.png"
 link_assets_aimcursor=link_assets_base+"\\AimBig.png"
-link_assets_bullets=link_assets_base+"\\Enemy.png"
+link_assets_bullets=link_assets_base+"\\Bullet.png"
 
     #+++++COLORS+++++
 
@@ -56,17 +56,20 @@ def game_init():
     global cursor 
     cursor=HUD()
 
-
+    global bullet
+    bullet=Projectile()
 
 def get_mouse_pos():
     mouse_pos= pygame.mouse.get_pos()
     return mouse_pos
 
 def spawner():
-    display_window.blit(cursor.image,cursor.pos)
+    display_window.blit(cursor.image,cursor.pos)   #CURSOR SPAWN
     cursor.update()
-    display_window.blit(P.image,P.hitbox)
+    
+    display_window.blit(P.image,P.hitbox)          #PLAYER SPAWN
     P.update()
+    display_window.blit(bullet.image,bullet.rect)  #BULLET SPAWN
     
 
 
@@ -147,12 +150,17 @@ class Projectile(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image=pygame.image.load(link_assets_bullets)
-        self.image_resized = pygame.transform.scale(self.image,10)
+        #self.image_resized = pygame.transform.scale(self.image,10)
+        self.rect=self.image.get_rect()
+        self.IsFired=False
+        self.pos=P.pos
     
-    def fire(self):
-        if event.type == MOUSEBUTTONUP:
-            if event.button==3:
-                print("fired")
+    def fire(self,Player):
+        if self.IsFired==False:
+            print("FIRE")
+            
+            self.pos=Player.pos
+            self.rect.center=self.pos
 
     def update(self):
         self.fire()
@@ -168,6 +176,10 @@ while True:
         if event.type==MOUSEBUTTONUP:
             if event.button==3:
                 cursor.aim(P)
+        if event.type == MOUSEBUTTONUP:
+            if event.button==1:
+                bullet.fire(P)
+                
     spawner()
     pygame.display.update()
     game_fps.tick(FPS)
