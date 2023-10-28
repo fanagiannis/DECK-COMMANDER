@@ -62,7 +62,7 @@ def get_mouse_pos():
     return mouse_pos
 
 def spawner():
-    display_window.blit(P.image,P.rect)
+    display_window.blit(P.base_image,P.rect)
     P.update()
     display_window.blit(cursor.image,cursor.pos)
     cursor.update()
@@ -72,9 +72,11 @@ def spawner():
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pygame.image.load(link_assets_player)
-        self.rect=self.image.get_rect()
+        self.base_image=pygame.image.load(link_assets_player)
+        self.image=self.base_image 
+        self.hitbox=self.rect.copy()
         self.pos=SpawnPoints[0]
+        self.rect=self.base_image.get_rect(center-self.pos)
         self.speed=5
     
     def input(self):
@@ -99,19 +101,23 @@ class Player(pygame.sprite.Sprite):
             if pressed_keys[K_a]:
                 self.velocity_x=-self.speed
     def rotation(self):
+        
         self.mouse_posx,self.mouse_posy=get_mouse_pos()
         self.angle=math.degrees(math.atan2(self.mouse_posy,self.mouse_posx))
-        pygame.transform.rotate(self.image,self.angle)
-        pass        
+        self.image=pygame.transform.rotate(self.base_image,self.angle)
+        self.hitbox=self.image.get_rect(center=self.rect.center)
+        print(self.angle)
+        #pass        
     
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
         self.rect.center=self.pos
+        self.hitbox.center=self.rect.center
   
     def update(self):
         self.input()
-        self.rotation()
         self.movement()
+        self.rotation()
 
 class HUD (pygame.sprite.Sprite):
     def __init__(self):
