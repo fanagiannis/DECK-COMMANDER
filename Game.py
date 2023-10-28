@@ -62,7 +62,7 @@ def get_mouse_pos():
     return mouse_pos
 
 def spawner():
-    display_window.blit(P.image,P.pos)
+    display_window.blit(P.image,P.rect)
     P.update()
     display_window.blit(cursor.image,cursor.pos)
     cursor.update()
@@ -84,9 +84,9 @@ class Player(pygame.sprite.Sprite):
 
         self.posx=self.rect.centerx
         self.posy=self.rect.centery
-        self.offset=50
+        self.offset=25
         #print(posx,posy)
-        if self.posy>0:
+        if self.posy-self.offset>0:
             if pressed_keys[K_w]:
                 self.velocity_y=-self.speed
         if self.posy<display_height-self.offset:
@@ -95,9 +95,13 @@ class Player(pygame.sprite.Sprite):
         if self.posx<display_width-self.offset:
             if pressed_keys[K_d]:
                 self.velocity_x=self.speed
-        if self.posx>0:
+        if self.posx-self.offset>0:
             if pressed_keys[K_a]:
                 self.velocity_x=-self.speed
+    def rotation(self):
+
+        pass        
+    
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
         self.rect.center=self.pos
