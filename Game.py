@@ -62,10 +62,11 @@ def get_mouse_pos():
     return mouse_pos
 
 def spawner():
-    display_window.blit(P.image,P.hitbox)
-    P.update()
     display_window.blit(cursor.image,cursor.pos)
     cursor.update()
+    display_window.blit(P.image,P.hitbox)
+    P.update()
+    
 
 
     #+++++CLASSES+++++
@@ -100,14 +101,13 @@ class Player(pygame.sprite.Sprite):
         if self.posx-self.offset>0:
             if pressed_keys[K_a]:
                 self.velocity_x=-self.speed
-    def rotation(self):
-        
+                
+    def rotation(self):  
         self.mouse_posx,self.mouse_posy=get_mouse_pos()
-
         self.angle=math.degrees(math.atan2(self.posy-self.mouse_posy,self.posx-self.mouse_posx))
         self.image=pygame.transform.rotate(self.base_image,-self.angle)
         self.hitbox=self.image.get_rect(center=self.rect.center)
-        print(self.angle,self.hitbox.center,self.rect.center)
+
     
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
@@ -118,8 +118,6 @@ class Player(pygame.sprite.Sprite):
         self.input()
         self.movement()
         self.rotation()
-        pygame.draw.rect(display_window,color_red,self.hitbox,width=2)
-        pygame.draw.rect(display_window,color_black,self.rect,width=2)
 
 
 class HUD (pygame.sprite.Sprite):
