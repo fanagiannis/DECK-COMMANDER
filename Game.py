@@ -3,7 +3,6 @@ import sys
 import random
 import time
 import math
-#from turtle import delay
 from pygame.locals import *
 from pygame.sprite import Group 
 
@@ -87,7 +86,7 @@ class Player(pygame.sprite.Sprite):
         self.gravity_speed=5
         self.gravity_velocity_x=0
         self.gravity_velocity_y=0
-        self.jumpheight=100
+        self.jumpheight=15
         self.jump=False
         
     
