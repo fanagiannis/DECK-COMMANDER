@@ -9,7 +9,7 @@ from pygame.sprite import Group
 
 pygame.init()
 
-pygame.display.set_caption("GAME")
+pygame.display.set_caption("TOP DOWN GAME")
 
 clock=pygame.time.Clock()
 
