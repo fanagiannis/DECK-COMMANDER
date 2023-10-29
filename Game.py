@@ -84,27 +84,46 @@ class Player(pygame.sprite.Sprite):
         self.rect=self.base_image.get_rect(center=self.pos)
         self.hitbox=self.rect.copy()
         self.speed=5
+        self.gravity_speed=5
+        self.gravity_velocity_x=0
+        self.gravity_velocity_y=0
+        self.jumpheight=100
+        self.jump=False
+        
     
     def input(self):
         self.velocity_x=0
         self.velocity_y=0
-        pressed_keys=pygame.key.get_pressed()
-
         self.posx=self.rect.centerx
         self.posy=self.rect.centery
+        pressed_keys=pygame.key.get_pressed()
         self.offset=25
-        if self.posy-self.offset>0:
-            if pressed_keys[K_w]:
-                self.velocity_y=-self.speed
-        if self.posy<display_height-self.offset:
-            if pressed_keys[K_s]:
-                self.velocity_y=self.speed
+        #if self.posy-self.offset>0:
+            
+        #
+        #    if pressed_keys[K_s]:
+        #        
         if self.posx<display_width-self.offset:
             if pressed_keys[K_d]:
                 self.velocity_x=self.speed
         if self.posx-self.offset>0:
             if pressed_keys[K_a]:
                 self.velocity_x=-self.speed
+        if self.posy<display_height-self.offset:
+            self.velocity_y=self.gravity_speed
+        if pressed_keys[K_SPACE]:
+            #self.jump=True
+            if self.jump==False:
+                print(self.jump)
+                self.velocity_y=-self.jumpheight
+                if self.pos==pygame.math.Vector2(self.rect.centerx,self.rect.centery+self.jumpheight):
+                    pass
+                
+                #self.jump==False
+        
+        #GRAVITY
+
+        
 
     def rotation(self):  
         self.mouse_posx,self.mouse_posy=get_mouse_pos()
@@ -117,8 +136,23 @@ class Player(pygame.sprite.Sprite):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
         self.rect.center=self.pos
         self.hitbox.center=self.rect.center
+
+    def gravity(self):
+        self.gravity_velocity_x=0
+        self.gravity_velocity_y=0
+        self.posx=self.rect.centerx
+        self.posy=self.rect.centery
+
+        
+
+        #if event.key==KEYUP:
+        #    if event.key==K_W:
+        #        self.velocity_y=-self.speed
+        #self.velocity_y=0
+        pass
   
     def update(self):
+        self.gravity()
         self.input()
         self.movement()
         self.rotation()
