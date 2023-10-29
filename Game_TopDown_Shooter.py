@@ -13,7 +13,6 @@ pygame.display.set_caption("TOP DOWN GAME")
 
 clock=pygame.time.Clock()
 
-
     #+++++LINKS+++++
 
 link_assets_base="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
@@ -31,8 +30,8 @@ color_red=pygame.Color(255,0,0)
 
     #+++++DISPLAY WINDOW+++++
 
-display_width=1240
-display_height=720
+display_width=1920
+display_height=1080
 display_window= pygame.display.set_mode((display_width,display_height))
 #display_center=((display_width-(display_width/2)),(display_height-(display_height/2)))
 
@@ -66,13 +65,10 @@ def get_mouse_pos():
 def spawner():
     display_window.blit(cursor.image,cursor.pos)   #CURSOR SPAWN
     cursor.update()
-    
     display_window.blit(P.image,P.hitbox)          #PLAYER SPAWN
     P.update()
     display_window.blit(bullet.image,bullet.rect)  #BULLET SPAWN
     bullet.update()
-    
-
 
     #+++++CLASSES+++++
 class Player(pygame.sprite.Sprite):
@@ -89,7 +85,6 @@ class Player(pygame.sprite.Sprite):
         self.velocity_x=0
         self.velocity_y=0
         pressed_keys=pygame.key.get_pressed()
-
         self.posx=self.rect.centerx
         self.posy=self.rect.centery
         self.offset=25
@@ -111,7 +106,6 @@ class Player(pygame.sprite.Sprite):
         self.angle=math.degrees(math.atan2(self.posy-self.mouse_posy,self.posx-self.mouse_posx))
         self.image=pygame.transform.rotate(self.base_image,-self.angle)
         self.hitbox=self.image.get_rect(center=self.rect.center)
-
     
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
@@ -200,7 +194,7 @@ while True:
         if event.type == MOUSEBUTTONUP:
             if event.button==1:
                 bullet.fire(P)
-                
+       
     spawner()
     pygame.display.update()
     game_fps.tick(FPS)

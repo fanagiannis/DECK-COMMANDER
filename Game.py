@@ -12,7 +12,6 @@ pygame.display.set_caption("GAME")
 
 clock=pygame.time.Clock()
 
-
     #+++++LINKS+++++
 
 link_assets_base="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
@@ -88,7 +87,6 @@ class Player(pygame.sprite.Sprite):
         self.gravity_velocity_y=0
         self.jumpheight=15
         self.jump=False
-        
     
     def input(self):
         self.velocity_x=0
@@ -97,8 +95,7 @@ class Player(pygame.sprite.Sprite):
         self.posy=self.rect.centery
         pressed_keys=pygame.key.get_pressed()
         self.offset=25
-        #if self.posy-self.offset>0:
-            
+        #if self.posy-self.offset>0: 
         #
         #    if pressed_keys[K_s]:
         #        
@@ -117,20 +114,16 @@ class Player(pygame.sprite.Sprite):
                 self.velocity_y=-self.jumpheight
                 if self.pos==pygame.math.Vector2(self.rect.centerx,self.rect.centery+self.jumpheight):
                     pass
-                
                 #self.jump==False
         
         #GRAVITY
-
-        
 
     def rotation(self):  
         self.mouse_posx,self.mouse_posy=get_mouse_pos()
         self.angle=math.degrees(math.atan2(self.posy-self.mouse_posy,self.posx-self.mouse_posx))
         self.image=pygame.transform.rotate(self.base_image,-self.angle)
         self.hitbox=self.image.get_rect(center=self.rect.center)
-
-    
+  
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
         self.rect.center=self.pos
@@ -141,8 +134,6 @@ class Player(pygame.sprite.Sprite):
         self.gravity_velocity_y=0
         self.posx=self.rect.centerx
         self.posy=self.rect.centery
-
-        
 
         #if event.key==KEYUP:
         #    if event.key==K_W:
@@ -198,7 +189,6 @@ class Projectile(pygame.sprite.Sprite):
             self.angle=math.degrees(math.atan2(cursor.rect.centery-self.posy,cursor.rect.centerx-self.posx))
             self.IsFired=True
         
-    
     def movement(self):
         if self.IsFired:
             self.velocity_x=self.speed
