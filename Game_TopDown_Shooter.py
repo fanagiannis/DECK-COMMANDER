@@ -111,8 +111,7 @@ class Player(pygame.sprite.Sprite):
         self.angle=math.degrees(math.atan2(self.posy-self.mouse_posy,self.posx-self.mouse_posx))
         self.image=pygame.transform.rotate(self.base_image,-self.angle)
         self.hitbox=self.image.get_rect(center=self.rect.center)
-        print(self.angle)
-  
+
     
     def movement(self):
         self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
@@ -123,7 +122,6 @@ class Player(pygame.sprite.Sprite):
         self.input()
         self.movement()
         self.rotation()
-
 
 class HUD (pygame.sprite.Sprite):
     def __init__(self):
@@ -156,20 +154,34 @@ class Projectile(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.IsFired=False
         self.pos=P.pos
+        self.posx=self.rect.centerx
+        self.posy=self.rect.centery
         self.speed=15
     
     def fire(self,Player):
         if self.IsFired==False:
             print("FIRE")
             self.rect.center=self.pos
+            self.angle=math.degrees(math.atan2(cursor.rect.centery-self.posy,cursor.rect.centerx-self.posx))
             self.IsFired=True
+        
     
     def movement(self):
         if self.IsFired:
             self.velocity_x=self.speed
-            self.velocity_y=self.speed
+            self.velocity_y=-self.speed
             self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
+            self.posx=self.rect.centerx
+            self.posy=self.rect.centery
             self.rect.center=self.pos
+            print(self.posy)
+            if self.posy<6 :
+                self.kill()
+                self.IsFired=False
+                print(self.IsFired)
+    
+    def reset(self):
+        pass
 
     def update(self):
         self.movement()
