@@ -70,6 +70,7 @@ def spawner():
     display_window.blit(P.image,P.hitbox)          #PLAYER SPAWN
     P.update()
     display_window.blit(bullet.image,bullet.rect)  #BULLET SPAWN
+    bullet.update()
     
 
 
@@ -110,6 +111,7 @@ class Player(pygame.sprite.Sprite):
         self.angle=math.degrees(math.atan2(self.posy-self.mouse_posy,self.posx-self.mouse_posx))
         self.image=pygame.transform.rotate(self.base_image,-self.angle)
         self.hitbox=self.image.get_rect(center=self.rect.center)
+        print(self.angle)
   
     
     def movement(self):
@@ -154,16 +156,23 @@ class Projectile(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.IsFired=False
         self.pos=P.pos
+        self.speed=15
     
     def fire(self,Player):
         if self.IsFired==False:
             print("FIRE")
-            
-            self.pos=Player.pos
+            self.rect.center=self.pos
+            self.IsFired=True
+    
+    def movement(self):
+        if self.IsFired:
+            self.velocity_x=self.speed
+            self.velocity_y=self.speed
+            self.pos+=pygame.math.Vector2(self.velocity_x,self.velocity_y)
             self.rect.center=self.pos
 
     def update(self):
-        self.fire()
+        self.movement()
         
 game_init()
 while True:
