@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 from pygame.locals import *
 from pygame.sprite import *
 
@@ -25,6 +26,7 @@ link_assets_player=link_assets_base+"\\Player.png"
 link_assets_cursor=link_assets_base+"\\Aim.png"
 link_assets_aimcursor=link_assets_base+"\\AimBig.png"
 link_assets_bullets=link_assets_base+"\\Bullet.png"
+link_assets_target=link_assets_base+"\\Enemy.png"
 
     #+++++COLORS+++++
 
@@ -52,11 +54,27 @@ class Aim(pygame.sprite.Sprite):
             screen_effect(color_yellow)
             self.Fired=False
             print("2 ",self.Fired)
-            
 
     def update (self):
         #self.fire()
         self.rect.center=get_mousepos()
+    
+class Target (pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load(link_assets_target)
+        self.rect=self.image.get_rect()
+    
+    def get_random_pos(self):
+        self.posx=random.randint(40,display_width)
+        self.posy=random.randint(40,display_height)
+        self.pos=(self.posx,self.posy)
+
+    def update(self):
+        self.get_random_pos()
+        self.rect.center=self.pos
+        print(self.pos)
+        #self.rect.center=(self.posx,self.posy)
 
 #+++++FUNSTIONS++++++
 def get_mousepos():
@@ -69,13 +87,19 @@ def screen_effect(color):
     display_window.fill(color)
 
 def game_init():
+    pygame.mouse.set_visible(False)
+
     global ads 
     ads=Aim()
-    pygame.mouse.set_visible(False)
+
+    global t
+    t=Target() 
 
 def spawner():
     display_window.blit(ads.image,ads.rect)
     ads.update()
+    display_window.blit(t.image,t.rect) #Target Spawn
+    #t.update()
 
 def eventhandler():
     if event.type==QUIT :
@@ -84,6 +108,7 @@ def eventhandler():
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
             ads.fire()
+            t.update()
 
 
 game_init()
