@@ -52,8 +52,12 @@ class Aim(pygame.sprite.Sprite):
             print("1 ",self.Fired)
             print("BANG")
             screen_effect(color_yellow)
+            if self.rect.colliderect(t.rect):
+                print("HIT")
             self.Fired=False
             print("2 ",self.Fired)
+
+           
 
     def update (self):
         #self.fire()
@@ -96,10 +100,9 @@ def game_init():
     t=Target() 
 
 def spawner():
-    display_window.blit(ads.image,ads.rect)
-    ads.update()
     display_window.blit(t.image,t.rect) #Target Spawn
-    #t.update()
+    display_window.blit(ads.image,ads.rect) #Aim Spawn
+    ads.update()
 
 def eventhandler():
     if event.type==QUIT :
@@ -109,7 +112,6 @@ def eventhandler():
         if event.button == 1:       #LEFT CLICK
             ads.fire()
             t.update()
-
 
 game_init()
 
