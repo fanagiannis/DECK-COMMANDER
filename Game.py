@@ -45,9 +45,11 @@ class Aim(pygame.sprite.Sprite):
     def fire(self):
         if self.Fired==False:
             self.Fired=True
+            self.pos = self.rect.center
+            #print(self.pos)
             print("1 ",self.Fired)
             print("BANG")
-            display_window.fill(color_yellow)
+            screen_effect(color_yellow)
             self.Fired=False
             print("2 ",self.Fired)
             
@@ -62,6 +64,9 @@ def get_mousepos():
 
 def mouse_pos_check():
     print(get_mousepos())
+
+def screen_effect(color):
+    display_window.fill(color)
 
 def game_init():
     global ads 
