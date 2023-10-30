@@ -14,7 +14,9 @@ clock=pygame.time.Clock()
 
     #+++++LINKS+++++
 
-link_assets_base="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+link_assets_base_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+link_assets_base_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+link_assets_base=link_assets_base_laptop
 link_assets_player=link_assets_base+"\\Player.png"
 link_assets_cursor=link_assets_base+"\\Aim.png"
 link_assets_aimcursor=link_assets_base+"\\AimBig.png"
