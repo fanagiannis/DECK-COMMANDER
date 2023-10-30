@@ -1,4 +1,3 @@
-from typing import Any
 import pygame
 import sys
 from pygame.locals import *
@@ -40,9 +39,17 @@ class Aim(pygame.sprite.Sprite):
         super().__init__()
         self.image=pygame.image.load(link_assets_aimcursor)
         self.rect=self.image.get_rect()
+        self.Fired=False
     
     def fire(self):
-        print("BANG")
+        if self.Fired==False:
+            self.Fired=True
+            print("1 ",self.Fired)
+            print("BANG")
+            delay()
+            self.Fired=False
+            print("2 ",self.Fired)
+            
 
     def update (self):
         #self.fire()
@@ -54,6 +61,11 @@ def get_mousepos():
 
 def mouse_pos_check():
     print(get_mousepos())
+
+def delay():
+    for i in range(40):
+        i+=1
+        print(i)
 
 def game_init():
     global ads 
