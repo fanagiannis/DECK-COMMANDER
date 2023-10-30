@@ -12,8 +12,8 @@ FPS=60
 
     #+++++DISPLAY+++++
 
-display_width=640
-display_height=360
+display_width=1280
+display_height=720
 display_window=pygame.display.set_mode((display_width,display_height))
 
     #+++++LINKS+++++
