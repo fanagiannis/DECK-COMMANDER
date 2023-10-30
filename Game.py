@@ -42,7 +42,7 @@ class Aim(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
     
     def fire(self):
-        pass
+        print("BANG")
 
     def update (self):
         #self.fire()
@@ -64,17 +64,23 @@ def spawner():
     display_window.blit(ads.image,ads.rect)
     ads.update()
 
+def eventhandler():
+    if event.type==QUIT :
+            pygame.quit()
+            sys.exit(0)
+    if event.type == MOUSEBUTTONUP:
+        if event.button == 1:       #LEFT CLICK
+            ads.fire()
+
+
 game_init()
 
 while True:
 
     display_window.fill(color_white)
     
-
     for event in pygame.event.get():
-        if event.type==QUIT :
-            pygame.quit()
-            sys.exit(0)
+        eventhandler()
 
     spawner()
     pygame.display.update()
