@@ -32,6 +32,7 @@ color_black=pygame.Color(0,0,0)
 color_white=pygame.Color(255,255,255)
 color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
+color_yellow=pygame.Color(255,255,0)
 
 
 class Aim(pygame.sprite.Sprite):
@@ -46,7 +47,7 @@ class Aim(pygame.sprite.Sprite):
             self.Fired=True
             print("1 ",self.Fired)
             print("BANG")
-            delay()
+            display_window.fill(color_yellow)
             self.Fired=False
             print("2 ",self.Fired)
             
@@ -61,11 +62,6 @@ def get_mousepos():
 
 def mouse_pos_check():
     print(get_mousepos())
-
-def delay():
-    for i in range(40):
-        i+=1
-        print(i)
 
 def game_init():
     global ads 
