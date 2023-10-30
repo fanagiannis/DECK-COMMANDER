@@ -1,3 +1,4 @@
+from typing import Any
 import pygame
 import sys
 from pygame.locals import *
@@ -12,8 +13,8 @@ FPS=60
 
     #+++++DISPLAY+++++
 
-display_width=1280
-display_height=720
+display_width=640
+display_height=360
 display_window=pygame.display.set_mode((display_width,display_height))
 
     #+++++LINKS+++++
@@ -33,14 +34,48 @@ color_white=pygame.Color(255,255,255)
 color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 
+
+class Aim(pygame.sprite.Sprite):
+    def __init__(self) :
+        super().__init__()
+        self.image=pygame.image.load(link_assets_aimcursor)
+        self.rect=self.image.get_rect()
+    
+    def fire(self):
+        pass
+
+    def update (self):
+        #self.fire()
+        self.rect.center=get_mousepos()
+
+#+++++FUNSTIONS++++++
+def get_mousepos():
+    return pygame.mouse.get_pos()
+
+def mouse_pos_check():
+    print(get_mousepos())
+
+def game_init():
+    global ads 
+    ads=Aim()
+    pygame.mouse.set_visible(False)
+
+def spawner():
+    display_window.blit(ads.image,ads.rect)
+    ads.update()
+
+game_init()
+
 while True:
 
     display_window.fill(color_white)
+    
 
     for event in pygame.event.get():
         if event.type==QUIT :
-            pygame.exit()
+            pygame.quit()
             sys.exit(0)
-    
+
+    spawner()
     pygame.display.update()
     game_clock.tick(FPS)
