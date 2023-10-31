@@ -155,7 +155,8 @@ def spawner():
     display_window.blit(ads.image,ads.rect) #Aim Spawn
     display_window.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
-    score_message_text= "Score : "+ str(P.score)
+    score_live="%06d" % P.score
+    score_message_text= "Score : "+ score_live #ADD ZEROES BEFORE SCORE
     lives_message_text= "Lives : "+ str(P.lives)
     message(score_message_text,color_black,score_message_pos)
     message(lives_message_text,color_black,lives_message_pos)
