@@ -45,7 +45,7 @@ class Aim(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.Fired=False
     
-    def fire(self):
+    def fire(self,Player):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center
@@ -54,11 +54,9 @@ class Aim(pygame.sprite.Sprite):
             print("BANG")
             screen_effect(color_yellow)
             if self.rect.colliderect(t.rect):
-                print("HIT")
+                P.score+=1 
             self.Fired=False
             print("2 ",self.Fired)
-
-           
 
     def update (self):
         #self.fire()
@@ -69,10 +67,11 @@ class Target (pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(link_assets_target)
         self.rect=self.image.get_rect()
+        self.offset=self.image.get_height()
     
     def get_random_pos(self):
         self.posx=random.randint(40,display_width)
-        self.posy=random.randint(40,display_height)
+        self.posy=random.randint(40,display_height-self.offset)
         self.pos=(self.posx,self.posy)
 
     def update(self):
@@ -88,22 +87,23 @@ class Player(pygame.sprite.Sprite):
         self.image_rotated=self.image
         self.rect=self.image.get_rect()
         self.rect_rotated=self.rect
+        self.offset=self.image.get_height()/2
         self.posx=display_width/2
-        self.posy=display_height-30
+        self.posy=display_height-self.offset
         self.pos=(self.posx,self.posy)
-        self.rect.center=self.pos
-        
+        self.rect.center=self.pos    
+        self.score=0 
 
+
+    
     def rotation(self):
         self.mouseposx,self.mouseposy=get_mousepos()
         self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx))
         self.image_rotated=pygame.transform.rotate(self.image,-self.angle)
         self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
-        print(self.angle)
-    
+
     def update(self):
         self.rotation()
-        pass
 
 #+++++FUNSTIONS++++++
 def get_mousepos():
@@ -140,7 +140,7 @@ def eventhandler():
             sys.exit(0)
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
-            ads.fire()
+            ads.fire(P)
             t.update()
 
 game_init()
