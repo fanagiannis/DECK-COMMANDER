@@ -80,6 +80,18 @@ class Target (pygame.sprite.Sprite):
         print(self.pos)
         #self.rect.center=(self.posx,self.posy)
 
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image=pygame.image.load(link_assets_player)
+        self.rect=self.image.get_rect()
+        self.pos=(display_width/2,display_height)
+        self.rect.center=self.pos
+    
+    def update():
+
+        pass
+
 #+++++FUNSTIONS++++++
 def get_mousepos():
     return pygame.mouse.get_pos()
@@ -99,9 +111,13 @@ def game_init():
     global t
     t=Target() 
 
+    global P
+    P=Player()
+
 def spawner():
     display_window.blit(t.image,t.rect) #Target Spawn
     display_window.blit(ads.image,ads.rect) #Aim Spawn
+    display_window.blit(P.image,P.rect)
     ads.update()
 
 def eventhandler():
