@@ -37,6 +37,8 @@ color_grey=pygame.Color(128,128,128)
 color_red=pygame.Color(255,0,0)
 color_yellow=pygame.Color(255,255,0)
 
+    #+++++FONT+++++
+font=pygame.font.SysFont(None,30,bold=True)
 
 class Aim(pygame.sprite.Sprite):
     def __init__(self) :
@@ -115,6 +117,11 @@ def mouse_pos_check():
 def screen_effect(color):
     display_window.fill(color)
 
+def message(text,text_color,text_pos):
+    display_text=font.render(text,True,text_color)
+    display_window.blit(display_text,text_pos)
+    pass 
+
 def game_init():
     pygame.mouse.set_visible(False)
 
@@ -127,10 +134,18 @@ def game_init():
     global P
     P=Player()
 
+    global score_message_template_pos
+    score_message_template_pos=(30,display_height-50)
+   
+
 def spawner():
     display_window.blit(t.image,t.rect) #Target Spawn
     display_window.blit(ads.image,ads.rect) #Aim Spawn
-    display_window.blit(P.image_rotated,P.rect_rotated)
+    display_window.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
+
+    score_message_text= "Score : "+ str(P.score)
+    message(score_message_text,color_black,score_message_template_pos)
+    
     ads.update()
     P.update()
 
