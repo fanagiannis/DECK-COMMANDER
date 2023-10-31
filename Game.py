@@ -86,18 +86,22 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.image=pygame.image.load(link_assets_player)
         self.rect=self.image.get_rect()
-        self.pos=(display_width/2,display_height)
+        self.posx=display_width/2
+        self.posy=display_height-30
+        self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
+        
 
     def rotation(self):
         self.mouseposx,self.mouseposy=get_mousepos()
-        self.posx=self.rect.centerx
-        self.posy=self.rect.centery
-        self.angle=math.degrees(math.atan2((self.posy-self.mouseposy),(self.posx-self.mouseposx)))
-        self.image=pygame.transform.rotate(self.image,self.angle)
+        self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx))
+        self.image_rotated=pygame.transform.rotate(self.image,-self.angle)
+        self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
+        print(self.angle)
     
     def update(self):
         self.rotation()
+        pass
 
 #+++++FUNSTIONS++++++
 def get_mousepos():
@@ -124,7 +128,7 @@ def game_init():
 def spawner():
     display_window.blit(t.image,t.rect) #Target Spawn
     display_window.blit(ads.image,ads.rect) #Aim Spawn
-    display_window.blit(P.image,P.rect)
+    display_window.blit(P.image_rotated,P.rect_rotated)
     ads.update()
     P.update()
 
