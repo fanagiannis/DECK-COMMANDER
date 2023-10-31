@@ -57,6 +57,8 @@ class Aim(pygame.sprite.Sprite):
             screen_effect(color_yellow)
             if self.rect.colliderect(t.rect):
                 P.score+=1 
+            else:
+                P.lives-=1
             self.Fired=False
             print("2 ",self.Fired)
 
@@ -93,18 +95,24 @@ class Player(pygame.sprite.Sprite):
         self.posx=display_width/2
         self.posy=display_height-self.offset
         self.pos=(self.posx,self.posy)
-        self.rect.center=self.pos    
+        self.rect.center=self.pos  
+
         self.score=0 
+        self.lives=3
 
-
-    
     def rotation(self):
         self.mouseposx,self.mouseposy=get_mousepos()
         self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx))
         self.image_rotated=pygame.transform.rotate(self.image,-self.angle)
         self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
 
+    def check_game_over(self):
+        if self.lives==0:
+            print(game_over)
+            return True
+
     def update(self):
+        self.check_game_over()
         self.rotation()
 
 #+++++FUNSTIONS++++++
@@ -125,6 +133,9 @@ def message(text,text_color,text_pos):
 def game_init():
     pygame.mouse.set_visible(False)
 
+    global game_over
+    game_over=False
+
     global ads 
     ads=Aim()
 
@@ -134,8 +145,9 @@ def game_init():
     global P
     P=Player()
 
-    global score_message_template_pos
-    score_message_template_pos=(30,display_height-50)
+    global score_message_pos,lives_message_pos
+    score_message_pos=(30,display_height-50)
+    lives_message_pos=(display_width-150,display_height-50)
    
 
 def spawner():
@@ -144,10 +156,15 @@ def spawner():
     display_window.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
     score_message_text= "Score : "+ str(P.score)
-    message(score_message_text,color_black,score_message_template_pos)
-    
+    lives_message_text= "Lives : "+ str(P.lives)
+    message(score_message_text,color_black,score_message_pos)
+    message(lives_message_text,color_black,lives_message_pos)
+
     ads.update()
     P.update()
+
+def Conditions():
+    game_over=P.check_game_over()
 
 def eventhandler():
     if event.type==QUIT :
@@ -160,13 +177,16 @@ def eventhandler():
 
 game_init()
 
-while True:
+while game_over==False:
 
     display_window.fill(color_white)
-    
+
     for event in pygame.event.get():
         eventhandler()
 
     spawner()
+    Conditions()
+           
     pygame.display.update()
     game_clock.tick(FPS)
+
