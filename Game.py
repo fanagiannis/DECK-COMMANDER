@@ -85,7 +85,9 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.image=pygame.image.load(link_assets_player)
+        self.image_rotated=self.image
         self.rect=self.image.get_rect()
+        self.rect_rotated=self.rect
         self.posx=display_width/2
         self.posy=display_height-30
         self.pos=(self.posx,self.posy)
