@@ -1,6 +1,7 @@
 import pygame
 import sys
 import random
+import math
 from pygame.locals import *
 from pygame.sprite import *
 
@@ -87,10 +88,16 @@ class Player(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.pos=(display_width/2,display_height)
         self.rect.center=self.pos
-    
-    def update():
 
-        pass
+    def rotation(self):
+        self.mouseposx,self.mouseposy=get_mousepos()
+        self.posx=self.rect.centerx
+        self.posy=self.rect.centery
+        self.angle=math.degrees(math.atan2((self.posy-self.mouseposy),(self.posx-self.mouseposx)))
+        self.image=pygame.transform.rotate(self.image,self.angle)
+    
+    def update(self):
+        self.rotation()
 
 #+++++FUNSTIONS++++++
 def get_mousepos():
@@ -119,6 +126,7 @@ def spawner():
     display_window.blit(ads.image,ads.rect) #Aim Spawn
     display_window.blit(P.image,P.rect)
     ads.update()
+    P.update()
 
 def eventhandler():
     if event.type==QUIT :
