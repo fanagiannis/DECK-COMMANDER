@@ -51,14 +51,14 @@ class Aim(pygame.sprite.Sprite):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center
-            #print(self.pos)
             print("1 ",self.Fired)
             print("BANG")
             screen_effect(color_yellow)
-            if self.rect.colliderect(t.rect):
-                P.score+=1 
-            else:
-                P.lives-=1
+            if P.lives>0:
+                if self.rect.colliderect(t.rect):
+                    P.score+=1 
+                else:
+                    P.lives-=1
             self.Fired=False
             print("2 ",self.Fired)
 
@@ -107,9 +107,7 @@ class Player(pygame.sprite.Sprite):
         self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
 
     def check_game_over(self):
-        if self.lives==0:
-            print(game_over)
-            return True
+        pass
 
     def update(self):
         self.check_game_over()
@@ -178,7 +176,7 @@ def eventhandler():
 
 game_init()
 
-while game_over==False:
+while True:
 
     display_window.fill(color_white)
 
