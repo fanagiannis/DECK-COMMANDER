@@ -51,16 +51,16 @@ class Aim(pygame.sprite.Sprite):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center
-            print("1 ",self.Fired)
-            print("BANG")
-            screen_effect(color_yellow)
             if P.lives>0:
+                print("1 ",self.Fired)
+                print("BANG")
+                screen_effect(color_yellow)
                 if self.rect.colliderect(t.rect):
-                    P.score+=1 
+                    P.score+=score_value
                 else:
                     P.lives-=1
-            self.Fired=False
-            print("2 ",self.Fired)
+                self.Fired=False
+                print("2 ",self.Fired)
 
     def update (self):
         #self.fire()
@@ -96,6 +96,7 @@ class Player(pygame.sprite.Sprite):
         self.posy=display_height-self.offset
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos  
+        self.canfire=True
 
         self.score=0 
         self.lives=3
@@ -106,11 +107,7 @@ class Player(pygame.sprite.Sprite):
         self.image_rotated=pygame.transform.rotate(self.image,-self.angle)
         self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
 
-    def check_game_over(self):
-        pass
-
     def update(self):
-        self.check_game_over()
         self.rotation()
 
 #+++++FUNSTIONS++++++
@@ -131,9 +128,6 @@ def message(text,text_color,text_pos):
 def game_init():
     pygame.mouse.set_visible(False)
 
-    global game_over
-    game_over=False
-
     global ads 
     ads=Aim()
 
@@ -143,27 +137,33 @@ def game_init():
     global P
     P=Player()
 
-    global score_message_pos,lives_message_pos
+    global score_message_pos,lives_message_pos,game_over_message_pos
     score_message_pos=(30,display_height-50)
     lives_message_pos=(display_width-150,display_height-50)
+    game_over_message_pos=(display_width/2-75,display_height/2-75)
+
+    global score_value
+    score_value=100
    
 
 def spawner():
-    display_window.blit(t.image,t.rect) #Target Spawn
-    display_window.blit(ads.image,ads.rect) #Aim Spawn
-    display_window.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
-
     score_live="%06d" % P.score
     score_message_text= "Score : "+ score_live #ADD ZEROES BEFORE SCORE
     lives_message_text= "Lives : "+ str(P.lives)
+    game_over_message_text="GAME OVER ! "
+
+    if P.lives>0:
+        display_window.blit(t.image,t.rect) #Target Spawn
+    else:
+        message(game_over_message_text,color_black,game_over_message_pos)
+    display_window.blit(ads.image,ads.rect) #Aim Spawn
+    display_window.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
+
     message(score_message_text,color_black,score_message_pos)
     message(lives_message_text,color_black,lives_message_pos)
 
     ads.update()
     P.update()
-
-def Conditions():
-    game_over=P.check_game_over()
 
 def eventhandler():
     if event.type==QUIT :
@@ -184,7 +184,7 @@ while True:
         eventhandler()
 
     spawner()
-    Conditions()
+    #Conditions()
            
     pygame.display.update()
     game_clock.tick(FPS)
