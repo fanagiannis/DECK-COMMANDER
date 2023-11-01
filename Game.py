@@ -90,7 +90,7 @@ class Target ():
         self.posy=-100
         self.pos=(self.posx,self.posy)
         self.target_type=self.types[0]
-        self.speed+=1   
+        self.speed+=0.1   
 
     def shot(self):
         #self.posy+=random.randint(40,DISPLAY_HEIGHT-self.offset)
@@ -232,6 +232,8 @@ def eventhandler():
         if pressed_key[K_TAB]:
             pygame.quit()
             sys.exit(0) 
+        if pressed_key[K_r]:
+            P.ammo=10
 
 game_init()
 
