@@ -7,9 +7,9 @@ import math
 from pygame.locals import *
 from pygame.sprite import *
 
-from Classes import Aim
-from Classes import Player
-from Classes import Target
+from Scope import Aim
+from Player import Player
+from Target import Target
 
 from Constants import *
 from Variables import *
@@ -17,7 +17,7 @@ from Variables import *
 
 pygame.init()
 
-pygame.display.set_caption("GAME V0.0")
+pygame.display.set_caption("GAME V0.0.5.3")
 
    #+++++FONT+++++
 FONT=pygame.font.SysFont(None,30,bold=True)
@@ -41,6 +41,9 @@ def game_init():
     pygame.mouse.set_visible(False)
 
 def spawner():
+    
+    #MESSAGES
+    
     score_live="%06d" % P.score
     ammo_live="%02d" % P.ammo
     score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
@@ -53,18 +56,43 @@ def spawner():
         DISPLAY_WINDOW.blit(T.image,T.rect) #Target Spawn
     else:
         message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
+
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
+
 
     message(score_message_text,COLOR_BLACK,score_message_pos)
     message(lives_message_text,COLOR_BLACK,lives_message_pos)
     message(ammo_message_text,COLOR_BLACK,ammo_message_pos)
+
+    #RELOAD
+
     if P.ammo<=0:
         message(ammo_no_message_text,COLOR_BLACK,ammo_no_message_pos)
+
+    #PLAYER LIVES
+    
+    if P.lives>0:
+        T.shot()
+    
+    if T.posy>DISPLAY_HEIGHT:
+        P.lives-=1
+
+    #UPDATES
 
     ADS.update()
     P.update()
     T.update()
+
+def fire():
+    if P.ammo>0:
+        if P.lives>0:
+            DISPLAY_WINDOW.fill(COLOR_YELLOW)
+            if ADS.rect.colliderect(T.rect):
+                T.reset_position()
+                P.score+=score_value
+            P.ammo-=1
+            ADS.Fired=False
 
 def eventhandler():
     if event.type==QUIT :
@@ -72,7 +100,8 @@ def eventhandler():
             sys.exit(0)
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
-            ADS.fire(P)
+            ADS.fire(P,T)
+            fire()
             #T.update()
     if event.type == KEYDOWN:
         pressed_key=pygame.key.get_pressed()

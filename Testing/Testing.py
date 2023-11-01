@@ -47,7 +47,7 @@ class Aim(pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.Fired=False
     
-    def fire(self,Player):
+    def fire(self):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center

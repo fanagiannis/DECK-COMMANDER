@@ -1,7 +1,9 @@
 import pygame
 
 from Constants import *
-from Classes import *
+from Player import Player
+from Scope import Aim 
+from Target import Target
 
 
 
