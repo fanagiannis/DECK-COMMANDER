@@ -9,41 +9,41 @@ pygame.init()
 
 pygame.display.set_caption("GAME V0.0")
 
-game_clock=pygame.time.Clock()
+GAME_CLOCK=pygame.time.Clock()
 FPS=60
 
     #+++++DISPLAY+++++
 
-display_width=640
-display_height=360
-display_window=pygame.display.set_mode((display_width,display_height))
+DISPLAY_WIDTH=1940
+DISPLAY_HEIGHT=1080
+DISPLAY_WINDOW=pygame.display.set_mode((DISPLAY_WIDTH,DISPLAY_HEIGHT))
 
     #+++++LINKS+++++
 
-link_assets_base_pc="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
-link_assets_base_laptop="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
-link_assets_base=link_assets_base_laptop
-link_assets_player=link_assets_base+"\\Player.png"
-link_assets_cursor=link_assets_base+"\\Aim.png"
-link_assets_aimcursor=link_assets_base+"\\AimBig.png"
-link_assets_bullets=link_assets_base+"\\Bullet.png"
-link_assets_target=link_assets_base+"\\Enemy.png"
+LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+LINK_ASSETS_BASE_LAPTOP="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+LINK_ASSETS_BASE=LINK_ASSETS_BASE_PC
+LINK_ASSETS_PLAYER=LINK_ASSETS_BASE+"\\Player.png"
+LINK_ASSETS_CURSOR=LINK_ASSETS_BASE+"\\Aim.png"
+LINK_ASSETS_AIMCURSOR=LINK_ASSETS_BASE+"\\AimBig.png"
+LINK_ASSETS_BULLETS=LINK_ASSETS_BASE+"\\Bullet.png"
+LINK_ASSETS_TARGET=LINK_ASSETS_BASE+"\\Enemy.png"
 
     #+++++COLORS+++++
 
-color_black=pygame.Color(0,0,0)
-color_white=pygame.Color(255,255,255)
-color_grey=pygame.Color(128,128,128)
-color_red=pygame.Color(255,0,0)
-color_yellow=pygame.Color(255,255,0)
+COLOR_BLACK=pygame.Color(0,0,0)
+COLOR_WHITE=pygame.Color(255,255,255)
+COLOR_GREY=pygame.Color(128,128,128)
+COLOR_RED=pygame.Color(255,0,0)
+COLOR_YELLOW=pygame.Color(255,255,0)
 
     #+++++FONT+++++
-font=pygame.font.SysFont(None,30,bold=True)
+FONT=pygame.font.SysFont(None,30,bold=True)
 
 class Aim(pygame.sprite.Sprite):
     def __init__(self) :
         super().__init__()
-        self.image=pygame.image.load(link_assets_aimcursor)
+        self.image=pygame.image.load(LINK_ASSETS_AIMCURSOR)
         self.rect=self.image.get_rect()
         self.Fired=False
     
@@ -54,8 +54,8 @@ class Aim(pygame.sprite.Sprite):
             if P.lives>0:
                 print("1 ",self.Fired)
                 print("BANG")
-                screen_effect(color_yellow)
-                if self.rect.colliderect(t.rect):
+                screen_effect(COLOR_YELLOW)
+                if self.rect.colliderect(T.rect):
                     P.score+=score_value
                 else:
                     P.lives-=1
@@ -69,31 +69,41 @@ class Aim(pygame.sprite.Sprite):
 class Target (pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(link_assets_target)
+        self.image = pygame.image.load(LINK_ASSETS_TARGET)
         self.rect=self.image.get_rect()
         self.offset=self.image.get_height()
+        self.speed=2
     
     def get_random_pos(self):
-        self.posx=random.randint(40,display_width)
-        self.posy=random.randint(40,display_height-self.offset)
+        self.posx=random.randint(40,DISPLAY_WIDTH)
+        self.posy=random.randint(40,DISPLAY_HEIGHT-self.offset)
         self.pos=(self.posx,self.posy)
-
-    def update(self):
+    
+    def move(self):
+        self.velocity_x=0
+        self.velocity_y=0
         self.get_random_pos()
         self.rect.center=self.pos
-        print(self.pos)
-        #self.rect.center=(self.posx,self.posy)
+        self.posx=self.rect.centerx
+        self.posy=self.rect.centery
+        if self.posx<0:
+            
+
+
+    def update(self):
+        self.move()
+         
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pygame.image.load(link_assets_player)
+        self.image=pygame.image.load(LINK_ASSETS_PLAYER)
         self.image_rotated=self.image
         self.rect=self.image.get_rect()
         self.rect_rotated=self.rect
         self.offset=self.image.get_height()/2
-        self.posx=display_width/2
-        self.posy=display_height-self.offset
+        self.posx=DISPLAY_WIDTH/2
+        self.posy=DISPLAY_HEIGHT-self.offset
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos  
         self.canfire=True
@@ -118,29 +128,29 @@ def mouse_pos_check():
     print(get_mousepos())
 
 def screen_effect(color):
-    display_window.fill(color)
+    DISPLAY_WINDOW.fill(color)
 
 def message(text,text_color,text_pos):
-    display_text=font.render(text,True,text_color)
-    display_window.blit(display_text,text_pos)
+    display_text=FONT.render(text,True,text_color)
+    DISPLAY_WINDOW.blit(display_text,text_pos)
     pass 
 
 def game_init():
     pygame.mouse.set_visible(False)
 
-    global ads 
-    ads=Aim()
+    global ADS 
+    ADS=Aim()
 
-    global t
-    t=Target() 
+    global T
+    T=Target() 
 
     global P
     P=Player()
 
     global score_message_pos,lives_message_pos,game_over_message_pos
-    score_message_pos=(30,display_height-50)
-    lives_message_pos=(display_width-150,display_height-50)
-    game_over_message_pos=(display_width/2-75,display_height/2-75)
+    score_message_pos=(30,DISPLAY_HEIGHT-50)
+    lives_message_pos=(DISPLAY_WIDTH-150,DISPLAY_HEIGHT-50)
+    game_over_message_pos=(DISPLAY_WIDTH/2-75,DISPLAY_HEIGHT/2-75)
 
     global score_value
     score_value=100
@@ -153,16 +163,16 @@ def spawner():
     game_over_message_text="GAME OVER ! "
 
     if P.lives>0:
-        display_window.blit(t.image,t.rect) #Target Spawn
+        DISPLAY_WINDOW.blit(T.image,T.rect) #Target Spawn
     else:
-        message(game_over_message_text,color_black,game_over_message_pos)
-    display_window.blit(ads.image,ads.rect) #Aim Spawn
-    display_window.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
+        message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
+    DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
+    DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
-    message(score_message_text,color_black,score_message_pos)
-    message(lives_message_text,color_black,lives_message_pos)
+    message(score_message_text,COLOR_BLACK,score_message_pos)
+    message(lives_message_text,COLOR_BLACK,lives_message_pos)
 
-    ads.update()
+    ADS.update()
     P.update()
 
 def eventhandler():
@@ -171,14 +181,19 @@ def eventhandler():
             sys.exit(0)
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
-            ads.fire(P)
-            t.update()
+            ADS.fire(P)
+            T.update()
+    if event.type == KEYDOWN:
+        pressed_key=pygame.key.get_pressed()
+        if pressed_key[K_TAB]:
+            pygame.quit()
+            sys.exit(0) 
 
 game_init()
 
 while True:
 
-    display_window.fill(color_white)
+    DISPLAY_WINDOW.fill(COLOR_WHITE)
 
     for event in pygame.event.get():
         eventhandler()
@@ -187,5 +202,5 @@ while True:
     #Conditions()
            
     pygame.display.update()
-    game_clock.tick(FPS)
+    GAME_CLOCK.tick(FPS)
 
