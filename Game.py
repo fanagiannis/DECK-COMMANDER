@@ -81,7 +81,7 @@ def spawner():
 
     ADS.update()
     P.update()
-    T.update()
+    Target_spawn.update()
 
 def fire():
     if P.ammo>0:
