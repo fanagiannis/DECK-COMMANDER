@@ -3,7 +3,6 @@ import sys
 import random
 import math
 
-
 from pygame.locals import *
 from pygame.sprite import *
 
@@ -19,7 +18,7 @@ pygame.init()
 
 pygame.display.set_caption("GAME V0.0.5.3")
 
-   #+++++FONT+++++
+#+++++FONT+++++
 FONT=pygame.font.SysFont(None,30,bold=True)
     
 #+++++FUNCTIONS++++++

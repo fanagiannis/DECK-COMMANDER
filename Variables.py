@@ -1,14 +1,11 @@
 import pygame
 
-from Constants import *
+from Constants import DISPLAY_HEIGHT,DISPLAY_WIDTH
 from Player import Player
 from Scope import Aim 
 from Target import Target
 
-
-
 ADS=Aim()
-
 
 T=Target() 
 Target_Group=pygame.sprite.Group()
