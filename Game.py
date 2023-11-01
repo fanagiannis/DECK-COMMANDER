@@ -14,8 +14,8 @@ FPS=60
 
     #+++++DISPLAY+++++
 
-DISPLAY_WIDTH=1940
-DISPLAY_HEIGHT=1080
+DISPLAY_WIDTH=1240
+DISPLAY_HEIGHT=720
 DISPLAY_WINDOW=pygame.display.set_mode((DISPLAY_WIDTH,DISPLAY_HEIGHT))
 
     #+++++LINKS+++++
@@ -86,9 +86,18 @@ class Target (pygame.sprite.Sprite):
         self.rect.center=self.pos
         self.posx=self.rect.centerx
         self.posy=self.rect.centery
-        if self.posx<0:
-            
-
+        self.final_posx=random.randint(100,DISPLAY_WIDTH)
+        self.final_posy=-100
+        print(self.final_posx,self.final_posy)
+        self.angle=math.degrees(math.atan2(self.posy-self.final_posx,self.posx-self.final_posy))
+        
+        self.posx+= math.cos(self.angle)*self.speed
+        self.posy+= math.sin(self.angle)*self.speed
+        self.pos=(self.posx,self.posy)
+        print(self.pos)
+        print(self.final_posx,self.final_posy)
+        print(self.angle)
+        self.rect.center=self.pos
 
     def update(self):
         self.move()
