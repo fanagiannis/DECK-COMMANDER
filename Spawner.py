@@ -12,11 +12,12 @@ class Spawner:
     def spawn(self):
         T = Target()
         self.group.add(T)
-        print("aa")
+        
 
     def update(self):
         self.group.update()
         if self.spawn_time==0:
             self.spawn()
+            print("aa")
         self.spawn_time-=1
 
