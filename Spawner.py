@@ -15,8 +15,8 @@ class Spawner:
         print("aa")
 
     def update(self):
-        self.group.update(self)
+        self.group.update()
         if self.spawn_time==0:
             self.spawn()
-            self.spawn_time-=1
+        self.spawn_time-=1
 
