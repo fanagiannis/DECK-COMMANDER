@@ -10,6 +10,7 @@ from Scope import Aim
 from Player import Player
 from Target import Target
 from Spawner import Spawner
+from Spawner import Target
 
 from Variables import *
 
@@ -79,7 +80,7 @@ def spawner():
     ammo_no_message_text = "OUT OF AMMO! "
 
     if P.lives>0:
-        DISPLAY_WINDOW.blit(T.image,T.rect) #Target Spawn
+        DISPLAY_WINDOW.blit(Target.image,Target.rect) #Target Spawn
     else:
         message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
 
@@ -101,9 +102,9 @@ def spawner():
     #PLAYER LIVES
     
     if P.lives>0:
-        T.shot()
+        Target.shot()
     
-    if T.posy>DISPLAY_HEIGHT:
+    if Target.posy>DISPLAY_HEIGHT:
         P.lives-=1
 
     #UPDATES
@@ -116,8 +117,8 @@ def fire():
     if P.ammo>0:
         if P.lives>0:
             DISPLAY_WINDOW.fill(COLOR_YELLOW)
-            if ADS.rect.colliderect(T.rect):
-                T.reset_position()
+            if ADS.rect.colliderect(Target.rect):
+                Target.reset_position()
                 P.score+=score_value
             P.ammo-=1
             ADS.Fired=False
@@ -128,7 +129,7 @@ def eventhandler():
             sys.exit(0)
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
-            ADS.fire(P,T)
+            ADS.fire(P,Target)
             fire()
             #T.update()
     if event.type == KEYDOWN:
