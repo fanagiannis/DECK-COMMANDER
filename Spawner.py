@@ -5,7 +5,7 @@ from Target import Target
 
 class Spawner:
     def __init__(self):
-        self.group=pygame.sprite.Group
+        self.group=pygame.sprite.Group()
         self.spawn_time=80
         pass
 

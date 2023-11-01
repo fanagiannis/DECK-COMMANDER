@@ -11,13 +11,39 @@ from Player import Player
 from Target import Target
 from Spawner import Spawner
 
-from Constants import *
 from Variables import *
-
 
 pygame.init()
 
 pygame.display.set_caption("GAME V0.0.5.3")
+
+#+++++LINKS+++++
+
+LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+LINK_ASSETS_BASE_LAPTOP="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+LINK_ASSETS_BASE=LINK_ASSETS_BASE_PC
+LINK_ASSETS_PLAYER=LINK_ASSETS_BASE+"\\Player.png"
+LINK_ASSETS_CURSOR=LINK_ASSETS_BASE+"\\Aim.png"
+LINK_ASSETS_AIMCURSOR=LINK_ASSETS_BASE+"\\AimBig.png"
+LINK_ASSETS_BULLETS=LINK_ASSETS_BASE+"\\Bullet.png"
+LINK_ASSETS_TARGET=LINK_ASSETS_BASE+"\\Enemy.png"
+
+   #+++++DISPLAY+++++
+
+DISPLAY_WIDTH=1240
+DISPLAY_HEIGHT=720
+DISPLAY_WINDOW=pygame.display.set_mode((DISPLAY_WIDTH,DISPLAY_HEIGHT))
+
+    #+++++COLORS+++++
+
+COLOR_BLACK=pygame.Color(0,0,0)
+COLOR_WHITE=pygame.Color(255,255,255)
+COLOR_GREY=pygame.Color(128,128,128)
+COLOR_RED=pygame.Color(255,0,0)
+COLOR_YELLOW=pygame.Color(255,255,0)
+
+GAME_CLOCK=pygame.time.Clock()
+FPS=60
 
 #+++++FONT+++++
 FONT=pygame.font.SysFont(None,30,bold=True)
@@ -59,6 +85,7 @@ def spawner():
 
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
+    
     Target_spawn.group.draw(DISPLAY_WINDOW)
 
 
