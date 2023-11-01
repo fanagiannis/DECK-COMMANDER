@@ -51,14 +51,16 @@ class Aim(pygame.sprite.Sprite):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center
-            if P.lives>0:
-                screen_effect(COLOR_YELLOW)
-                if self.rect.colliderect(T.rect):
-                    P.score+=score_value
-                else:
-                    P.lives-=1
-                self.Fired=False
-
+            if P.bullets>0:
+                if P.lives>0:
+                    screen_effect(COLOR_YELLOW)
+                    if self.rect.colliderect(T.rect):
+                        T.reset_position()
+                        P.score+=score_value
+                
+                    P.bullets-=1
+                    self.Fired=False
+                    print(P.bullets)
 
     def update (self):
         #self.fire()
@@ -77,6 +79,12 @@ class Target (pygame.sprite.Sprite):
         self.rect.center=self.pos
         print(self.pos)
     
+    def reset_position(self):
+        self.posx=random.randint(40,DISPLAY_WIDTH-40)
+        self.posy=-100
+        self.pos=(self.posx,self.posy)
+        self.speed+=1   
+
     def gravity(self):
         #self.posy+=random.randint(40,DISPLAY_HEIGHT-self.offset)
         if P.lives>0:
@@ -84,20 +92,9 @@ class Target (pygame.sprite.Sprite):
                 self.posy+=self.speed
                 self.pos = (self.posx,self.posy)
             else:
-                self.posx=random.randint(40,DISPLAY_WIDTH-40)
-                self.posy=-100
-                self.pos=(self.posx,self.posy)
+                self.reset_position()
                 P.lives-=1
-            if self.posy==DISPLAY_HEIGHT:
-                self.speed+=1
-    
-    def what(self):
-        self.velocity_x=0
-        self.velocity_y=0
-        #self.get_random_pos()
-        #self.rect.center=self.pos
-        
-
+                  
     def move(self):
        # self.posx=self.rect.centerx
        # self.posy=self.rect.centery
@@ -129,9 +126,9 @@ class Player(pygame.sprite.Sprite):
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos  
         self.canfire=True
-
         self.score=0 
         self.lives=3
+        self.bullets=10
 
     def rotation(self):
         self.mouseposx,self.mouseposy=get_mousepos()
@@ -169,10 +166,12 @@ def game_init():
     global P
     P=Player()
 
-    global score_message_pos,lives_message_pos,game_over_message_pos
+    global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
     score_message_pos=(30,DISPLAY_HEIGHT-50)
     lives_message_pos=(DISPLAY_WIDTH-150,DISPLAY_HEIGHT-50)
     game_over_message_pos=(DISPLAY_WIDTH/2-75,DISPLAY_HEIGHT/2-75)
+    ammo_message_pos=(DISPLAY_WIDTH-150,DISPLAY_HEIGHT-100)
+    ammo_no_message_pos=(DISPLAY_WIDTH-150,DISPLAY_HEIGHT-150)
 
     global score_value
     score_value=100
@@ -180,9 +179,12 @@ def game_init():
 
 def spawner():
     score_live="%06d" % P.score
-    score_message_text= "Score : "+ score_live #ADD ZEROES BEFORE SCORE
-    lives_message_text= "Lives : "+ str(P.lives)
-    game_over_message_text="GAME OVER ! "
+    ammo_live="%02d" % P.bullets
+    score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
+    lives_message_text = "Lives : "+ str(P.lives)
+    game_over_message_text = "GAME OVER ! "
+    ammo_message_text = "Ammo : " + ammo_live
+    ammo_no_message_text = "OUT OF AMMO! "
 
     if P.lives>0:
         DISPLAY_WINDOW.blit(T.image,T.rect) #Target Spawn
@@ -193,6 +195,9 @@ def spawner():
 
     message(score_message_text,COLOR_BLACK,score_message_pos)
     message(lives_message_text,COLOR_BLACK,lives_message_pos)
+    message(ammo_message_text,COLOR_BLACK,ammo_message_pos)
+    if P.bullets<=0:
+        message(ammo_no_message_text,COLOR_BLACK,ammo_no_message_pos)
 
     ADS.update()
     P.update()
