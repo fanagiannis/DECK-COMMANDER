@@ -2,8 +2,6 @@ import pygame
 import random
 import math
 
-from Game import P
-from Game import T
 from Constants import *
 from Variables import score_value
 
@@ -15,7 +13,7 @@ class Aim (pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.Fired=False
     
-    def fire(self,Player):
+    def fire(self,P,T):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center

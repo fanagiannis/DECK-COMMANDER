@@ -7,7 +7,10 @@ import math
 from pygame.locals import *
 from pygame.sprite import *
 
-from Classes import Aim,Player,Target
+from Classes import Aim
+from Classes import Player
+from Classes import Target
+
 from Constants import *
 from Variables import *
 
