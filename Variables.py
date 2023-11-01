@@ -8,9 +8,9 @@ from Spawner import Spawner
 
 ADS=Aim()
 
-T=Target() 
-Target_Group=pygame.sprite.Group()
-Target_Group.add(T)
+#T=Target() 
+#Target_Group=pygame.sprite.Group()
+#Target_Group.add(T)
 
 
 P=Player()
