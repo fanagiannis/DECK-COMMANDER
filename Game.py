@@ -9,6 +9,7 @@ from pygame.sprite import *
 from Scope import Aim
 from Player import Player
 from Target import Target
+from Spawner import Spawner
 
 from Constants import *
 from Variables import *
@@ -58,6 +59,7 @@ def spawner():
 
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
+    Target_spawn.group.draw(DISPLAY_WINDOW)
 
 
     message(score_message_text,COLOR_BLACK,score_message_pos)
