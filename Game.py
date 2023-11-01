@@ -52,15 +52,13 @@ class Aim(pygame.sprite.Sprite):
             self.Fired=True
             self.pos = self.rect.center
             if P.lives>0:
-                print("1 ",self.Fired)
-                print("BANG")
                 screen_effect(COLOR_YELLOW)
                 if self.rect.colliderect(T.rect):
                     P.score+=score_value
                 else:
                     P.lives-=1
                 self.Fired=False
-                print("2 ",self.Fired)
+
 
     def update (self):
         #self.fire()
@@ -72,36 +70,51 @@ class Target (pygame.sprite.Sprite):
         self.image = pygame.image.load(LINK_ASSETS_TARGET)
         self.rect=self.image.get_rect()
         self.offset=self.image.get_height()
-        self.speed=2
-    
-    def get_random_pos(self):
-        self.posx=random.randint(40,DISPLAY_WIDTH)
-        self.posy=random.randint(40,DISPLAY_HEIGHT-self.offset)
+        self.speed=1
+        self.posx=random.randint(40,DISPLAY_WIDTH-40)
+        self.posy=-100
         self.pos=(self.posx,self.posy)
+        self.rect.center=self.pos
+        print(self.pos)
     
-    def move(self):
+    def gravity(self):
+        #self.posy+=random.randint(40,DISPLAY_HEIGHT-self.offset)
+        if P.lives>0:
+            if self.posy<DISPLAY_HEIGHT:
+                self.posy+=self.speed
+                self.pos = (self.posx,self.posy)
+            else:
+                self.posx=random.randint(40,DISPLAY_WIDTH-40)
+                self.posy=-100
+                self.pos=(self.posx,self.posy)
+                P.lives-=1
+            if self.posy==DISPLAY_HEIGHT:
+                self.speed+=1
+    
+    def what(self):
         self.velocity_x=0
         self.velocity_y=0
-        self.get_random_pos()
-        self.rect.center=self.pos
-        self.posx=self.rect.centerx
-        self.posy=self.rect.centery
-        self.final_posx=random.randint(100,DISPLAY_WIDTH)
-        self.final_posy=-100
-        print(self.final_posx,self.final_posy)
-        self.angle=math.degrees(math.atan2(self.posy-self.final_posx,self.posx-self.final_posy))
+        #self.get_random_pos()
+        #self.rect.center=self.pos
         
-        self.posx+= math.cos(self.angle)*self.speed
-        self.posy+= math.sin(self.angle)*self.speed
-        self.pos=(self.posx,self.posy)
-        print(self.pos)
-        print(self.final_posx,self.final_posy)
-        print(self.angle)
+
+    def move(self):
+       # self.posx=self.rect.centerx
+       # self.posy=self.rect.centery
+       # self.final_posx=random.randint(100,DISPLAY_WIDTH)
+       # self.final_posy=-100
+        #self.angle=math.degrees(math.atan2(self.posy-self.final_posx,self.posx-self.final_posy))
+
+        #self.posx+= math.cos(self.angle)*self.speed
+        #self.posy+= math.sin(self.angle)*self.speed
+        #self.pos=(self.posx,self.posy)
+
+        self.gravity()
         self.rect.center=self.pos
 
     def update(self):
         self.move()
-         
+        pass
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -183,6 +196,7 @@ def spawner():
 
     ADS.update()
     P.update()
+    T.update()
 
 def eventhandler():
     if event.type==QUIT :
@@ -191,7 +205,7 @@ def eventhandler():
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
             ADS.fire(P)
-            T.update()
+            #T.update()
     if event.type == KEYDOWN:
         pressed_key=pygame.key.get_pressed()
         if pressed_key[K_TAB]:
