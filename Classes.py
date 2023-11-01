@@ -3,7 +3,7 @@ import random
 import math
 
 from Constants import *
-from Variables import score_value
+from Variables import score_value,P
 
 
 class Aim (pygame.sprite.Sprite):

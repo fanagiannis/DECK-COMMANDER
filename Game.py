@@ -40,19 +40,6 @@ def message(text,text_color,text_pos):
 def game_init():
     pygame.mouse.set_visible(False)
 
-    global ADS 
-    ADS=Aim()
-
-    global T,Target_Group
-    T=Target() 
-    Target_Group=pygame.sprite.Group()
-    Target_Group.add(T)
-
-    global P
-    P=Player()
-
-    
- 
 def spawner():
     score_live="%06d" % P.score
     ammo_live="%02d" % P.ammo
