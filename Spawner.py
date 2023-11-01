@@ -12,6 +12,7 @@ class Spawner:
     def spawn(self):
         T = Target()
         self.group.add(T)
+        print("aa")
 
     def update(self):
         self.group.update(self)
