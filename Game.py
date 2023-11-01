@@ -51,16 +51,16 @@ class Aim(pygame.sprite.Sprite):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center
-            if P.bullets>0:
+            if P.ammo>0:
                 if P.lives>0:
                     screen_effect(COLOR_YELLOW)
                     if self.rect.colliderect(T.rect):
                         T.reset_position()
                         P.score+=score_value
                 
-                    P.bullets-=1
+                    P.ammo-=1
                     self.Fired=False
-                    print(P.bullets)
+                    print(P.ammo)
 
     def update (self):
         #self.fire()
@@ -128,7 +128,7 @@ class Player(pygame.sprite.Sprite):
         self.canfire=True
         self.score=0 
         self.lives=3
-        self.bullets=10
+        self.ammo=10
 
     def rotation(self):
         self.mouseposx,self.mouseposy=get_mousepos()
@@ -179,7 +179,7 @@ def game_init():
 
 def spawner():
     score_live="%06d" % P.score
-    ammo_live="%02d" % P.bullets
+    ammo_live="%02d" % P.ammo
     score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
     lives_message_text = "Lives : "+ str(P.lives)
     game_over_message_text = "GAME OVER ! "
@@ -196,7 +196,7 @@ def spawner():
     message(score_message_text,COLOR_BLACK,score_message_pos)
     message(lives_message_text,COLOR_BLACK,lives_message_pos)
     message(ammo_message_text,COLOR_BLACK,ammo_message_pos)
-    if P.bullets<=0:
+    if P.ammo<=0:
         message(ammo_no_message_text,COLOR_BLACK,ammo_no_message_pos)
 
     ADS.update()
