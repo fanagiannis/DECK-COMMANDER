@@ -12,10 +12,10 @@ ADS=Aim()
 #Target_Group=pygame.sprite.Group()
 #Target_Group.add(T)
 
-
 P=Player()
 
-Target_spawn=Spawner()
+spawn_time=120
+Target_spawn=Spawner(120)
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-50)

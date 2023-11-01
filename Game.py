@@ -16,7 +16,7 @@ from Variables import *
 
 pygame.init()
 
-pygame.display.set_caption("GAME V0.0.5.3")
+pygame.display.set_caption("GAME V0.0.7.3")
 
 #+++++LINKS+++++
 

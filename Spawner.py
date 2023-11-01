@@ -3,19 +3,22 @@ import pygame
 from Target import Target
 
 class Spawner:
-    def __init__(self):
+    def __init__(self,time):
         self.group=pygame.sprite.Group()
-        self.spawn_time=80
+        self.time_set=time
+        self.spawn_time=self.time_set
 
     def spawn(self):
         T = Target()
         self.group.add(T)
+    
+    def reset_timer(self):
+        self.spawn_time=self.time_set
         
     def update(self):
         self.group.update()
         if self.spawn_time==0:
             self.spawn()
-            print("aa")
-            self.spawn_time=80
+            self.reset_timer()
         self.spawn_time-=1
 
