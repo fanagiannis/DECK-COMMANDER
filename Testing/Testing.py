@@ -58,7 +58,7 @@ class Aim(pygame.sprite.Sprite):
                         T.reset_position()
                         P.score+=score_value
                 
-                    P.ammo-=1
+                    #P.ammo-=1
                     self.Fired=False
                     #print(P.ammo)
 
@@ -73,20 +73,19 @@ class Target ():
         self.rect=self.image.get_rect()
         self.offset=self.image.get_height()
         self.speed=1
-        self.posx=random.randint(40,DISPLAY_WIDTH-40)
-        self.posy=-100
+        self.posx=random.randint(-400,400)
+        self.posy=-100#random.randint(40,DISPLAY_HEIGHT-40)
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
-        #print(self.pos)
     
     def reset_position(self):
-        self.posx=random.randint(40,DISPLAY_WIDTH-40)
-        self.posy=-100
+        self.posx=random.randint(-100,0)
+        self.posy=0
         self.pos=(self.posx,self.posy)
+        self.rect.center=self.pos
         self.speed+=1   
 
     def gravity(self):
-        #self.posy+=random.randint(40,DISPLAY_HEIGHT-self.offset)
         if P.lives>0:
             if self.posy<DISPLAY_HEIGHT:
                 self.posy+=self.speed
@@ -94,23 +93,28 @@ class Target ():
             else:
                 self.reset_position()
                 P.lives-=1
-                  
-    def move(self):
-       # self.posx=self.rect.centerx
-       # self.posy=self.rect.centery
-       # self.final_posx=random.randint(100,DISPLAY_WIDTH)
-       # self.final_posy=-100
-        #self.angle=math.degrees(math.atan2(self.posy-self.final_posx,self.posx-self.final_posy))
 
-        #self.posx+= math.cos(self.angle)*self.speed
-        #self.posy+= math.sin(self.angle)*self.speed
-        #self.pos=(self.posx,self.posy)
+    def movement(self):
+        self.posx=self.rect.centerx
+        self.posy=self.rect.centery
 
-        self.gravity()
+        self.final_posx=random.randint(100,DISPLAY_WIDTH)
+        self.final_posy=-100
+        self.angle=math.degrees(math.atan2(self.posy-self.final_posx,self.posx-self.final_posy))
+        #print(self.angle,self.final_posx,self.final_posy)
+        
+        self.posy+=self.speed
+        self.posx+=self.speed
+        if self.posx>0 and self.posx<DISPLAY_WIDTH/2:
+             self.pos=(self.posx,self.posy)
+        elif self.posx<DISPLAY_WIDTH/2 and self.posx>DISPLAY_WIDTH:
+            self.pos=(self.posx,-self.posy)
+        self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
-
+        #print(self.final_posx,self.final_posy)
+       
     def update(self):
-        self.move()
+        self.movement()
         pass
 
 class Player(pygame.sprite.Sprite):
