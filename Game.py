@@ -60,13 +60,13 @@ class Aim(pygame.sprite.Sprite):
                 
                     P.ammo-=1
                     self.Fired=False
-                    print(P.ammo)
+                    #print(P.ammo)
 
     def update (self):
         #self.fire()
         self.rect.center=get_mousepos()
     
-class Target (pygame.sprite.Sprite):
+class Target ():
     def __init__(self):
         super().__init__()
         self.image = pygame.image.load(LINK_ASSETS_TARGET)
@@ -77,7 +77,7 @@ class Target (pygame.sprite.Sprite):
         self.posy=-100
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
-        print(self.pos)
+        #print(self.pos)
     
     def reset_position(self):
         self.posx=random.randint(40,DISPLAY_WIDTH-40)
@@ -139,7 +139,7 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.rotation()
 
-#+++++FUNSTIONS++++++
+#+++++FUNCTIONS++++++
 def get_mousepos():
     return pygame.mouse.get_pos()
 
@@ -175,8 +175,7 @@ def game_init():
 
     global score_value
     score_value=100
-   
-
+ 
 def spawner():
     score_live="%06d" % P.score
     ammo_live="%02d" % P.ammo
