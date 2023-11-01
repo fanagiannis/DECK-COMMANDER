@@ -79,15 +79,13 @@ def spawner():
     ammo_message_text = "Ammo : " + ammo_live
     ammo_no_message_text = "OUT OF AMMO! "
 
-    if P.lives>0:
-        DISPLAY_WINDOW.blit(Target.image,Target.rect) #Target Spawn
-    else:
-        message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
-
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
     
-    Target_spawn.group.draw(DISPLAY_WINDOW)
+    if P.lives>0:
+        Target_spawn.group.draw(DISPLAY_WINDOW)
+    else:
+        message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
 
 
     message(score_message_text,COLOR_BLACK,score_message_pos)
@@ -102,10 +100,10 @@ def spawner():
     #PLAYER LIVES
     
     if P.lives>0:
-        Target.shot()
+        pass#Target.shot()
     
-    if Target.posy>DISPLAY_HEIGHT:
-        P.lives-=1
+    #if Target.posy>DISPLAY_HEIGHT:
+        #P.lives-=1
 
     #UPDATES
 

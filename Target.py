@@ -30,6 +30,7 @@ class Target (pygame.sprite.Sprite):
             self.reset_position()
 
     def move(self):
+        self.shot()
         self.rect.center=self.pos
 
     def update(self):
