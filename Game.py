@@ -1,7 +1,5 @@
 import pygame
 import sys
-import random
-import math
 
 from pygame.locals import *
 from pygame.sprite import *
