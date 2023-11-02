@@ -10,7 +10,6 @@ from Scope import Aim
 from Player import Player
 from Target import Target
 from Spawner import Spawner
-from Spawner import Target
 
 from Variables import *
 
@@ -97,6 +96,8 @@ def spawner():
     if P.ammo<=0:
         message(ammo_no_message_text,COLOR_BLACK,ammo_no_message_pos)
 
+    
+
     #PLAYER LIVES
     
     if P.lives>0:
@@ -112,9 +113,10 @@ def fire():
     if P.ammo>0:
         if P.lives>0:
             DISPLAY_WINDOW.fill(COLOR_YELLOW)
-            if ADS.rect.colliderect(Target.rect):
-                Target.reset_position()
-                P.score+=score_value
+            hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
+            if hit:
+                P.score+=100
+                print("HIT")
             P.ammo-=1
             ADS.Fired=False
 

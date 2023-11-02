@@ -1,7 +1,7 @@
 import pygame
 
 from Constants import LINK_ASSETS_AIMCURSOR
-from Spawner import T
+
 
 class Aim (pygame.sprite.Sprite):
     def __init__(self) :
