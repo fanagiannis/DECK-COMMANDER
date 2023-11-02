@@ -9,7 +9,6 @@ class Spawner:
         self.spawn_time=self.time_set
 
     def spawn(self):
-        global T
         T = Target()
         self.group.add(T)
     
