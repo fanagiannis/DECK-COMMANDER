@@ -14,6 +14,7 @@ from Hitbox import Hitbox
 
 from Variables import *
 from Constants import *
+from Sound_effects import reload_sound
 
 pygame.init()
 
@@ -107,6 +108,7 @@ def fire():
                 ADS.Fired=False
 
 def reload():
+    reload_sound.play()
     P.ammo=10
 
 

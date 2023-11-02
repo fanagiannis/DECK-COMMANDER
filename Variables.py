@@ -18,7 +18,6 @@ hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
 spawn_time=60
 Target_spawn=Spawner(60)
-
 Target_Damage=250
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
