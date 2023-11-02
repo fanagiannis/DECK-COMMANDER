@@ -7,7 +7,7 @@ from pygame.sprite import *
 from Scope import Aim
 from Player import Player
 from Target import Target
-from Spawner import Spawner
+from Spawner_Targets import Spawner
 from Hitbox import Hitbox
 
 from Variables import *
