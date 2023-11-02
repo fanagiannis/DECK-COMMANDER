@@ -82,11 +82,13 @@ def spawner():
     
     #UPDATE
     if hitbox.IsRepairing==False:
-        ADS.update()
+        ADS.icon_reset()
         if hitbox.dead==False:
             P.update()
     else:
+        ADS.repair()
         print("IMMOBILIZED")
+    ADS.update()
     Target_spawn.update()
     hitbox.update()
 
@@ -95,7 +97,7 @@ def fire():
         print("REPAIRING...")
     else:
         if P.ammo>0:
-            if P.hp>0:
+            if hitbox.hp>0:
                 DISPLAY_WINDOW.fill(COLOR_YELLOW)
                 hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
                 if hit:
@@ -103,10 +105,6 @@ def fire():
                     print("HIT")
                 P.ammo-=1
                 ADS.Fired=False
-
-def repair():
-    #hitbox.IsRepairing=True
-    pass
 
 def reload():
     P.ammo=10

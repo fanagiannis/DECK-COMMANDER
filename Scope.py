@@ -1,6 +1,6 @@
 import pygame
 
-from Constants import LINK_ASSETS_AIMCURSOR
+from Constants import LINK_ASSETS_AIMCURSOR,LINK_ASSETS_REPAIR
 
 class Aim (pygame.sprite.Sprite):
     def __init__(self) :
@@ -13,6 +13,12 @@ class Aim (pygame.sprite.Sprite):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center
+        
+    def repair(self):
+        self.image=pygame.image.load(LINK_ASSETS_REPAIR)
+    
+    def icon_reset(self):
+        self.image=pygame.image.load(LINK_ASSETS_AIMCURSOR)
 
     def update (self):
         self.rect.center=pygame.mouse.get_pos()

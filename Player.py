@@ -17,7 +17,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.center=self.pos  
         self.canfire=True
         self.score=0 
-        self.hp=100
         self.ammo=10
 
     def rotation(self):
