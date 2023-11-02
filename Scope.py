@@ -2,7 +2,6 @@ import pygame
 
 from Constants import LINK_ASSETS_AIMCURSOR
 
-
 class Aim (pygame.sprite.Sprite):
     def __init__(self) :
         super().__init__()

@@ -14,15 +14,17 @@ class Hitbox():
         pressed_key=pygame.key.get_pressed()
 
         if pressed_key[K_f]:
-            self.IsRepairing=True
-            if self.IsRepairing:
-                if self.hp<100:
-                    self.hp+=1
+            if self.hp<100:
+                self.IsRepairing=True
+                print(self.IsRepairing)
+            else:
                 self.IsRepairing=False
+            if self.IsRepairing:
+                self.hp+=0.1
+            print(self.IsRepairing)
             pass
-
        
-
     def update(self):
+        self.repair()
         pygame.draw.rect(DISPLAY_WINDOW,COLOR_RED,self.rect,2)
         pygame.display.flip()

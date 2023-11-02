@@ -58,7 +58,7 @@ def spawner():
     else:
         Target_spawn.group.empty()
         message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
-
+    
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
@@ -81,7 +81,7 @@ def spawner():
         pass
     
     #UPDATE
-
+    
     ADS.update()
     P.update()
     Target_spawn.update()
@@ -89,15 +89,18 @@ def spawner():
     hitbox.update()
 
 def fire():
-    if P.ammo>0:
-        if P.hp>0:
-            DISPLAY_WINDOW.fill(COLOR_YELLOW)
-            hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
-            if hit:
-                P.score+=100
-                print("HIT")
-            P.ammo-=1
-            ADS.Fired=False
+    if hitbox.IsRepairing:
+        print("REPAIRING...")
+    else:
+        if P.ammo>0:
+            if P.hp>0:
+                DISPLAY_WINDOW.fill(COLOR_YELLOW)
+                hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
+                if hit:
+                    P.score+=100
+                    print("HIT")
+                P.ammo-=1
+                ADS.Fired=False
 
 def repair():
     #hitbox.IsRepairing=True

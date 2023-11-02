@@ -9,7 +9,7 @@ class Target (pygame.sprite.Sprite):
         self.image = pygame.image.load(LINK_ASSETS_TARGET)
         self.rect=self.image.get_rect()
         self.offset=self.image.get_height()
-        self.speed=10
+        self.speed=5
         self.posx=random.randint(40,DISPLAY_WIDTH-40)
         self.posy=-100
         self.pos=(self.posx,self.posy)
@@ -21,7 +21,7 @@ class Target (pygame.sprite.Sprite):
             self.pos = (self.posx,self.posy)
         else:
             self.kill()
-            
+
 
     def move(self):
         self.gravity()
