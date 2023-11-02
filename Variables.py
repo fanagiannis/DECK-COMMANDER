@@ -3,7 +3,6 @@ import pygame
 from Constants import DISPLAY_HEIGHT,DISPLAY_WIDTH
 from Player import Player
 from Scope import Aim 
-from Target import Target
 from Spawner import Spawner
 
 ADS=Aim()
@@ -16,6 +15,8 @@ P=Player()
 
 spawn_time=120
 Target_spawn=Spawner(120)
+
+Target_hit=0
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-50)

@@ -1,6 +1,7 @@
 import pygame
 
 from Constants import LINK_ASSETS_AIMCURSOR
+from Spawner import T
 
 class Aim (pygame.sprite.Sprite):
     def __init__(self) :
@@ -9,7 +10,7 @@ class Aim (pygame.sprite.Sprite):
         self.rect=self.image.get_rect()
         self.Fired=False
     
-    def fire(self,P,T):
+    def fire(self):
         if self.Fired==False:
             self.Fired=True
             self.pos = self.rect.center

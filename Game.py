@@ -78,14 +78,14 @@ def spawner():
     game_over_message_text = "GAME OVER ! "
     ammo_message_text = "Ammo : " + ammo_live
     ammo_no_message_text = "OUT OF AMMO! "
-
-    DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
-    DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
     
     if P.lives>0:
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
         message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
+
+    DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
+    DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
 
     message(score_message_text,COLOR_BLACK,score_message_pos)
@@ -100,10 +100,7 @@ def spawner():
     #PLAYER LIVES
     
     if P.lives>0:
-        pass#Target.shot()
-    
-    #if Target.posy>DISPLAY_HEIGHT:
-        #P.lives-=1
+        pass
 
     #UPDATES
 
@@ -127,7 +124,7 @@ def eventhandler():
             sys.exit(0)
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
-            ADS.fire(P,Target)
+            ADS.fire()
             fire()
             #T.update()
     if event.type == KEYDOWN:

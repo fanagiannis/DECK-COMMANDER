@@ -19,18 +19,17 @@ class Target (pygame.sprite.Sprite):
         self.posx=random.randint(40,DISPLAY_WIDTH-40)
         self.posy=-100
         self.pos=(self.posx,self.posy)
-        self.target_type=self.types[0]
         self.speed+=0.1   
 
-    def shot(self):
+    def gravity(self):
         if self.posy<DISPLAY_HEIGHT:
             self.posy+=self.speed
             self.pos = (self.posx,self.posy)
         else:
-            self.reset_position()
+            self.kill()
 
     def move(self):
-        self.shot()
+        self.gravity()
         self.rect.center=self.pos
 
     def update(self):
