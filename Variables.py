@@ -5,6 +5,7 @@ from Player import Player
 from Scope import Aim 
 from Spawner_Targets import Spawner
 from Hitbox import Hitbox
+from Projectiles import Projectile
 
 ADS=Aim()
 
@@ -13,6 +14,8 @@ ADS=Aim()
 #Target_Group.add(T)
 
 P=Player()
+
+Proj=Projectile(P.posx,P.posy)
 
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 

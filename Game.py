@@ -9,6 +9,7 @@ from Player import Player
 from Target import Target
 from Spawner_Targets import Spawner
 from Hitbox import Hitbox
+from Projectiles import Projectile
 
 from Variables import *
 from Constants import *
@@ -90,6 +91,7 @@ def spawner():
     ADS.update()
     Target_spawn.update()
     hitbox.update()
+    Proj.update()
 
 def fire():
     if hitbox.IsRepairing:
@@ -99,9 +101,9 @@ def fire():
             if hitbox.hp>0:
                 DISPLAY_WINDOW.fill(COLOR_YELLOW)
                 hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
+                
                 if hit:
                     P.score+=100
-                    print("HIT")
                 P.ammo-=1
                 ADS.Fired=False
 
