@@ -10,6 +10,7 @@ from Scope import Aim
 from Player import Player
 from Target import Target
 from Spawner import Spawner
+from Hitbox import Hitbox
 
 from Variables import *
 from Constants import *
@@ -35,22 +36,10 @@ def message(text,text_color,text_pos):
     display_text=FONT.render(text,True,text_color)
     DISPLAY_WINDOW.blit(display_text,text_pos)
     pass 
-
-def hitbox():
-    Target_hitscan_rect=pygame.Rect(0,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,100)
-
-    pygame.draw.rect(DISPLAY_WINDOW,COLOR_RED,Target_hitscan_rect,2)
-    pygame.display.flip()
     
-    Ally_Hit=pygame.sprite.spritecollide(Target_hitscan_rect,Target_spawn.group,True)
-
-   # if Ally_Hit:
-     #   P.hp-=10
 
 def game_init():
     pygame.mouse.set_visible(False)
-    
-
     
 def spawner():
     
@@ -59,14 +48,15 @@ def spawner():
     score_live="%06d" % P.score
     ammo_live="%02d" % P.ammo
     score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
-    lives_message_text = "Lives : "+ str(P.hp)
+    lives_message_text = "HP : "+ str(hitbox.hp)
     game_over_message_text = "GAME OVER ! "
     ammo_message_text = "Ammo : " + ammo_live
     ammo_no_message_text = "OUT OF AMMO! "
     
-    if P.hp>0:
+    if hitbox.hp>0:
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
+        Target_spawn.group.empty()
         message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
 
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
@@ -82,20 +72,21 @@ def spawner():
     if P.ammo<=0:
         message(ammo_no_message_text,COLOR_BLACK,ammo_no_message_pos)
 
-    
-
-    #PLAYER LIVES
+    #PLAYER HP
     
     if P.hp>0:
+        Ally_Hit=pygame.sprite.spritecollide(hitbox,Target_spawn.group,True)
+        if Ally_Hit:
+            hitbox.hp-=20
         pass
-
-    #UPDATES
+    
+    #UPDATE
 
     ADS.update()
     P.update()
     Target_spawn.update()
 
-    hitbox()
+    hitbox.update()
 
 def fire():
     if P.ammo>0:
@@ -107,6 +98,14 @@ def fire():
                 print("HIT")
             P.ammo-=1
             ADS.Fired=False
+
+def repair():
+    #hitbox.IsRepairing=True
+    pass
+
+def reload():
+    P.ammo=10
+
 
 def eventhandler():
     if event.type==QUIT :
@@ -122,7 +121,9 @@ def eventhandler():
             pygame.quit()
             sys.exit(0) 
         if pressed_key[K_r]:
-            P.ammo=10
+            reload()
+        if pressed_key[K_f]:
+            pass
 
 game_init()
 

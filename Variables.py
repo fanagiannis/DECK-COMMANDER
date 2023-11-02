@@ -4,6 +4,7 @@ from Constants import DISPLAY_HEIGHT,DISPLAY_WIDTH
 from Player import Player
 from Scope import Aim 
 from Spawner import Spawner
+from Hitbox import Hitbox
 
 ADS=Aim()
 
@@ -13,10 +14,13 @@ ADS=Aim()
 
 P=Player()
 
+hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
+
 spawn_time=120
 Target_spawn=Spawner(120)
 
 Target_hit=0
+
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-50)
