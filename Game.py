@@ -100,14 +100,14 @@ def fire():
             if hitbox.hp>0:
                 DISPLAY_WINDOW.fill(COLOR_YELLOW)
                 hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
-                
                 if hit:
                     P.score+=100
                 P.ammo-=1
                 ADS.Fired=False
 
 def reload():
-    reload_sound.play()
+    if P.ammo_supplies>0 :
+        reload_sound.play()
 
 def eventhandler():
     if event.type==QUIT :

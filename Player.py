@@ -17,9 +17,11 @@ class Player(pygame.sprite.Sprite):
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos  
         self.canfire=True
+        self.ammo_supplies=10
         self.maxammo=10
         self.score=0
         self.ammo=self.maxammo
+        self.IsReloading=False
 
     def rotation(self):
         self.mouseposx,self.mouseposy=pygame.mouse.get_pos()
@@ -29,21 +31,17 @@ class Player(pygame.sprite.Sprite):
 
     def reload(self):
         pressed_key=pygame.key.get_pressed()
-        self.timer=1000
-        self.dtimer=0.1
         if pressed_key[K_r]:
-            if self.ammo<self.maxammo:
-                if self.timer==0:
+            if self.ammo_supplies>0:
+                if self.ammo<self.maxammo:
+                    self.IsReloading=True
+                else:
+                    self.IsReloading=False 
+                if self.IsReloading:
                     self.ammo+=1
-                  
-                    print("reloading!")
-                self.timer-=self.dtimer
-                if self.ammo==self.maxammo:
-                    self.timer=1000
-               
-            
-
-                
+                    self.ammo_supplies-=1
+            else:
+                print("NO AMMO!")
 
 
     def update(self):
