@@ -53,7 +53,7 @@ def spawner():
     ammo_message_text = "Ammo : " + ammo_live
     ammo_no_message_text = "OUT OF AMMO! "
     
-    if hitbox.hp>0:
+    if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
         Target_spawn.group.empty()
@@ -74,18 +74,20 @@ def spawner():
 
     #PLAYER HP
     
-    if P.hp>0:
+    if hitbox.dead==False:
         Ally_Hit=pygame.sprite.spritecollide(hitbox,Target_spawn.group,True)
         if Ally_Hit:
-            hitbox.hp-=20
+            hitbox.hp-=Target_Damage
         pass
     
     #UPDATE
-    
-    ADS.update()
-    P.update()
+    if hitbox.IsRepairing==False:
+        ADS.update()
+        if hitbox.dead==False:
+            P.update()
+    else:
+        print("IMMOBILIZED")
     Target_spawn.update()
-
     hitbox.update()
 
 def fire():
@@ -116,15 +118,17 @@ def eventhandler():
             sys.exit(0)
     if event.type == MOUSEBUTTONUP:
         if event.button == 1:       #LEFT CLICK
-            ADS.fire()
-            fire()
+            if hitbox.dead==False:
+                ADS.fire()
+                fire()
     if event.type == KEYDOWN:
         pressed_key=pygame.key.get_pressed()
         if pressed_key[K_TAB]:
             pygame.quit()
             sys.exit(0) 
         if pressed_key[K_r]:
-            reload()
+            if hitbox.dead==False:
+                reload()
         if pressed_key[K_f]:
             pass
 
