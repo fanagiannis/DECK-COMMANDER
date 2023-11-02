@@ -12,38 +12,11 @@ from Target import Target
 from Spawner import Spawner
 
 from Variables import *
+from Constants import *
 
 pygame.init()
 
-pygame.display.set_caption("GAME V0.0.7.3")
-
-#+++++LINKS+++++
-
-LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
-LINK_ASSETS_BASE_LAPTOP="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
-LINK_ASSETS_BASE=LINK_ASSETS_BASE_PC
-LINK_ASSETS_PLAYER=LINK_ASSETS_BASE+"\\Player.png"
-LINK_ASSETS_CURSOR=LINK_ASSETS_BASE+"\\Aim.png"
-LINK_ASSETS_AIMCURSOR=LINK_ASSETS_BASE+"\\AimBig.png"
-LINK_ASSETS_BULLETS=LINK_ASSETS_BASE+"\\Bullet.png"
-LINK_ASSETS_TARGET=LINK_ASSETS_BASE+"\\Enemy.png"
-
-   #+++++DISPLAY+++++
-
-DISPLAY_WIDTH=1240
-DISPLAY_HEIGHT=720
-DISPLAY_WINDOW=pygame.display.set_mode((DISPLAY_WIDTH,DISPLAY_HEIGHT))
-
-    #+++++COLORS+++++
-
-COLOR_BLACK=pygame.Color(0,0,0)
-COLOR_WHITE=pygame.Color(255,255,255)
-COLOR_GREY=pygame.Color(128,128,128)
-COLOR_RED=pygame.Color(255,0,0)
-COLOR_YELLOW=pygame.Color(255,255,0)
-
-GAME_CLOCK=pygame.time.Clock()
-FPS=60
+pygame.display.set_caption("GAME V0.0.8")
 
 #+++++FONT+++++
 FONT=pygame.font.SysFont(None,30,bold=True)
@@ -63,9 +36,22 @@ def message(text,text_color,text_pos):
     DISPLAY_WINDOW.blit(display_text,text_pos)
     pass 
 
+def hitbox():
+    Target_hitscan_rect=pygame.Rect(0,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,100)
+
+    pygame.draw.rect(DISPLAY_WINDOW,COLOR_RED,Target_hitscan_rect,2)
+    pygame.display.flip()
+    
+    Ally_Hit=pygame.sprite.spritecollide(Target_hitscan_rect,Target_spawn.group,True)
+
+   # if Ally_Hit:
+     #   P.hp-=10
+
 def game_init():
     pygame.mouse.set_visible(False)
+    
 
+    
 def spawner():
     
     #MESSAGES
@@ -73,12 +59,12 @@ def spawner():
     score_live="%06d" % P.score
     ammo_live="%02d" % P.ammo
     score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
-    lives_message_text = "Lives : "+ str(P.lives)
+    lives_message_text = "Lives : "+ str(P.hp)
     game_over_message_text = "GAME OVER ! "
     ammo_message_text = "Ammo : " + ammo_live
     ammo_no_message_text = "OUT OF AMMO! "
     
-    if P.lives>0:
+    if P.hp>0:
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
         message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
@@ -100,7 +86,7 @@ def spawner():
 
     #PLAYER LIVES
     
-    if P.lives>0:
+    if P.hp>0:
         pass
 
     #UPDATES
@@ -109,9 +95,11 @@ def spawner():
     P.update()
     Target_spawn.update()
 
+    hitbox()
+
 def fire():
     if P.ammo>0:
-        if P.lives>0:
+        if P.hp>0:
             DISPLAY_WINDOW.fill(COLOR_YELLOW)
             hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
             if hit:
@@ -128,7 +116,6 @@ def eventhandler():
         if event.button == 1:       #LEFT CLICK
             ADS.fire()
             fire()
-            #T.update()
     if event.type == KEYDOWN:
         pressed_key=pygame.key.get_pressed()
         if pressed_key[K_TAB]:

@@ -9,17 +9,11 @@ class Target (pygame.sprite.Sprite):
         self.image = pygame.image.load(LINK_ASSETS_TARGET)
         self.rect=self.image.get_rect()
         self.offset=self.image.get_height()
-        self.speed=1
+        self.speed=10
         self.posx=random.randint(40,DISPLAY_WIDTH-40)
         self.posy=-100
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
-
-    def reset_position(self):
-        self.posx=random.randint(40,DISPLAY_WIDTH-40)
-        self.posy=-100
-        self.pos=(self.posx,self.posy)
-        self.speed+=0.1   
 
     def gravity(self):
         if self.posy<DISPLAY_HEIGHT:
@@ -27,6 +21,7 @@ class Target (pygame.sprite.Sprite):
             self.pos = (self.posx,self.posy)
         else:
             self.kill()
+            
 
     def move(self):
         self.gravity()
