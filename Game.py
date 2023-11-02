@@ -9,7 +9,6 @@ from Player import Player
 from Target import Target
 from Spawner_Targets import Spawner
 from Hitbox import Hitbox
-from Projectiles import Projectile
 
 from Variables import *
 from Constants import *
@@ -53,6 +52,7 @@ def spawner():
     ammo_message_text = "Ammo : " + ammo_live
     ammo_no_message_text = "OUT OF AMMO! "
     
+
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
@@ -61,7 +61,6 @@ def spawner():
     
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
-
 
     message(score_message_text,COLOR_BLACK,score_message_pos)
     message(lives_message_text,COLOR_BLACK,lives_message_pos)
@@ -88,10 +87,10 @@ def spawner():
     else:
         ADS.repair()
         print("IMMOBILIZED")
+    P.reload()
     ADS.update()
     Target_spawn.update()
     hitbox.update()
-    Proj.update()
 
 def fire():
     if hitbox.IsRepairing:
@@ -109,8 +108,6 @@ def fire():
 
 def reload():
     reload_sound.play()
-    P.ammo=10
-
 
 def eventhandler():
     if event.type==QUIT :
@@ -129,8 +126,6 @@ def eventhandler():
         if pressed_key[K_r]:
             if hitbox.dead==False:
                 reload()
-        if pressed_key[K_f]:
-            pass
 
 game_init()
 
