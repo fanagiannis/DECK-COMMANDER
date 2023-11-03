@@ -86,7 +86,6 @@ def spawner():
             P.update()
     else:
         ADS.repair()
-        print("IMMOBILIZED")
     P.reload()
     ADS.update()
     Target_spawn.update()
