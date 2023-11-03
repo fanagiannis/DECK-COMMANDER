@@ -3,10 +3,11 @@ import pygame_menu
 
 from pygame.locals import *
 
+
 pygame.init()
 
-MAIN_MENU_DISPLAY_WIDTH=600
-MAIN_MENU_DISPLAY_HEIGHT=500
+MAIN_MENU_DISPLAY_WIDTH=1240
+MAIN_MENU_DISPLAY_HEIGHT=720
 MAIN_MENU_DISPLAY_WINDOW=pygame.display.set_mode((MAIN_MENU_DISPLAY_WIDTH,MAIN_MENU_DISPLAY_HEIGHT))
 
 default_username="A"

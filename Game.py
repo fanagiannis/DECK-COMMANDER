@@ -45,7 +45,7 @@ def spawner():
     #MESSAGES
     
     score_live="%06d" % P.score
-    ammo_live="%02d" % P.ammo
+    ammo_live="%02d" % int(P.ammo)
     score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
     lives_message_text = "HP : "+ str(hitbox.hp)
     game_over_message_text = "GAME OVER ! "
@@ -68,7 +68,7 @@ def spawner():
 
     #RELOAD
 
-    if P.ammo<=0:
+    if P.ammo<1:
         message(ammo_no_message_text,COLOR_BLACK,ammo_no_message_pos)
 
     #PLAYER HP
@@ -96,7 +96,7 @@ def fire():
     if hitbox.IsRepairing:
         print("REPAIRING...")
     else:
-        if P.ammo>0:
+        if P.ammo>=1:
             if hitbox.hp>0:
                 DISPLAY_WINDOW.fill(COLOR_YELLOW)
                 hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
@@ -106,7 +106,7 @@ def fire():
                 ADS.Fired=False
 
 def reload():
-    if P.ammo_supplies>0 :
+    if P.ammo<P.maxammo :
         reload_sound.play()
 
 def eventhandler():

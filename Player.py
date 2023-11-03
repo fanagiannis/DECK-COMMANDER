@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos  
         self.canfire=True
-        self.ammo_supplies=10
+        self.ammo_supplies=1000
         self.maxammo=10
         self.score=0
         self.ammo=self.maxammo
@@ -32,14 +32,14 @@ class Player(pygame.sprite.Sprite):
     def reload(self):
         pressed_key=pygame.key.get_pressed()
         if pressed_key[K_r]:
-            if self.ammo_supplies>0:
+            if self.ammo_supplies>1:
                 if self.ammo<self.maxammo:
                     self.IsReloading=True
                 else:
                     self.IsReloading=False 
                 if self.IsReloading:
-                    self.ammo+=1
-                    self.ammo_supplies-=1
+                    self.ammo+=0.05
+                    self.ammo_supplies-=0.01
             else:
                 print("NO AMMO!")
 
