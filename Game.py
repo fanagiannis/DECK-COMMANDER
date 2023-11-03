@@ -16,7 +16,7 @@ from Sound_effects import reload_sound
 
 pygame.init()
 
-pygame.display.set_caption("GAME V0.0.8")
+pygame.display.set_caption("GAME V0.1")
 
 #+++++FONT+++++
 FONT=pygame.font.SysFont(None,30,bold=True)

@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
                     self.IsReloading=False 
                 if self.IsReloading:
                     self.ammo+=0.05
-                    self.ammo_supplies-=0.01
+                    self.ammo_supplies-=0.05
             else:
                 print("NO AMMO!")
 
