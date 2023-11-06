@@ -42,6 +42,10 @@ def background(image):
 
 def game_init():
     pygame.mouse.set_visible(False)
+
+def ref_rect():
+    pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,DISPLAY_HEIGHT)) #AMMO/HP SCREEN
+    pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(0,DISPLAY_HEIGHT-100,200,DISPLAY_HEIGHT)) #SCORE SCREEN
     
 def spawner():
     
@@ -90,7 +94,7 @@ def spawner():
         ADS.repair()
     P.reload()
     ADS.update()
-    Target_spawn.update()
+    #Target_spawn.update()
     hitbox.update()
 
 def fire():
@@ -132,14 +136,14 @@ game_init()
 
 while True:
 
-    #DISPLAY_WINDOW.fill(LINK_ASSETS_BACKGROUND)
-    background(LINK_ASSETS_BACKGROUND)
+    DISPLAY_WINDOW.fill(COLOR_BLACK)
+    #background(LINK_ASSETS_BACKGROUND)
 
     for event in pygame.event.get():
         eventhandler()
 
     spawner()
-    #Conditions()
+    ref_rect()
            
     pygame.display.update()
     GAME_CLOCK.tick(FPS)
