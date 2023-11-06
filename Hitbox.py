@@ -40,5 +40,5 @@ class Hitbox():
     def update(self):
         self.check_if_dead()
         self.repair()
-        pygame.draw.rect(DISPLAY_WINDOW,COLOR_RED,self.rect,2)
-        pygame.display.flip()
+        #pygame.draw.rect(DISPLAY_WINDOW,COLOR_RED,self.rect,2)
+        #pygame.display.flip()

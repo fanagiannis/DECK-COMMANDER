@@ -15,6 +15,7 @@ LINK_ASSETS_ROCKET=LINK_ASSETS_BASE+"\\Rocket.png"
 LINK_ASSETS_BACKGROUND="assets\\background.png"
 LINK_ASSETS_SCREEN="assets\\Screen.png"
 LINK_ASSETS_SCREEN2="assets\\Screen2.png"
+LINK_ASSETS_SCREEN3="assets\\Screen3.png"
 
    #+++++DISPLAY+++++
 
@@ -29,6 +30,7 @@ COLOR_WHITE=pygame.Color(255,255,255)
 COLOR_GREY=pygame.Color(128,128,128)
 COLOR_RED=pygame.Color(255,0,0)
 COLOR_YELLOW=pygame.Color(255,255,0)
+COLOR_GREEN=pygame.Color(5, 242, 68)
 
 GAME_CLOCK=pygame.time.Clock()
-FPS=60
+FPS=45

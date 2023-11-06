@@ -12,14 +12,15 @@ from Hitbox import Hitbox
 
 from Variables import *
 from Constants import *
-from Sound_effects import reload_sound
+from Sound_effects import reload_sound,shooting_sound,explosion_sound
 
 pygame.init()
 
 pygame.display.set_caption("DECK COMMANDER V0.1")
 
 #+++++FONT+++++
-FONT=pygame.font.SysFont(None,30,bold=True)
+FONT_BASIC=pygame.font.Font("C:\\Users\\GIANNIS\\OneDrive\\Υπολογιστής\\pixel_lcd_7.ttf",15)
+FONT_GAME_OVER=pygame.font.Font("C:\\Users\\GIANNIS\\OneDrive\\Υπολογιστής\\pixel_lcd_7.ttf",40)
     
 #+++++FUNCTIONS++++++
 def get_mousepos():
@@ -31,8 +32,8 @@ def mouse_pos_check():
 def screen_effect(color):
     DISPLAY_WINDOW.fill(color)
 
-def message(text,text_color,text_pos):
-    display_text=FONT.render(text,True,text_color)
+def message(text,text_color,text_pos,font):
+    display_text=font.render(text,True,text_color)
     DISPLAY_WINDOW.blit(display_text,text_pos)
     pass   
 
@@ -43,13 +44,13 @@ def background(image):
 def game_init():
     pygame.mouse.set_visible(False)
 
-def ref_rect():
+def screens():
     #pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,DISPLAY_HEIGHT)) #AMMO/HP SCREEN
     SCREEN1=pygame.image.load(LINK_ASSETS_SCREEN)
-    SCREEN2=pygame.image.load(LINK_ASSETS_SCREEN2)
+    SCREEN2=pygame.image.load(LINK_ASSETS_SCREEN3)
     DISPLAY_WINDOW.blit(SCREEN2,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100))
     #pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(0,DISPLAY_HEIGHT-100,200,DISPLAY_HEIGHT)) #SCORE SCREEN
-    DISPLAY_WINDOW.blit(SCREEN1,(0,DISPLAY_HEIGHT-100))
+    DISPLAY_WINDOW.blit(SCREEN2,(0,DISPLAY_HEIGHT-100))
     
 def spawner():
     
@@ -67,25 +68,30 @@ def spawner():
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
         Target_spawn.group.empty()
-        message(game_over_message_text,COLOR_WHITE,game_over_message_pos)
+        message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)
     
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
-    message(score_message_text,COLOR_WHITE,score_message_pos)
-    message(lives_message_text,COLOR_WHITE,lives_message_pos)
-    message(ammo_message_text,COLOR_WHITE,ammo_message_pos)
+    #SCREENS
+
+    screens()
+
+    message(score_message_text,COLOR_GREEN,score_message_pos,FONT_BASIC)
+    message(lives_message_text,COLOR_GREEN,lives_message_pos,FONT_BASIC)
+    message(ammo_message_text,COLOR_GREEN,ammo_message_pos,FONT_BASIC)
 
     #RELOAD
 
     if P.ammo<1:
-        message(ammo_no_message_text,COLOR_WHITE,ammo_no_message_pos)
+        message(ammo_no_message_text,COLOR_GREEN,ammo_no_message_pos,FONT_BASIC)
 
     #PLAYER HP
     
     if hitbox.dead==False:
         Ally_Hit=pygame.sprite.spritecollide(hitbox,Target_spawn.group,True)
         if Ally_Hit:
+            explosion_sound.play()
             hitbox.hp-=Target_Damage
         pass
     
@@ -96,9 +102,10 @@ def spawner():
             P.update()
     else:
         ADS.repair()
+
     P.reload()
     ADS.update()
-    #Target_spawn.update()
+    Target_spawn.update()
     hitbox.update()
 
 def fire():
@@ -111,6 +118,7 @@ def fire():
                 hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
                 if hit:
                     P.score+=100
+                shooting_sound.play()
                 P.ammo-=1
                 ADS.Fired=False
 
@@ -141,12 +149,10 @@ game_init()
 while True:
 
     DISPLAY_WINDOW.fill(COLOR_BLACK)
-    #background(LINK_ASSETS_BACKGROUND)
 
     for event in pygame.event.get():
         eventhandler()
 
-    ref_rect()
     spawner()
            
     pygame.display.update()
