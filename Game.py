@@ -16,7 +16,7 @@ from Sound_effects import reload_sound
 
 pygame.init()
 
-pygame.display.set_caption("GAME V0.1")
+pygame.display.set_caption("DECK COMMANDER V0.1")
 
 #+++++FONT+++++
 FONT=pygame.font.SysFont(None,30,bold=True)
