@@ -36,6 +36,10 @@ def message(text,text_color,text_pos):
     DISPLAY_WINDOW.blit(display_text,text_pos)
     pass   
 
+def background(image):
+    background=pygame.image.load(image)
+    DISPLAY_WINDOW.blit(background,(0,0))
+
 def game_init():
     pygame.mouse.set_visible(False)
     
@@ -55,19 +59,19 @@ def spawner():
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
         Target_spawn.group.empty()
-        message(game_over_message_text,COLOR_BLACK,game_over_message_pos)
+        message(game_over_message_text,COLOR_WHITE,game_over_message_pos)
     
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
-    message(score_message_text,COLOR_BLACK,score_message_pos)
-    message(lives_message_text,COLOR_BLACK,lives_message_pos)
-    message(ammo_message_text,COLOR_BLACK,ammo_message_pos)
+    message(score_message_text,COLOR_WHITE,score_message_pos)
+    message(lives_message_text,COLOR_WHITE,lives_message_pos)
+    message(ammo_message_text,COLOR_WHITE,ammo_message_pos)
 
     #RELOAD
 
     if P.ammo<1:
-        message(ammo_no_message_text,COLOR_BLACK,ammo_no_message_pos)
+        message(ammo_no_message_text,COLOR_WHITE,ammo_no_message_pos)
 
     #PLAYER HP
     
@@ -128,7 +132,8 @@ game_init()
 
 while True:
 
-    DISPLAY_WINDOW.fill(COLOR_WHITE)
+    #DISPLAY_WINDOW.fill(LINK_ASSETS_BACKGROUND)
+    background(LINK_ASSETS_BACKGROUND)
 
     for event in pygame.event.get():
         eventhandler()
