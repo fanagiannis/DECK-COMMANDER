@@ -19,8 +19,9 @@ pygame.init()
 pygame.display.set_caption("DECK COMMANDER V0.1")
 
 #+++++FONT+++++
-FONT_BASIC=pygame.font.Font("C:\\Users\\GIANNIS\\OneDrive\\Υπολογιστής\\pixel_lcd_7.ttf",15)
-FONT_GAME_OVER=pygame.font.Font("C:\\Users\\GIANNIS\\OneDrive\\Υπολογιστής\\pixel_lcd_7.ttf",40)
+FONT_LCD="Fonts\\pixel_lcd_7.ttf"
+FONT_BASIC=pygame.font.Font(FONT_LCD,15)
+FONT_GAME_OVER=pygame.font.Font(FONT_LCD,40)
     
 #+++++FUNCTIONS++++++
 def get_mousepos():
