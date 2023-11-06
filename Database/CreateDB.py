@@ -20,7 +20,7 @@ def query_execution(connection,query):
         print(f"Error '{e}' occured!")
         pass
 
-connection=create_connection("deckcommander_db.sql")
+connection=create_connection("Database\\deckcommander_db.sql")
 
 query_create_table="""
 CREATE TABLE IF NOT EXISTS players (

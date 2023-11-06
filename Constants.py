@@ -2,7 +2,7 @@ import pygame
 
 #+++++LINKS+++++
 
-LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\UNTITLED PYGAME PROJECT\\assets"
+LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\DECK COMMANDER\\assets"
 LINK_ASSETS_BASE_LAPTOP="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
 LINK_ASSETS_BASE=LINK_ASSETS_BASE_PC
 LINK_ASSETS_PLAYER=LINK_ASSETS_BASE+"\\Player.png"

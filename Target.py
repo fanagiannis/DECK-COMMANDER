@@ -3,6 +3,8 @@ import random
 
 from Constants import LINK_ASSETS_TARGET,DISPLAY_WIDTH,DISPLAY_HEIGHT
 
+random.seed()
+
 class Target (pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
