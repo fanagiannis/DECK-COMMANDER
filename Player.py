@@ -43,6 +43,5 @@ class Player(pygame.sprite.Sprite):
             else:
                 print("NO AMMO!")
 
-
     def update(self):
         self.rotation()

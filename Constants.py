@@ -2,7 +2,7 @@ import pygame
 
 #+++++LINKS+++++
 
-LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
+LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\UNTITLED PYGAME PROJECT\\assets"
 LINK_ASSETS_BASE_LAPTOP="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
 LINK_ASSETS_BASE=LINK_ASSETS_BASE_PC
 LINK_ASSETS_PLAYER=LINK_ASSETS_BASE+"\\Player.png"
@@ -15,8 +15,8 @@ LINK_ASSETS_ROCKET=LINK_ASSETS_BASE+"\\Rocket.png"
 
    #+++++DISPLAY+++++
 
-DISPLAY_WIDTH=1900
-DISPLAY_HEIGHT=1040
+DISPLAY_WIDTH=1240
+DISPLAY_HEIGHT=720
 DISPLAY_WINDOW=pygame.display.set_mode((DISPLAY_WIDTH,DISPLAY_HEIGHT))
 
     #+++++COLORS+++++

@@ -34,8 +34,7 @@ def screen_effect(color):
 def message(text,text_color,text_pos):
     display_text=FONT.render(text,True,text_color)
     DISPLAY_WINDOW.blit(display_text,text_pos)
-    pass 
-    
+    pass   
 
 def game_init():
     pygame.mouse.set_visible(False)
@@ -51,7 +50,6 @@ def spawner():
     game_over_message_text = "GAME OVER ! "
     ammo_message_text = "Ammo : " + ammo_live
     ammo_no_message_text = "OUT OF AMMO! "
-    
 
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)
