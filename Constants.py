@@ -13,6 +13,8 @@ LINK_ASSETS_TARGET=LINK_ASSETS_BASE+"\\Enemy.png"
 LINK_ASSETS_REPAIR=LINK_ASSETS_BASE+"\\Repair.png"
 LINK_ASSETS_ROCKET=LINK_ASSETS_BASE+"\\Rocket.png"
 LINK_ASSETS_BACKGROUND="assets\\background.png"
+LINK_ASSETS_SCREEN="assets\\Screen.png"
+LINK_ASSETS_SCREEN2="assets\\Screen2.png"
 
    #+++++DISPLAY+++++
 

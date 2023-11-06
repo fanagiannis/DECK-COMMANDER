@@ -44,8 +44,12 @@ def game_init():
     pygame.mouse.set_visible(False)
 
 def ref_rect():
-    pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,DISPLAY_HEIGHT)) #AMMO/HP SCREEN
-    pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(0,DISPLAY_HEIGHT-100,200,DISPLAY_HEIGHT)) #SCORE SCREEN
+    #pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,DISPLAY_HEIGHT)) #AMMO/HP SCREEN
+    SCREEN1=pygame.image.load(LINK_ASSETS_SCREEN)
+    SCREEN2=pygame.image.load(LINK_ASSETS_SCREEN2)
+    DISPLAY_WINDOW.blit(SCREEN2,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100))
+    #pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(0,DISPLAY_HEIGHT-100,200,DISPLAY_HEIGHT)) #SCORE SCREEN
+    DISPLAY_WINDOW.blit(SCREEN1,(0,DISPLAY_HEIGHT-100))
     
 def spawner():
     
@@ -56,7 +60,7 @@ def spawner():
     score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
     lives_message_text = "HP : "+ str(hitbox.hp)
     game_over_message_text = "GAME OVER ! "
-    ammo_message_text = "Ammo : " + ammo_live
+    ammo_message_text = "Ammo : " + ammo_live + f"/{int(P.ammo_supplies)}"
     ammo_no_message_text = "OUT OF AMMO! "
 
     if hitbox.dead==False:
@@ -142,8 +146,8 @@ while True:
     for event in pygame.event.get():
         eventhandler()
 
-    spawner()
     ref_rect()
+    spawner()
            
     pygame.display.update()
     GAME_CLOCK.tick(FPS)
