@@ -36,4 +36,4 @@ COLOR_YELLOW=pygame.Color(255,255,0)
 COLOR_GREEN=pygame.Color(5, 242, 68)
 
 GAME_CLOCK=pygame.time.Clock()
-FPS=45
+FPS=60

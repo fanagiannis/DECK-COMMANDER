@@ -64,6 +64,9 @@ def planets():
     DISPLAY_WINDOW.blit(PLANETSCALED,(-75,DISPLAY_HEIGHT/2))
     DISPLAY_WINDOW.blit(PLANET2SCALED,(DISPLAY_WIDTH-250,0))
     DISPLAY_WINDOW.blit(PLANET3SCALED,(450,0))
+
+def line_animation():
+    pass
     
    
 def spawner():
