@@ -66,7 +66,14 @@ def planets():
     DISPLAY_WINDOW.blit(PLANET3SCALED,(450,0))
 
 def power():
+    energy_supply_left=DISPLAY_WIDTH-170
+    energy_supply_top=DISPLAY_HEIGHT-135
+    energy_supply_width=P.ammo_supplies
+    energy_supply_height=15
+    energy_supply_pos=(energy_supply_left,energy_supply_top,energy_supply_width,energy_supply_height)
     pygame.draw.rect(DISPLAY_WINDOW,COLOR_GREEN,energy_supply_pos)
+
+
    
 def spawner():
 

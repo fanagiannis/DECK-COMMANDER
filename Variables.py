@@ -28,6 +28,5 @@ game_over_message_pos=(DISPLAY_WIDTH/2-75,DISPLAY_HEIGHT/2-75)
 ammo_message_pos=(DISPLAY_WIDTH-175,DISPLAY_HEIGHT-75)
 ammo_no_message_pos=(DISPLAY_WIDTH-150,DISPLAY_HEIGHT-150)
 
-energy_supply_pos=(DISPLAY_WIDTH-170,DISPLAY_HEIGHT-135,150,15)
 
 score_value=100
