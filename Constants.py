@@ -1,5 +1,11 @@
 import pygame
 
+pygame.init()
+
+GAME_TITLE="-------DECK COMMANDER-------"
+GAME_EXIT="Press TAB to exit"
+
+
 #+++++LINKS+++++
 
 LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\DECK COMMANDER\\assets"
@@ -20,6 +26,12 @@ LINK_ASSETS_PLANET="assets\\Planet_8bit.png"
 LINK_ASSETS_PLANET2="assets\\Planet2_8bit.png"
 LINK_ASSETS_PLANET3="assets\\Planet3_8bit.png"
 
+#+++++FONT+++++
+FONT_LCD="Fonts\\pixel_lcd_7.ttf"
+FONT_BASIC=pygame.font.Font(FONT_LCD,15)
+FONT_GAME_OVER=pygame.font.Font(FONT_LCD,40)
+FONT_MENU_TITLE=pygame.font.Font(FONT_LCD,60)
+
    #+++++DISPLAY+++++
 
 DISPLAY_WIDTH=1280
@@ -36,4 +48,5 @@ COLOR_YELLOW=pygame.Color(255,255,0)
 COLOR_GREEN=pygame.Color(5, 242, 68)
 
 GAME_CLOCK=pygame.time.Clock()
+FPS_MENU=30
 FPS=60

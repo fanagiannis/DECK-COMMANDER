@@ -16,6 +16,8 @@ ADS=Aim()
 P=Player()
 
 global run_game
+
+run_main_game=True
 run_game=False
 
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)

@@ -16,12 +16,9 @@ from Sound_effects import reload_sound,shooting_sound,explosion_sound
 
 pygame.init()
 
-pygame.display.set_caption("DECK COMMANDER V0.3")
+pygame.mouse.set_visible(False)
 
-#+++++FONT+++++
-FONT_LCD="Fonts\\pixel_lcd_7.ttf"
-FONT_BASIC=pygame.font.Font(FONT_LCD,15)
-FONT_GAME_OVER=pygame.font.Font(FONT_LCD,40)
+#event=pygame.event.get()
     
 #+++++FUNCTIONS++++++
 
@@ -152,30 +149,34 @@ def reload():
         reload_sound.play()
 
 def eventhandler():
-    if event.type==QUIT :
-            pygame.quit()
-            sys.exit(0)
-    if event.type == MOUSEBUTTONUP:
-        if event.button == 1:       #LEFT CLICK
-            if hitbox.dead==False:
-                ADS.fire()
-                fire()
-    if event.type == KEYDOWN:
-        pressed_key=pygame.key.get_pressed()
-        if pressed_key[K_TAB]:
-            pygame.quit()
-            sys.exit(0) 
-        if pressed_key[K_r]:
-            if hitbox.dead==False:
-                reload()
-
-pygame.mouse.set_visible(False)
-
-while True:
-
     for event in pygame.event.get():
+        if event.type==QUIT :
+                pygame.quit()
+                sys.exit(0)
+        if event.type == MOUSEBUTTONUP:
+            if event.button == 1:       #LEFT CLICK
+                if hitbox.dead==False:
+                    ADS.fire()
+                    fire()
+        if event.type == KEYDOWN:
+            pressed_key=pygame.key.get_pressed()
+            if pressed_key[K_TAB]:
+                run_main_game=False
+                pygame.quit()
+                sys.exit(0) 
+            if pressed_key[K_r]:
+                if hitbox.dead==False:
+                    reload()
+
+def maingame():
+    pygame.display.set_caption("DECK COMMANDER V0.3")
+
+    while run_main_game:
+
         eventhandler()
-    spawner()
-           
-    pygame.display.flip()
-    GAME_CLOCK.tick(FPS)
+        spawner()
+            
+        pygame.display.flip()
+        GAME_CLOCK.tick(FPS)
+
+maingame()
