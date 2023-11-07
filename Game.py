@@ -16,7 +16,7 @@ from Sound_effects import reload_sound,shooting_sound,explosion_sound
 
 pygame.init()
 
-pygame.display.set_caption("DECK COMMANDER V0.1")
+pygame.display.set_caption("DECK COMMANDER V0.2")
 
 #+++++FONT+++++
 FONT_LCD="Fonts\\pixel_lcd_7.ttf"
@@ -52,17 +52,34 @@ def screens():
     DISPLAY_WINDOW.blit(SCREEN2,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100))
     #pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(0,DISPLAY_HEIGHT-100,200,DISPLAY_HEIGHT)) #SCORE SCREEN
     DISPLAY_WINDOW.blit(SCREEN2,(0,DISPLAY_HEIGHT-100))
+
+def planets():
+    PLANET=pygame.image.load(LINK_ASSETS_PLANET)
+    PLANETSCALED=pygame.transform.scale(PLANET,(200,200))
+    PLANET2=pygame.image.load(LINK_ASSETS_PLANET2)
+    PLANET2SCALED=pygame.transform.scale(PLANET2,(100,100))
+    PLANET3=pygame.image.load(LINK_ASSETS_PLANET3)
+    PLANET3SCALED=pygame.transform.scale(PLANET3,(100,100))
+
+    DISPLAY_WINDOW.blit(PLANETSCALED,(-75,DISPLAY_HEIGHT/2))
+    DISPLAY_WINDOW.blit(PLANET2SCALED,(DISPLAY_WIDTH-250,0))
+    DISPLAY_WINDOW.blit(PLANET3SCALED,(450,0))
     
+   
 def spawner():
+
+    background(LINK_ASSETS_BACKGROUND)
+    planets()
     
     #MESSAGES
     
     score_live="%06d" % P.score
     ammo_live="%02d" % int(P.ammo)
-    score_message_text = "Score : "+ score_live #ADD ZEROES BEFORE SCORE
-    lives_message_text = "HP : "+ str(hitbox.hp)
+    hp_live="%04d" % int(hitbox.hp)
+    score_message_text = f"Score : {score_live}" #ADD ZEROES BEFORE SCORE
+    lives_message_text = f"HP : {hp_live}" 
     game_over_message_text = "GAME OVER ! "
-    ammo_message_text = "Ammo : " + ammo_live + f"/{int(P.ammo_supplies)}"
+    ammo_message_text = f"Energy : {ammo_live}"
     ammo_no_message_text = "OUT OF AMMO! "
 
     if hitbox.dead==False:
@@ -105,6 +122,7 @@ def spawner():
         ADS.repair()
 
     P.reload()
+  
     ADS.update()
     Target_spawn.update()
     hitbox.update()
@@ -149,13 +167,13 @@ game_init()
 
 while True:
 
-    DISPLAY_WINDOW.fill(COLOR_BLACK)
+    #DISPLAY_WINDOW.fill(COLOR_BLACK)
 
     for event in pygame.event.get():
         eventhandler()
 
     spawner()
            
-    pygame.display.update()
+    pygame.display.flip()
     GAME_CLOCK.tick(FPS)
 
