@@ -15,6 +15,9 @@ ADS=Aim()
 
 P=Player()
 
+global run_game
+run_game=False
+
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
 spawn_time=60

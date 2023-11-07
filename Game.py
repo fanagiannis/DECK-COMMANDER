@@ -16,7 +16,7 @@ from Sound_effects import reload_sound,shooting_sound,explosion_sound
 
 pygame.init()
 
-pygame.display.set_caption("DECK COMMANDER V0.2")
+pygame.display.set_caption("DECK COMMANDER V0.3")
 
 #+++++FONT+++++
 FONT_LCD="Fonts\\pixel_lcd_7.ttf"
@@ -24,6 +24,7 @@ FONT_BASIC=pygame.font.Font(FONT_LCD,15)
 FONT_GAME_OVER=pygame.font.Font(FONT_LCD,40)
     
 #+++++FUNCTIONS++++++
+
 def get_mousepos():
     return pygame.mouse.get_pos()
 
@@ -41,9 +42,6 @@ def message(text,text_color,text_pos,font):
 def background(image):
     background=pygame.image.load(image)
     DISPLAY_WINDOW.blit(background,(0,0))
-
-def game_init():
-    pygame.mouse.set_visible(False)
 
 def screens():
     #pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,DISPLAY_HEIGHT)) #AMMO/HP SCREEN
@@ -72,8 +70,6 @@ def power():
     energy_supply_height=15
     energy_supply_pos=(energy_supply_left,energy_supply_top,energy_supply_width,energy_supply_height)
     pygame.draw.rect(DISPLAY_WINDOW,COLOR_GREEN,energy_supply_pos)
-
-
    
 def spawner():
 
@@ -173,17 +169,13 @@ def eventhandler():
             if hitbox.dead==False:
                 reload()
 
-game_init()
+pygame.mouse.set_visible(False)
 
 while True:
 
-    #DISPLAY_WINDOW.fill(COLOR_BLACK)
-
     for event in pygame.event.get():
         eventhandler()
-
     spawner()
            
     pygame.display.flip()
     GAME_CLOCK.tick(FPS)
-
