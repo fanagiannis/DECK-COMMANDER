@@ -38,6 +38,7 @@ while run_menu:
     pygame.display.flip()
     GAME_CLOCK.tick(FPS_MENU)
 
+print("Game Exit Successful!")
 pygame.quit()
 sys.exit()
-print("Game Exit Successful!")
+
