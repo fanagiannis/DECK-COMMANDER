@@ -65,14 +65,14 @@ def planets():
     DISPLAY_WINDOW.blit(PLANET2SCALED,(DISPLAY_WIDTH-250,0))
     DISPLAY_WINDOW.blit(PLANET3SCALED,(450,0))
 
-def line_animation():
-    pass
-    
+def power():
+    pygame.draw.rect(DISPLAY_WINDOW,COLOR_GREEN,energy_supply_pos)
    
 def spawner():
 
     background(LINK_ASSETS_BACKGROUND)
     planets()
+    power()
     
     #MESSAGES
     
