@@ -12,7 +12,7 @@ from Hitbox import Hitbox
 
 from Variables import *
 from Constants import *
-from Sound_effects import reload_sound,shooting_sound,explosion_sound
+from Sound_effects import reload_sound,shooting_sound,explosion_sound,game_over_sound
 
 pygame.init()
 
@@ -89,6 +89,7 @@ def spawner():
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
         Target_spawn.group.empty()
+        game_over_sound.play(0)
         message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)
     
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
