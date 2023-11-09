@@ -175,7 +175,7 @@ def eventhandler():
                     reload()           
 
 def maingame():
-    pygame.display.set_caption("DECK COMMANDER V0.3")
+    pygame.display.set_caption("DECK COMMANDER V0.4")
 
     while run_main_game:
 
