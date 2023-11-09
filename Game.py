@@ -18,19 +18,11 @@ from Sound_effects import reload_sound,shooting_sound,explosion_sound,game_over_
 pygame.init()
 
 pygame.mouse.set_visible(False)
-
-#event=pygame.event.get()
     
 #+++++FUNCTIONS++++++
 
 def set_difficulty():
     pass
-
-def get_mousepos():
-    return pygame.mouse.get_pos()
-
-def mouse_pos_check():
-    print(get_mousepos())
 
 def screen_effect(color):
     DISPLAY_WINDOW.fill(color)
@@ -93,7 +85,7 @@ def spawner():
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
         Target_spawn.group.empty()
-        game_over_sound.play(0)
+        #game_over_sound.play(0)
         message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)
     
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
@@ -117,6 +109,7 @@ def spawner():
     if hitbox.dead==False:
         Ally_Hit=pygame.sprite.spritecollide(hitbox,Target_spawn.group,True)
         if Ally_Hit:
+            screen_effect(COLOR_RED)
             explosion_sound.play()
             hitbox.hp-=Target_Damage
         pass
@@ -142,7 +135,7 @@ def fire():
     else:
         if P.ammo>=1:
             if hitbox.hp>0:
-                DISPLAY_WINDOW.fill(COLOR_YELLOW)
+                pygame.draw.line(DISPLAY_WINDOW,COLOR_RED,(P.posx,P.posy),pygame.mouse.get_pos())
                 hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
                 if hit:
                     P.score+=100
@@ -168,14 +161,14 @@ def eventhandler():
             pressed_key=pygame.key.get_pressed()
             if pressed_key[K_TAB]:
                 run_main_game=False
-                pygame.quit()
-                sys.exit(0) 
+                mainmenu()   
             if pressed_key[K_r]:
                 if hitbox.dead==False:
-                    reload()           
-
+                    reload()   
+                    
 def maingame():
     pygame.display.set_caption("DECK COMMANDER V0.4")
+    pygame.mouse.set_visible(False)
 
     while run_main_game:
 
@@ -187,6 +180,7 @@ def maingame():
 
 def mainmenu():
 
+    pygame.mouse.set_visible(False)
     menu_theme=pygame_menu.themes.THEME_DARK
     menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
     menu_theme.title_font=FONT_MENU_TITLE
@@ -214,7 +208,6 @@ def mainmenu():
                 exit()
 
         menu.mainloop(DISPLAY_WINDOW)
-
 
 mainmenu()
 

@@ -24,7 +24,6 @@ class Target (pygame.sprite.Sprite):
         else:
             self.kill()
 
-
     def move(self):
         self.gravity()
         self.rect.center=self.pos

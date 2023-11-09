@@ -9,10 +9,6 @@ from Hitbox import Hitbox
 
 ADS=Aim()
 
-#T=Target() 
-#Target_Group=pygame.sprite.Group()
-#Target_Group.add(T)
-
 P=Player()
 
 global run_game
