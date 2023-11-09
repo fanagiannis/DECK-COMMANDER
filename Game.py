@@ -1,4 +1,5 @@
 import pygame
+import pygame_menu
 import sys
 
 from pygame.locals import *
@@ -21,6 +22,9 @@ pygame.mouse.set_visible(False)
 #event=pygame.event.get()
     
 #+++++FUNCTIONS++++++
+
+def set_difficulty():
+    pass
 
 def get_mousepos():
     return pygame.mouse.get_pos()
@@ -124,13 +128,14 @@ def spawner():
             P.update()
     else:
         ADS.repair()
+        P.ammo_supplies-=0.1
+        
 
     P.reload()
-  
     ADS.update()
     Target_spawn.update()
     hitbox.update()
-
+    
 def fire():
     if hitbox.IsRepairing:
         print("REPAIRING...")
@@ -167,7 +172,7 @@ def eventhandler():
                 sys.exit(0) 
             if pressed_key[K_r]:
                 if hitbox.dead==False:
-                    reload()
+                    reload()           
 
 def maingame():
     pygame.display.set_caption("DECK COMMANDER V0.3")
@@ -180,4 +185,36 @@ def maingame():
         pygame.display.flip()
         GAME_CLOCK.tick(FPS)
 
-maingame()
+def mainmenu():
+
+    menu_theme=pygame_menu.themes.THEME_DARK
+    menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
+    menu_theme.title_font=FONT_MENU_TITLE
+    menu_theme.title_font_color=COLOR_GREEN
+    menu_theme.title_background_color=(0,0,0,0)
+    menu_theme.widget_font=FONT_LCD
+    menu_theme.widget_font_color=COLOR_GREEN
+    #menu_theme.widget_margin=(-600,0)
+    #menu_theme.title_color=COLOR_GREEN
+    menu_title="    -----DECK COMMANDER-----"
+    menu=pygame_menu.Menu(menu_title,DISPLAY_WIDTH,DISPLAY_HEIGHT,theme=menu_theme)
+
+
+
+    button_startgame=menu.add.button(" Start Game ",maingame)
+
+    menu.add.text_input(" Username : ",default="Uknown Player")
+    menu.add.selector(" Difficulty : ",[("Hard",1),("Easy",2)],onchange=set_difficulty)
+
+    menu.add.button(" Quit ",pygame_menu.events.EXIT)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT :
+                exit()
+
+        menu.mainloop(DISPLAY_WINDOW)
+
+
+mainmenu()
+

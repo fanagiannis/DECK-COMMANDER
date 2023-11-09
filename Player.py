@@ -17,7 +17,7 @@ class Player(pygame.sprite.Sprite):
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos  
         self.canfire=True
-        self.ammo_supplies=150
+        self.ammo_supplies=10
         self.maxammo=10
         self.score=0
         self.ammo=self.maxammo
