@@ -6,7 +6,6 @@ from Scope import Aim
 from Spawner_Targets import Spawner
 from Hitbox import Hitbox
 
-
 ADS=Aim()
 
 P=Player()

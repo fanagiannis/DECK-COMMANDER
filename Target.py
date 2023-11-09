@@ -16,16 +16,27 @@ class Target (pygame.sprite.Sprite):
         self.posy=-100
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
+        self.direction_vector=[-1,1]
+        self.direction_index=random.randint(0,1)
+        self.direction=self.direction_vector[self.direction_index]
+        self.direction=-1
 
-    def gravity(self):
+    def movement(self):
+        #if self.posx<=DISPLAY_WIDTH/2:
+        #    self.direction=1
+        #else:
+        #    self.direction=-1
+        
         if self.posy<DISPLAY_HEIGHT:
-            self.posy+=self.speed
+            self.posy+=self.speed*self.direction
+            self.posx+=self.speed*self.direction
             self.pos = (self.posx,self.posy)
         else:
             self.kill()
+        pass
 
     def move(self):
-        self.gravity()
+        self.movement()
         self.rect.center=self.pos
 
     def update(self):
