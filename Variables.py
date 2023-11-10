@@ -17,9 +17,14 @@ run_game=False
 
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
+global difficulty
+difficulty=[1,2,3]
 spawn_time=60
-Target_spawn=Spawner(60)
-Target_Damage=250
+Damage=250
+
+
+Target_spawn=Spawner(spawn_time)
+Target_Damage=Damage
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-60)
