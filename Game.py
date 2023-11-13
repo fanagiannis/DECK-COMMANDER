@@ -63,6 +63,8 @@ def spawner():
     message(score_message_text,COLOR_GREEN,score_message_pos,FONT_BASIC)
     message(lives_message_text,COLOR_GREEN,lives_message_pos,FONT_BASIC)
     message(ammo_message_text,COLOR_GREEN,ammo_message_pos,FONT_BASIC)
+    message(username,COLOR_GREEN,username_pos,FONT_BASIC)
+    message(str(difficulty[difficulty_index]),COLOR_GREEN,difficulty_pos,FONT_BASIC)
 
     #RELOAD
 
@@ -130,18 +132,25 @@ def eventhandler():
             if pressed_key[K_r]:
                 if hitbox.dead==False:
                     reload()   
-                    
-def maingame():
-    pygame.display.set_caption("DECK COMMANDER V0.4")
-    pygame.mouse.set_visible(False) 
-    while run_main_game:
-        eventhandler()
-        spawner()
-            
-        pygame.display.flip()
-        GAME_CLOCK.tick(FPS)
 
 def mainmenu():
+    def mainmenu2():
+        button_enter.hide()
+        button_username.hide()
+        username=button_username.get_value()
+        button_startgame=menu.add.button(" Start Game ",maingame)
+        button_selector=menu.add.selector(" Difficulty : ",items=difficulty,selector_id="Difficulty Selection",onchange=set_difficulty)
+        menu.add.button(" Quit ",pygame_menu.events.EXIT)       
+
+    def maingame():
+        pygame.display.set_caption("DECK COMMANDER V0.4")
+        pygame.mouse.set_visible(False) 
+        while run_main_game:
+            eventhandler()
+            spawner()
+                
+            pygame.display.flip()
+            GAME_CLOCK.tick(FPS)
 
     pygame.mouse.set_visible(False)
     menu_theme=pygame_menu.themes.THEME_DARK
@@ -156,15 +165,9 @@ def mainmenu():
     menu_title="    -----DECK COMMANDER-----"
     menu=pygame_menu.Menu(menu_title,DISPLAY_WIDTH,DISPLAY_HEIGHT,theme=menu_theme)
 
-
-
-    button_startgame=menu.add.button(" Start Game ",maingame)
-
-    menu.add.text_input(" Username : ",default="Uknown Player")
-    menu.add.selector(" Difficulty : ",items=difficulty,selector_id="Difficulty Selection",onchange=set_difficulty)
-
-    menu.add.button(" Quit ",pygame_menu.events.EXIT)
-
+    button_username=menu.add.text_input(" Username : ",default="Uknown Player",maxchar=15)
+    button_enter=menu.add.button(" Enter ",mainmenu2)
+    
     while True:
         for event in pygame.event.get():
             if event.type == QUIT :
