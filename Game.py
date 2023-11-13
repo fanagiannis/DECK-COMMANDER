@@ -23,15 +23,10 @@ pygame.mouse.set_visible(False)
 #+++++FUNCTIONS++++++
 
 def set_difficulty(value,index):
-    print(value)
-    global difficulty_index
+    print(value,index)
+    difficulty=value
     difficulty_index=index
-    if difficulty[index]==1:
-        print(difficulty[index])
-    elif difficulty[index]==2:
-        print("MEDIUM")
-    elif difficulty[index]==3:
-        print("HARD")
+    print(difficulty,difficulty_index)
    
 def spawner():
     
@@ -140,7 +135,6 @@ def maingame():
     pygame.display.set_caption("DECK COMMANDER V0.4")
     pygame.mouse.set_visible(False) 
     while run_main_game:
-
         eventhandler()
         spawner()
             
@@ -167,8 +161,7 @@ def mainmenu():
     button_startgame=menu.add.button(" Start Game ",maingame)
 
     menu.add.text_input(" Username : ",default="Uknown Player")
-    menu.add.selector(" Difficulty : ",[("Easy",0),("Normal",1),("Hard",2)],selector_id='difficulty_selection',onchange=set_difficulty)
-    #menu.add.dropselect(" Difficulty : ",[("Easy",0),("Normal",1),("Hard",2)],onchange=set_difficulty)
+    menu.add.selector(" Difficulty : ",items=difficulty,selector_id="Difficulty Selection",onchange=set_difficulty)
 
     menu.add.button(" Quit ",pygame_menu.events.EXIT)
 

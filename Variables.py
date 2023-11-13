@@ -17,10 +17,19 @@ run_game=False
 
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
-global difficulty
-difficulty=[1,2,3]
-spawn_time=60
-Damage=250
+global difficulty,difficulty_index,game_difficulty
+difficulty=[("Easy",0),("Normal",1),("Hard",2)]
+difficulty_index=0
+
+if difficulty[difficulty_index]==("Easy",0): 
+    spawn_time=60
+    Damage=200
+elif difficulty[difficulty_index]==("Medium",1): 
+    spawn_time=35
+    Damage=250
+elif difficulty[difficulty_index]==("Hard",2): 
+    spawn_time=25
+    Damage=350
 
 
 Target_spawn=Spawner(spawn_time)
