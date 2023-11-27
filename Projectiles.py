@@ -8,8 +8,8 @@ from Variables import playerpositionx,playerpositiony
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,spawn_point):
         super().__init__()
-        self.width=2
-        self.height=9
+        self.width=10
+        self.height=10
         self.size=(self.width,self.height)
         self.body=pygame.Surface(self.size)
         self.body.fill(COLOR_WHITE)
