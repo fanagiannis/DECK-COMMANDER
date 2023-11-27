@@ -19,7 +19,7 @@ hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
 global difficulty,difficulty_index,game_difficulty,username
 difficulty=[("Easy",0),("Normal",1),("Hard",2)]
-difficulty_index=0
+difficulty_index=2
 
 username="Uknown Player"
 

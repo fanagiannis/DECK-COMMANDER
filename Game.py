@@ -79,6 +79,8 @@ def spawner():
             screen_effect(COLOR_RED)
             explosion_sound.play()
             hitbox.hp-=Target_Damage
+            if hitbox.hp<0:
+                hitbox.hp=0
         pass
     
     #UPDATE
