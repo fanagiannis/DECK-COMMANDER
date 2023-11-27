@@ -31,8 +31,13 @@ def set_difficulty(value,index):
    
 def spawner():
     
+    #BACKGROUND SET
+
     background(LINK_ASSETS_BACKGROUND)
     planets()
+
+    #POWER FEEDBACK
+
     power()
 
     #MESSAGES
@@ -46,6 +51,8 @@ def spawner():
     ammo_message_text = f"Energy : {ammo_live}"
     ammo_no_message_text = "OUT OF AMMO! "
 
+    #TARGET SPAWN
+
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)
     else:
@@ -53,12 +60,16 @@ def spawner():
         #game_over_sound.play(0)
         message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)
     
+    #AIM,PLAYER SPAWN
+
     DISPLAY_WINDOW.blit(ADS.image,ADS.rect) #Aim Spawn
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PlayerSpawn
 
-    #SCREENS
+    #SCREENS SPAWN
 
     screens()
+
+    #MESSAGES SPAWN
 
     message(score_message_text,COLOR_GREEN,score_message_pos,FONT_BASIC)
     message(lives_message_text,COLOR_GREEN,lives_message_pos,FONT_BASIC)
@@ -138,6 +149,9 @@ def eventhandler():
                     reload()   
     for Projectile in projectiles[:]:
         Projectile.update()
+        if Projectile.posy<0:
+            projectiles.remove(Projectile)
+            print("Removed")
 
 def mainmenu():
     def mainmenu2():

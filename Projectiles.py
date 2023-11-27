@@ -8,7 +8,7 @@ from Variables import playerpositionx,playerpositiony
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,spawn_point):
         super().__init__()
-        self.width=6
+        self.width=2
         self.height=9
         self.size=(self.width,self.height)
         self.body=pygame.Surface(self.size)
@@ -20,8 +20,11 @@ class Projectile(pygame.sprite.Sprite):
         self.pos=(self.posx,self.posy)
 
         mousex,mousey=pygame.mouse.get_pos()
-        self.angle= math.degrees(math.atan2(-(mousex-self.posx),(mousey-self.posy)))
+        self.angle= math.degrees(math.atan2((self.posy-mousey),(self.posx-mousex)))
         self.body = pygame.transform.rotate(self.body, self.angle)
+        self.direction=(self.posx-mousex)
+        distance=math.hypot(*self.direction)
+        self.direction=(self.direction[0]/distance,self.direction[1]/distance)
 
     def draw(self):
         self.rect=self.body.get_rect(center=self.pos)
@@ -29,7 +32,7 @@ class Projectile(pygame.sprite.Sprite):
         pass
 
     def update(self):
-        self.posx-=self.speed
-        self.posy-=self.speed
+        self.posx+=self.speed*self.direction[0]
+        self.posy+=self.speed*self.direction[1]
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
