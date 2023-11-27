@@ -105,7 +105,7 @@ def spawner():
 
     P.reload()
     ADS.update()
-    Target_spawn.update()
+    #Target_spawn.update()
     hitbox.update()
     for projectile in projectiles:
         projectile.draw()
