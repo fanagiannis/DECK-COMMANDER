@@ -2,7 +2,7 @@ import pygame
 
 from Target import Target
 
-class Spawner:
+class Spawner():
     def __init__(self,time):
         self.group=pygame.sprite.Group()
         self.time_set=time

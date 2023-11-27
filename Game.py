@@ -33,7 +33,6 @@ def spawner():
     background(LINK_ASSETS_BACKGROUND)
     planets()
     power()
-    
 
     #MESSAGES
     
@@ -81,7 +80,6 @@ def spawner():
             hitbox.hp-=Target_Damage
             if hitbox.hp<0:
                 hitbox.hp=0
-        pass
     
     #UPDATE
     if hitbox.IsRepairing==False:
