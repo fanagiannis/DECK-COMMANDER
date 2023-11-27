@@ -15,6 +15,7 @@ from Variables import *
 from Constants import *
 from Sound_effects import reload_sound,shooting_sound,explosion_sound,game_over_sound
 from Sprites import *
+from Projectiles import Projectile
 
 pygame.init()
 
@@ -95,6 +96,8 @@ def spawner():
     ADS.update()
     Target_spawn.update()
     hitbox.update()
+    for projectile in projectiles:
+        projectile.draw()
     
 def fire():
     if hitbox.IsRepairing:
@@ -109,6 +112,7 @@ def fire():
                 shooting_sound.play()
                 P.ammo-=1
                 ADS.Fired=False
+                projectiles.append(Projectile(gunpos))
 
 def reload():
     if P.ammo<P.maxammo :
@@ -132,6 +136,8 @@ def eventhandler():
             if pressed_key[K_r]:
                 if hitbox.dead==False:
                     reload()   
+    for Projectile in projectiles[:]:
+        Projectile.update()
 
 def mainmenu():
     def mainmenu2():

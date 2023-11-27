@@ -9,6 +9,10 @@ from Hitbox import Hitbox
 ADS=Aim()
 
 P=Player()
+playerpositionx,playerpositiony = P.posx,P.posy
+gunpos=P.pos
+
+projectiles=[]
 
 global run_game
 

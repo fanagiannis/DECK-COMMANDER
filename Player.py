@@ -47,4 +47,5 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         #DISPLAY_WINDOW.blit(self.body_image,self.pos)
-        self.rotation()
+        #self.rotation()
+        pass
