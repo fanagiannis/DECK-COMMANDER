@@ -29,7 +29,7 @@ class Projectile(pygame.sprite.Sprite):
         pass
 
     def update(self):
-        self.posx+=self.speed
-        self.posy+=self.speed
+        self.posx-=self.speed
+        self.posy-=self.speed
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
