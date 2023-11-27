@@ -21,8 +21,8 @@ class Projectile(pygame.sprite.Sprite):
 
         mousex,mousey=pygame.mouse.get_pos()
         self.angle= math.degrees(math.atan2((self.posy-mousey),(self.posx-mousex)))
-        self.body = pygame.transform.rotate(self.body, self.angle)
-        self.direction=(self.posx-mousex)
+        self.body = pygame.transform.rotate(self.body, -self.angle)
+        self.direction=(self.posx-mousex,self.posy-mousey)
         distance=math.hypot(*self.direction)
         self.direction=(self.direction[0]/distance,self.direction[1]/distance)
 
@@ -32,7 +32,7 @@ class Projectile(pygame.sprite.Sprite):
         pass
 
     def update(self):
-        self.posx+=self.speed*self.direction[0]
-        self.posy+=self.speed*self.direction[1]
+        self.posx-=self.speed*self.direction[0]
+        self.posy-=self.speed*self.direction[1]
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
