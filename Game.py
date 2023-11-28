@@ -117,7 +117,7 @@ def fire():
         if P.ammo>=1:
             if hitbox.hp>0:
                 pygame.draw.line(DISPLAY_WINDOW,COLOR_RED,(P.posx,P.posy),pygame.mouse.get_pos())
-                hit=pygame.sprite.spritecollide(ADS,Target_spawn.group,True)
+                hit=pygame.sprite.groupcollide(projectiles_group,Target_spawn.group,True,True)
                 if hit:
                     P.score+=100
                 shooting_sound.play()

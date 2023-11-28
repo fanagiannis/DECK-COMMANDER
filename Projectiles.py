@@ -14,7 +14,7 @@ class Projectile(pygame.sprite.Sprite):
         self.body=pygame.Surface(self.size)
         self.body.fill(COLOR_RED)
         self.rect=self.body.get_rect()
-        self.speed=5
+        self.speed=15
         self.posx=playerpositionx
         self.posy=playerpositiony
         self.pos=(self.posx,self.posy)
