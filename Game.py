@@ -117,9 +117,6 @@ def fire():
         if P.ammo>=1:
             if hitbox.hp>0:
                 pygame.draw.line(DISPLAY_WINDOW,COLOR_RED,(P.posx,P.posy),pygame.mouse.get_pos())
-                hit=pygame.sprite.groupcollide(projectiles_group,Target_spawn.group,True,True)
-                if hit:
-                    P.score+=100
                 shooting_sound.play()
                 P.ammo-=1
                 ADS.Fired=False
@@ -149,9 +146,6 @@ def eventhandler():
                     reload()   
     for Projectile in projectiles_group:
         Projectile.update()
-        if Projectile.posy<0:
-            projectiles_group.remove(Projectile)
-            print("Removed")
 
 def mainmenu():
     def mainmenu2():

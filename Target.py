@@ -11,7 +11,7 @@ class Target (pygame.sprite.Sprite):
         self.image = pygame.image.load(LINK_ASSETS_TARGET)
         self.rect=self.image.get_rect()
         self.offset=self.image.get_height()
-        self.speed=5
+        self.speed=1
         self.posx=random.randint(40,DISPLAY_WIDTH-40)
         self.posy=-100
         self.pos=(self.posx,self.posy)

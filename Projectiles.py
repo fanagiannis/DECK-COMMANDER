@@ -3,7 +3,7 @@ import math
 import random
 
 from Constants import LINK_ASSETS_PLAYER,COLOR_RED,DISPLAY_WINDOW
-from Variables import playerpositionx,playerpositiony
+from Variables import playerpositionx,playerpositiony,Target_spawn,P
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,spawn_point):
@@ -36,3 +36,8 @@ class Projectile(pygame.sprite.Sprite):
         self.posy-=self.speed*self.direction[1]
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
+        if self.posy<-10:
+            self.kill()
+        if pygame.sprite.spritecollide(self,Target_spawn.group,True):
+            self.kill()
+            P.score+=100

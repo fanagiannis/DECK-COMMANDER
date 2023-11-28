@@ -8,12 +8,13 @@ from Hitbox import Hitbox
 
 ADS=Aim()
 
+global P
 P=Player()
 playerpositionx,playerpositiony = P.posx,P.posy
 gunpos=P.pos
 
 projectiles_group=pygame.sprite.Group()
-
+hit=False
 global run_game
 
 run_main_game=True
@@ -29,7 +30,7 @@ username="Uknown Player"
 
 if difficulty[difficulty_index]==("Easy",0): 
     spawn_time=60
-    Damage=200
+    Damage=100
 elif difficulty[difficulty_index]==("Medium",1): 
     spawn_time=35
     Damage=250
