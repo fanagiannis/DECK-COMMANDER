@@ -12,7 +12,7 @@ P=Player()
 playerpositionx,playerpositiony = P.posx,P.posy
 gunpos=P.pos
 
-projectiles=[]
+projectiles_group=pygame.sprite.Group()
 
 global run_game
 
@@ -23,7 +23,7 @@ hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
 global difficulty,difficulty_index,game_difficulty,username
 difficulty=[("Easy",0),("Normal",1),("Hard",2)]
-difficulty_index=2
+difficulty_index=0
 
 username="Uknown Player"
 

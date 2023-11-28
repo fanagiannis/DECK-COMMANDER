@@ -105,9 +105,9 @@ def spawner():
 
     P.reload()
     ADS.update()
-    #Target_spawn.update()
+    Target_spawn.update()
     hitbox.update()
-    for projectile in projectiles:
+    for projectile in projectiles_group:
         projectile.draw()
     
 def fire():
@@ -123,7 +123,7 @@ def fire():
                 shooting_sound.play()
                 P.ammo-=1
                 ADS.Fired=False
-                projectiles.append(Projectile(gunpos))
+                projectiles_group.add(Projectile(gunpos))
 
 def reload():
     if P.ammo<P.maxammo :
@@ -147,10 +147,10 @@ def eventhandler():
             if pressed_key[K_r]:
                 if hitbox.dead==False:
                     reload()   
-    for Projectile in projectiles[:]:
+    for Projectile in projectiles_group:
         Projectile.update()
         if Projectile.posy<0:
-            projectiles.remove(Projectile)
+            projectiles_group.remove(Projectile)
             print("Removed")
 
 def mainmenu():
