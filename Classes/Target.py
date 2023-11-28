@@ -21,12 +21,10 @@ class Target (pygame.sprite.Sprite):
     def movement(self):
         if self.posx<25 or self.posx>DISPLAY_WIDTH-25:
             self.direction*=-1
-
         if self.posy<DISPLAY_HEIGHT:
             self.posy+=self.speed
             self.posx+=self.speed*self.direction
             self.pos = (self.posx,self.posy)
-       
         else:
             self.kill()
         pass
