@@ -1,7 +1,7 @@
 import pygame
 import random 
 
-from Constants import LINK_ASSETS_TARGET,DISPLAY_WIDTH,DISPLAY_HEIGHT
+from Var.Constants import LINK_ASSETS_TARGET,DISPLAY_WIDTH,DISPLAY_HEIGHT
 
 random.seed()
 

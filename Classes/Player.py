@@ -2,7 +2,7 @@ import pygame
 import math
 
 from pygame.locals import *
-from Constants import *
+from Var.Constants import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):

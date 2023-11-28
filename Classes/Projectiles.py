@@ -2,8 +2,8 @@ import pygame
 import math
 import random
 
-from Constants import LINK_ASSETS_PLAYER,COLOR_RED,DISPLAY_WINDOW
-from Variables import playerpositionx,playerpositiony,Target_spawn,P
+from Var.Constants import LINK_ASSETS_PLAYER,COLOR_RED,DISPLAY_WINDOW
+from Var.Variables import playerpositionx,playerpositiony,Target_spawn,P
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,spawn_point):

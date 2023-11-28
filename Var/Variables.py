@@ -1,10 +1,10 @@
 import pygame
 
 from Constants import DISPLAY_HEIGHT,DISPLAY_WIDTH
-from Player import Player
-from Scope import Aim 
-from Spawner_Targets import Spawner
-from Hitbox import Hitbox
+from Classes.Player import Player
+from Classes.Scope import Aim 
+from Classes.Spawner_Targets import Spawner
+from Classes.Hitbox import Hitbox
 
 ADS=Aim()
 
