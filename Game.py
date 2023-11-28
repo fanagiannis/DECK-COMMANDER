@@ -5,17 +5,17 @@ import sys
 from pygame.locals import *
 from pygame.sprite import *
 
-from Scope import Aim
-from Player import Player
-from Target import Target
-from Spawner_Targets import Spawner
-from Hitbox import Hitbox
+from Classes.Scope import Aim
+from Classes.Player import Player
+from Classes.Target import Target
+from Classes.Spawner_Targets import Spawner
+from Classes.Hitbox import Hitbox
+from Classes.Projectiles import Projectile
 
-from Variables import *
-from Constants import *
-from Sound_effects import reload_sound,shooting_sound,explosion_sound,game_over_sound
-from Sprites import *
-from Projectiles import Projectile
+from Var.Variables import *
+from Var.Constants import *
+from assets.Sound_effects import reload_sound,shooting_sound,explosion_sound,game_over_sound
+from assets.Sprites import *
 
 pygame.init()
 
