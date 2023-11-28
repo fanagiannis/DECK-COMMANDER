@@ -1,6 +1,6 @@
 import pygame
 
-from Target import Target
+from Classes.Target import Target
 
 class Spawner():
     def __init__(self,time):

@@ -1,7 +1,7 @@
 import pygame
 
-from Variables import *
-from Constants import *
+from Var.Variables import *
+from Var.Constants import *
 
 def screens():
     #pygame.draw.rect(DISPLAY_WINDOW,COLOR_YELLOW,(DISPLAY_WIDTH-200,DISPLAY_HEIGHT-100,DISPLAY_WIDTH,DISPLAY_HEIGHT)) #AMMO/HP SCREEN

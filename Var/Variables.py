@@ -1,6 +1,6 @@
 import pygame
 
-from Constants import DISPLAY_HEIGHT,DISPLAY_WIDTH
+from Var.Constants import DISPLAY_HEIGHT,DISPLAY_WIDTH
 from Classes.Player import Player
 from Classes.Scope import Aim 
 from Classes.Spawner_Targets import Spawner

@@ -2,7 +2,7 @@ import pygame
 
 from pygame.locals import *
 
-from Constants import DISPLAY_WINDOW,COLOR_RED
+from Var.Constants import DISPLAY_WINDOW,COLOR_RED
 
 class Hitbox():
     def __init__(self,a,b):

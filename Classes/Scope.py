@@ -1,6 +1,6 @@
 import pygame
 
-from Constants import LINK_ASSETS_AIMCURSOR,LINK_ASSETS_REPAIR
+from Var.Constants import LINK_ASSETS_AIMCURSOR,LINK_ASSETS_REPAIR
 
 class Aim (pygame.sprite.Sprite):
     def __init__(self) :
