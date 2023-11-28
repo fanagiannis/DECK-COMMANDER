@@ -52,14 +52,14 @@ class player(object):
       
 
 class enemy(object):
-    def __init__(self,x,y,width,height,vel):
+    def __init__(self):
         self.image = spaceshipleft2
         self.image = spaceshipright2
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.vel = vel 
+        self.x = screen_width+200
+        self.y = random.randint(0,screen_height)
+        self.width = 100
+        self.height = 100
+        self.vel = 10
         self.direction=1 
 
     def movement(self):
@@ -71,7 +71,27 @@ class enemy(object):
 
     def update(self):
         self.movement()
-           
+
+class Spawner():
+    def __init__(self,time):
+        self.group=pygame.sprite.Group()
+        self.time_set=time
+        self.spawn_time=self.time_set
+
+    def spawn(self):
+        E = enemy()
+        self.group.add(E)
+    
+    def reset_timer(self):
+        self.spawn_time=self.time_set
+        
+    def update(self):
+        self.group.update()
+        if self.spawn_time==0:
+            self.spawn()
+            self.reset_timer()
+        self.spawn_time-=1
+
     #Συνάρτηση Redraw
 def redrawGamewindow():
 
@@ -79,7 +99,7 @@ def redrawGamewindow():
 
     game_display.blit(target,(0,0))   
     
-    game_display.blit(spaceshipleft2,(enemy_.x,enemy_.y))
+    #dgame_display.blit(spaceshipleft2,(enemy_.x,enemy_.y))
     
     game_display.blit(aim,(aim_.x,aim_.y))
     
@@ -102,7 +122,9 @@ run = True
 
 clock = pygame.time.Clock()
 
-enemy_ = enemy(1200,300,75,75,10)
+#enemy_ = enemy(1200,300,75,75,10)
+
+spawner=Spawner(25)
 
 while run:
     clock.tick(20)
@@ -130,7 +152,7 @@ while run:
         pygame.draw.circle(game_display, (0,200, 0), (aim_.x + 37.5, aim_.y + 37.5), 37.5)
         pygame.display.update() 
 
-    enemy_.update()
+    spawner.update()
     redrawGamewindow()
 
 
