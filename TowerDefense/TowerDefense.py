@@ -1,6 +1,7 @@
 #Αρχικοποίηση της Pygame
 import pygame
 import random 
+
 pygame.init()
 
     #Παράθυρο
@@ -22,21 +23,21 @@ lives = 3
 
 
     #IMAGES
-target = pygame.image.load('stiill.png')
+target = pygame.image.load('TowerDefense//stiill.png')
 
-spaceshipleft = pygame.image.load('enemy_left.png')
+spaceshipleft = pygame.image.load('TowerDefense//enemy_left.png')
 spaceshipleft2 = pygame.transform.scale(spaceshipleft, (100,100))
 
-spaceshipright = pygame.image.load('enemy_right.png')
+spaceshipright = pygame.image.load('TowerDefense//enemy_right.png')
 spaceshipright2 = pygame.transform.scale(spaceshipright, (100,100))
 
 
 
-bg = pygame.image.load('bg.png')
+bg = pygame.image.load('TowerDefense//bg.png')
 
 bg2 = pygame.transform.scale(bg,(1280,720))
 
-aim = pygame.image.load("aim.png") 
+aim = pygame.image.load("TowerDefense//aim.png") 
 
 pygame.display.update()   
 
@@ -47,7 +48,8 @@ class player(object):
         self.y = y
         self.width = width
         self.height = height
-        self.vel = vel   
+        self.vel = vel  
+      
 
 class enemy(object):
     def __init__(self,x,y,width,height,vel):
@@ -58,6 +60,17 @@ class enemy(object):
         self.width = width
         self.height = height
         self.vel = vel 
+        self.direction=1 
+
+    def movement(self):
+        if self.x<0:
+            self.direction=-1 
+        if self.x>screen_width:
+            self.direction=1   
+        self.x -= self.direction*self.vel
+
+    def update(self):
+        self.movement()
            
     #Συνάρτηση Redraw
 def redrawGamewindow():
@@ -115,13 +128,9 @@ while run:
 
     if keys [pygame.K_SPACE]:
         pygame.draw.circle(game_display, (0,200, 0), (aim_.x + 37.5, aim_.y + 37.5), 37.5)
-        pygame.display.update()
-        
-    #Enemy trial controls
-    
-    if keys[pygame.K_LEFT] and enemy_.x > enemy_.vel:
-        enemy_.x -= enemy_.vel
-   
+        pygame.display.update() 
+
+    enemy_.update()
     redrawGamewindow()
 
 
