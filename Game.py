@@ -26,8 +26,8 @@ pygame.mouse.set_visible(False)
 def set_difficulty(value,index):
     print(value,index)
     difficulty=value
-    difficulty_index=index
-    print(difficulty,difficulty_index)
+    dif_index=index
+    print(difficulty,Target_spawn.difficulty[index])
    
 def spawner():
     
@@ -75,7 +75,7 @@ def spawner():
     message(lives_message_text,COLOR_GREEN,lives_message_pos,FONT_BASIC)
     message(ammo_message_text,COLOR_GREEN,ammo_message_pos,FONT_BASIC)
     message(username,COLOR_GREEN,username_pos,FONT_BASIC)
-    message(str(difficulty[difficulty_index]),COLOR_GREEN,difficulty_pos,FONT_BASIC)
+    message(str(difficulty[Target_spawn.difficulty[Target_spawn.index]]),COLOR_GREEN,difficulty_pos,FONT_BASIC)
 
     #RELOAD
 
@@ -89,7 +89,7 @@ def spawner():
         if Ally_Hit:
             screen_effect(COLOR_RED)
             explosion_sound.play()
-            hitbox.hp-=Target_Damage
+            hitbox.hp-=Damage
             if hitbox.hp<0:
                 hitbox.hp=0
     
@@ -159,6 +159,7 @@ def mainmenu():
     def maingame():
         pygame.display.set_caption("DECK COMMANDER V0.4")
         pygame.mouse.set_visible(False) 
+        print(Target_spawn.difficulty[Target_spawn.index])
         while run_main_game:
             eventhandler()
             spawner()

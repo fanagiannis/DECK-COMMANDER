@@ -7,6 +7,8 @@ class Spawner():
         self.group=pygame.sprite.Group()
         self.time_set=time
         self.spawn_time=self.time_set
+        self.difficulty=[0,1,2]
+        self.index=0      
 
     def spawn(self):
         T = Target()

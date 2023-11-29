@@ -17,6 +17,7 @@ class Target (pygame.sprite.Sprite):
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
         self.direction=random.choice([-1,1])
+        self.damage=0
 
     def movement(self):
         if self.posx<25 or self.posx>DISPLAY_WIDTH-25:

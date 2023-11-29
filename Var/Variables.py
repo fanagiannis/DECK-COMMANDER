@@ -8,7 +8,7 @@ from Classes.Hitbox import Hitbox
 
 ADS=Aim()
 
-global P
+global P,Target_spawn
 P=Player()
 playerpositionx,playerpositiony = P.posx,P.posy
 gunpos=P.pos
@@ -22,25 +22,22 @@ run_game=False
 
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
-global difficulty,difficulty_index,game_difficulty,username
+global spawn_time,dif_index
 difficulty=[("Easy",0),("Normal",1),("Hard",2)]
-difficulty_index=2
-
+dif_index=0
 username="Uknown Player"
 
-if difficulty[difficulty_index]==("Easy",0): 
+if difficulty[dif_index]==("Easy",0): 
     spawn_time=60
     Damage=100
-elif difficulty[difficulty_index]==("Medium",1): 
+elif difficulty[dif_index]==("Medium",1): 
     spawn_time=35
     Damage=250
-elif difficulty[difficulty_index]==("Hard",2): 
+elif difficulty[dif_index]==("Hard",2): 
     spawn_time=25
     Damage=350
 
-
 Target_spawn=Spawner(spawn_time)
-Target_Damage=Damage
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-30)
