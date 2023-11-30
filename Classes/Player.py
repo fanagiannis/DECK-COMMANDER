@@ -7,12 +7,13 @@ from Var.Constants import *
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+        self.imageload=pygame.image.load(LINK_ASSETS_SPACESHIP)
+        self.image=pygame.transform.scale(self.imageload,(100,100))
         self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP)
         self.image_rotated=self.image
         self.rect=self.body_image.get_rect()
         self.rect_rotated=self.rect
-        self.offset=self.body_image.get_height()/2
+        self.offset=self.body_image.get_height()
         self.posx=DISPLAY_WIDTH/2
         self.posy=DISPLAY_HEIGHT-self.offset
         self.pos=(self.posx,self.posy)

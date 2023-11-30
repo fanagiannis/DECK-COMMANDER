@@ -24,10 +24,7 @@ hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
 global spawn_time,dif_index,difficulty_text
 difficulty=[("EASY",0),("MEDIUM",1),("HARD",2)]
-
-username="Uknown Player"
 dif_index=0
-
 if difficulty[dif_index]==("EASY",0): 
     t_spawn_time=60
     t_Damage=100
@@ -37,14 +34,14 @@ elif difficulty[dif_index]==("MEDIUM",1):
     t_spawn_time=35
     t_Damage=250
     t_speed=3
-    t_difficulty_text="Medium"
+    difficulty_text="Medium"
 elif difficulty[dif_index]==("HARD",2): 
     t_spawn_time=25
     t_Damage=350
     t_speed=5
     difficulty_text="Hard"
 
-Target_spawn=Spawner(t_spawn_time,t_Damage,t_speed)
+Target_spawn=Spawner(t_spawn_time,t_Damage,t_speed) 
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-30)

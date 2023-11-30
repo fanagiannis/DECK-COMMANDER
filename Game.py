@@ -22,10 +22,6 @@ pygame.init()
 pygame.mouse.set_visible(False)
     
 #+++++FUNCTIONS++++++
-
-def set_difficulty(value,index):
-    print(value,index)
-    dif_index=index
     
 def spawner():
     
@@ -145,24 +141,17 @@ def eventhandler():
     for Projectile in projectiles_group:
         Projectile.update()
 
-def mainmenu():
-    def mainmenu2():
-        button_enter.hide()
-        button_username.hide()
-        username=button_username.get_value()
-        button_startgame=menu.add.button(" Start Game ",maingame)
-        button_selector=menu.add.selector(" Difficulty : ",items=difficulty,selector_id="Difficulty Selection",onchange=set_difficulty)
-        menu.add.button(" Quit ",pygame_menu.events.EXIT)       
-
+def mainmenu():           
     def maingame():
+        global username
+        username=button_username.get_value()
         pygame.display.set_caption("DECK COMMANDER V0.4")
-        pygame.mouse.set_visible(False) 
+        pygame.mouse.set_visible(False)
         while run_main_game:
             eventhandler()
             spawner()
             pygame.display.flip()
             GAME_CLOCK.tick(FPS)
-
     pygame.mouse.set_visible(False)
     menu_theme=pygame_menu.themes.THEME_DARK
     menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
@@ -176,8 +165,11 @@ def mainmenu():
     menu_title="    -----DECK COMMANDER-----"
     menu=pygame_menu.Menu(menu_title,DISPLAY_WIDTH,DISPLAY_HEIGHT,theme=menu_theme)
 
-    button_username=menu.add.text_input(" Username : ",default="Uknown Player",maxchar=15)
-    button_enter=menu.add.button(" Enter ",mainmenu2)
+    button_username=menu.add.text_input(" Enter Username : ",default="Uknown Player",maxchar=15)
+    button_startgame=menu.add.button(" Start Game ",maingame)
+    
+    menu.add.button(" Quit ",pygame_menu.events.EXIT) 
+    #button_enter=menu.add.button(" Enter ",mainmenu2)
     
     while True:
         for event in pygame.event.get():
