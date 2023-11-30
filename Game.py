@@ -39,11 +39,13 @@ def spawner():
     score_live="%06d" % P.score
     ammo_live="%02d" % int(P.ammo)
     hp_live="%04d" % int(hitbox.hp)
+    gameround_live="%02d" % game_round
     score_message_text = f"Score : {score_live}" #ADD ZEROES BEFORE SCORE
     lives_message_text = f"HP : {hp_live}" 
     game_over_message_text = "GAME OVER ! "
     ammo_message_text = f"Energy : {ammo_live}"
     ammo_no_message_text = "OUT OF AMMO! "
+    gameround_message_text=f"Round : {gameround_live}"
 
     #TARGET SPAWN
 
@@ -69,7 +71,7 @@ def spawner():
     message(lives_message_text,COLOR_GREEN,lives_message_pos,FONT_BASIC)
     message(ammo_message_text,COLOR_GREEN,ammo_message_pos,FONT_BASIC)
     message(username,COLOR_GREEN,username_pos,FONT_BASIC)
-    message(difficulty_text,COLOR_GREEN,difficulty_pos,FONT_BASIC)
+    message(gameround_message_text,COLOR_GREEN,difficulty_pos,FONT_BASIC)
 
     #RELOAD
 
@@ -119,6 +121,15 @@ def fire():
 def reload():
     if P.ammo<P.maxammo :
         reload_sound.play()
+
+def rounds():
+    if P.score==game_round_change_score:
+        game_round+=1
+        game_round_change_score+=1000
+    if game_round==5:
+        t_spawn_time+=spawn_time_inc
+        t_Damage+=damage_inc
+        t_speed+=speed_inc
 
 def eventhandler():
     for event in pygame.event.get():
