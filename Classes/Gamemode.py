@@ -15,7 +15,7 @@ class Gamemode():
         self.t_speed=1
     
     def round_difficulty_inc(self):
-        self.t_spawn_time+=self.spawn_time_inc
+        self.t_spawn_time-=self.spawn_time_inc
         self.t_Damage+=self.damage_inc
         self.t_speed+=self.speed_inc
         self.round_change+=5

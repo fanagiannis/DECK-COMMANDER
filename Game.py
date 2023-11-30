@@ -117,7 +117,6 @@ def rounds():
         Target_spawn.targetdmg=gm.t_Damage
         Target_spawn.targetspeed=gm.t_speed
 
-    
 def fire():
     if hitbox.IsRepairing:
         print("REPAIRING...")
