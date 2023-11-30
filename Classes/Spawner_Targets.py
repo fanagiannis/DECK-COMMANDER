@@ -4,13 +4,14 @@ from Classes.Target import Target
 
 class Spawner():
     def __init__(self,time,damage,speed):
+        print("Spawner Created!") 
         self.group=pygame.sprite.Group()
         self.time_set=time
         self.spawn_time=self.time_set
         self.difficulty=[0,1,2]
         self.index=0
         self.targetdmg=damage 
-        self.targetspeed=speed     
+        self.targetspeed=speed  
 
     def spawn(self):
         T = Target()

@@ -9,10 +9,12 @@ from Classes.Gamemode import Gamemode
 
 ADS=Aim()
 
-global P,Target_spawn
+global P,gm,Target_spawn
 P=Player()
 playerpositionx,playerpositiony = P.posx,P.posy
 gunpos=P.pos
+gm=Gamemode()
+Target_spawn=Spawner(gm.t_spawn_time,gm.t_Damage,gm.t_speed)
 
 projectiles_group=pygame.sprite.Group()
 hit=False
@@ -23,8 +25,8 @@ run_game=False
 
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
-global spawn_time,dif_index,difficulty_text#,game_round 
 
+global spawn_time,dif_index,difficulty_text#,game_round 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-30)
 lives_message_pos=(DISPLAY_WIDTH-175,DISPLAY_HEIGHT-35)

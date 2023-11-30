@@ -11,6 +11,7 @@ from Classes.Target import Target
 from Classes.Spawner_Targets import Spawner
 from Classes.Hitbox import Hitbox
 from Classes.Projectiles import Projectile
+from Classes.Gamemode import Gamemode
 
 from Var.Variables import * 
 from Var.Constants import *
@@ -39,7 +40,7 @@ def spawner():
     score_live="%06d" % P.score
     ammo_live="%02d" % int(P.ammo)
     hp_live="%04d" % int(hitbox.hp)
-    gameround_live="%02d" % game_round
+    gameround_live="%02d" % gm.round
     score_message_text = f"Score : {score_live}" #ADD ZEROES BEFORE SCORE
     lives_message_text = f"HP : {hp_live}" 
     game_over_message_text = "GAME OVER ! "
@@ -85,7 +86,7 @@ def spawner():
         if Ally_Hit:
             screen_effect(COLOR_RED)
             explosion_sound.play()
-            hitbox.hp-=t_Damage
+            hitbox.hp-=gm.t_Damage
             if hitbox.hp<0:
                 hitbox.hp=0
     
@@ -101,10 +102,20 @@ def spawner():
 
     P.reload()
     ADS.update()
+    gm.update()
     Target_spawn.update()
     hitbox.update()
+    rounds()
     for projectile in projectiles_group:
         projectile.draw()
+
+def rounds():
+    if P.score==gm.game_round_change_score:
+        gm.round_inc()
+    if gm.round==gm.round_change:
+        gm.round_difficulty_inc()
+        print("INC!")
+
     
 def fire():
     if hitbox.IsRepairing:
