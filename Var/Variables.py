@@ -5,6 +5,7 @@ from Classes.Player import Player
 from Classes.Scope import Aim 
 from Classes.Spawner_Targets import Spawner
 from Classes.Hitbox import Hitbox
+from Classes.Gamemode import Gamemode
 
 ADS=Aim()
 
@@ -22,12 +23,7 @@ run_game=False
 
 hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)
 
-global spawn_time,dif_index,difficulty_text#,game_round
-game_round=1
-t_spawn_time=60
-t_Damage=100
-t_speed=1
-Target_spawn=Spawner(t_spawn_time,t_Damage,t_speed) 
+global spawn_time,dif_index,difficulty_text#,game_round 
 
 #global score_message_pos,lives_message_pos,game_over_message_pos,ammo_message_pos, ammo_no_message_pos
 score_message_pos=(30,DISPLAY_HEIGHT-30)

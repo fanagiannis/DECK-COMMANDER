@@ -120,16 +120,7 @@ def fire():
 
 def reload():
     if P.ammo<P.maxammo :
-        reload_sound.play()
-
-def rounds():
-    if P.score==game_round_change_score:
-        game_round+=1
-        game_round_change_score+=1000
-    if game_round==5:
-        t_spawn_time+=spawn_time_inc
-        t_Damage+=damage_inc
-        t_speed+=speed_inc
+        reload_sound.play()  
 
 def eventhandler():
     for event in pygame.event.get():
