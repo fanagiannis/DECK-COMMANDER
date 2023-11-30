@@ -12,7 +12,7 @@ from Classes.Spawner_Targets import Spawner
 from Classes.Hitbox import Hitbox
 from Classes.Projectiles import Projectile
 
-from Var.Variables import *
+from Var.Variables import * 
 from Var.Constants import *
 from assets.Sound_effects import reload_sound,shooting_sound,explosion_sound,game_over_sound
 from assets.Sprites import *
@@ -25,10 +25,8 @@ pygame.mouse.set_visible(False)
 
 def set_difficulty(value,index):
     print(value,index)
-    difficulty=value
     dif_index=index
-    print(difficulty,Target_spawn.difficulty[index])
-   
+    
 def spawner():
     
     #BACKGROUND SET
@@ -75,7 +73,7 @@ def spawner():
     message(lives_message_text,COLOR_GREEN,lives_message_pos,FONT_BASIC)
     message(ammo_message_text,COLOR_GREEN,ammo_message_pos,FONT_BASIC)
     message(username,COLOR_GREEN,username_pos,FONT_BASIC)
-    message(str(difficulty[Target_spawn.difficulty[Target_spawn.index]]),COLOR_GREEN,difficulty_pos,FONT_BASIC)
+    message(difficulty_text,COLOR_GREEN,difficulty_pos,FONT_BASIC)
 
     #RELOAD
 
@@ -89,7 +87,7 @@ def spawner():
         if Ally_Hit:
             screen_effect(COLOR_RED)
             explosion_sound.play()
-            hitbox.hp-=Damage
+            hitbox.hp-=t_Damage
             if hitbox.hp<0:
                 hitbox.hp=0
     
@@ -159,11 +157,9 @@ def mainmenu():
     def maingame():
         pygame.display.set_caption("DECK COMMANDER V0.4")
         pygame.mouse.set_visible(False) 
-        print(Target_spawn.difficulty[Target_spawn.index])
         while run_main_game:
             eventhandler()
             spawner()
-                
             pygame.display.flip()
             GAME_CLOCK.tick(FPS)
 

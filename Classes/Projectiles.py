@@ -3,7 +3,7 @@ import math
 import random
 
 from Var.Constants import LINK_ASSETS_PLAYER,COLOR_RED,DISPLAY_WINDOW
-from Var.Variables import playerpositionx,playerpositiony,Target_spawn,P
+from Var.Variables import playerpositionx,playerpositiony,P,Target_spawn
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,spawn_point):
@@ -14,7 +14,7 @@ class Projectile(pygame.sprite.Sprite):
         self.body=pygame.Surface(self.size)
         self.body.fill(COLOR_RED)
         self.rect=self.body.get_rect()
-        self.speed=15
+        self.speed=30
         self.posx=playerpositionx
         self.posy=playerpositiony
         self.pos=(self.posx,self.posy)
