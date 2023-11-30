@@ -19,6 +19,7 @@ class Gamemode():
         self.t_Damage+=self.damage_inc
         self.t_speed+=self.speed_inc
         self.round_change+=5
+        print("INC!")
 
     def round_inc(self):
         self.round+=1

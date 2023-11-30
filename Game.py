@@ -102,7 +102,6 @@ def spawner():
 
     P.reload()
     ADS.update()
-    gm.update()
     Target_spawn.update()
     hitbox.update()
     rounds()
@@ -114,7 +113,9 @@ def rounds():
         gm.round_inc()
     if gm.round==gm.round_change:
         gm.round_difficulty_inc()
-        print("INC!")
+        Target_spawn.time_set=gm.t_spawn_time
+        Target_spawn.targetdmg=gm.t_Damage
+        Target_spawn.targetspeed=gm.t_speed
 
     
 def fire():
