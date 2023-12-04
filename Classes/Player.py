@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.ammo_supplies=150
         self.maxammo=5
         self.score=0
+        self.scoreinc=100
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10

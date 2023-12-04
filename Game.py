@@ -113,6 +113,8 @@ def rounds():
         gm.round_inc()
     if gm.round==gm.round_change:
         gm.round_difficulty_inc()
+        if P.scoreinc<1000:
+            P.scoreinc+=100
         Target_spawn.time_set=gm.t_spawn_time
         Target_spawn.targetdmg=gm.t_Damage
         Target_spawn.targetspeed=gm.t_speed

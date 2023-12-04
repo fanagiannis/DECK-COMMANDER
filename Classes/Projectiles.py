@@ -38,4 +38,4 @@ class Projectile(pygame.sprite.Sprite):
             self.kill()
         if pygame.sprite.spritecollide(self,Target_spawn.group,True):
             self.kill()
-            P.score+=100
+            P.score+=P.scoreinc
