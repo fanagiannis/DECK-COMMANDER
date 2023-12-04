@@ -64,7 +64,7 @@ def spawner():
 
     #SCREENS SPAWN
 
-    #screens()
+    screens()
 
     #MESSAGES SPAWN
 
