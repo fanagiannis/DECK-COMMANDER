@@ -15,7 +15,7 @@ from Classes.Gamemode import Gamemode
 
 from Var.Variables import * 
 from Var.Constants import *
-from assets.Sound_effects import reload_sound,shooting_sound,explosion_sound,game_over_sound
+from assets.Sound_effects import shooting_sound,explosion_sound,game_over_sound
 from assets.Sprites import *
 
 pygame.init()
@@ -42,10 +42,10 @@ def spawner():
     hp_live="%04d" % int(hitbox.hp)
     gameround_live="%02d" % gm.round
     score_message_text = f"Score : {score_live}" #ADD ZEROES BEFORE SCORE
-    lives_message_text = f"HP : {hp_live}" 
+    hp_message_text = f"HP : {hp_live}" 
     game_over_message_text = "GAME OVER ! "
-    ammo_message_text = f"Energy : {ammo_live}"
-    ammo_no_message_text = "OUT OF AMMO! "
+    energy_message_text = f"Energy : {ammo_live}"
+    energy_no_message_text = "OUT OF AMMO! "
     gameround_message_text=f"Round : {gameround_live}"
 
     #TARGET SPAWN
@@ -64,20 +64,20 @@ def spawner():
 
     #SCREENS SPAWN
 
-    screens()
+    #screens()
 
     #MESSAGES SPAWN
 
     message(score_message_text,COLOR_GREEN,score_message_pos,FONT_BASIC)
-    message(lives_message_text,COLOR_GREEN,lives_message_pos,FONT_BASIC)
-    message(ammo_message_text,COLOR_GREEN,ammo_message_pos,FONT_BASIC)
+    message(hp_message_text,COLOR_GREEN,hp_message_pos,FONT_BASIC)
+    message(energy_message_text,COLOR_GREEN,energy_message_pos,FONT_BASIC)
     message(username,COLOR_GREEN,username_pos,FONT_BASIC)
-    message(gameround_message_text,COLOR_GREEN,difficulty_pos,FONT_BASIC)
+    message(gameround_message_text,COLOR_GREEN,gameround_pos,FONT_BASIC)
 
     #RELOAD
 
     if P.ammo<1:
-        message(ammo_no_message_text,COLOR_GREEN,ammo_no_message_pos,FONT_BASIC)
+        message(energy_no_message_text,COLOR_GREEN,energy_no_message_pos,FONT_BASIC)
 
     #PLAYER HP
     
@@ -151,7 +151,7 @@ def mainmenu():
     def maingame():
         global username
         username=button_username.get_value()
-        pygame.display.set_caption("DECK COMMANDER V0.4")
+        pygame.display.set_caption("DECK COMMANDER V0.5B")
         pygame.mouse.set_visible(False)
         while run_main_game:
             eventhandler()

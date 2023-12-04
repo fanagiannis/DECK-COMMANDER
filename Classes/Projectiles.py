@@ -3,7 +3,7 @@ import math
 import random
 
 from Var.Constants import LINK_ASSETS_PLAYER,COLOR_RED,DISPLAY_WINDOW
-from Var.Variables import playerpositionx,playerpositiony,P,Target_spawn
+from Var.Variables import P,Target_spawn
 
 class Projectile(pygame.sprite.Sprite):
     def __init__(self,spawn_point):

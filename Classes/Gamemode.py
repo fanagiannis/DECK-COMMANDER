@@ -23,4 +23,4 @@ class Gamemode():
 
     def round_inc(self):
         self.round+=1
-        self.game_round_change_score+=1000
+        self.game_round_change_score+=100

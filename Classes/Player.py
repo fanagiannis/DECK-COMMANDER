@@ -52,9 +52,11 @@ class Player(pygame.sprite.Sprite):
     def movement(self):
         pressed_key=pygame.key.get_pressed()
         if pressed_key[K_d]:
-            self.posx+=self.speed
+            if self.posx<DISPLAY_WIDTH:
+                self.posx+=self.speed
         if pressed_key[K_a]:
-            self.posx-=self.speed
+            if self.posx>0:
+                self.posx-=self.speed
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
 
