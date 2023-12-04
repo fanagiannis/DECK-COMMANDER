@@ -3,6 +3,7 @@ import math
 
 from pygame.locals import *
 from Var.Constants import *
+from assets.Sound_effects import reload_sound
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -20,10 +21,11 @@ class Player(pygame.sprite.Sprite):
         self.rect.center=self.pos  
         self.canfire=True
         self.ammo_supplies=150
-        self.maxammo=10
+        self.maxammo=5
         self.score=0
         self.ammo=self.maxammo
         self.IsReloading=False
+        self.speed=10
 
     def rotation(self):
         self.mouseposx,self.mouseposy=pygame.mouse.get_pos()
@@ -40,13 +42,24 @@ class Player(pygame.sprite.Sprite):
                 else:
                     self.IsReloading=False 
                 if self.IsReloading:
-                    self.ammo_supplies-=0.05
-                    self.ammo+=0.05
-                    
+                    self.ammo=5
+                    reload_sound.play() 
+                    #self.ammo_supplies-=0.05
+                    #self.ammo+=0.05
             else:
                 print("NO AMMO!")
 
+    def movement(self):
+        pressed_key=pygame.key.get_pressed()
+        if pressed_key[K_d]:
+            self.posx+=self.speed
+        if pressed_key[K_a]:
+            self.posx-=self.speed
+        self.pos=(self.posx,self.posy)
+        self.rect.center=self.pos
+
     def update(self):
+        self.movement()
         #DISPLAY_WINDOW.blit(self.body_image,self.pos)
         #self.rotation()
         pass

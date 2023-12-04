@@ -128,11 +128,7 @@ def fire():
                 P.ammo-=1
                 ADS.Fired=False
                 projectiles_group.add(Projectile(gunpos))
-
-def reload():
-    if P.ammo<P.maxammo :
-        reload_sound.play()  
-
+     
 def eventhandler():
     for event in pygame.event.get():
         if event.type==QUIT :
@@ -147,10 +143,7 @@ def eventhandler():
             pressed_key=pygame.key.get_pressed()
             if pressed_key[K_TAB]:
                 run_main_game=False
-                mainmenu()   
-            if pressed_key[K_r]:
-                if hitbox.dead==False:
-                    reload()   
+                mainmenu()     
     for Projectile in projectiles_group:
         Projectile.update()
 

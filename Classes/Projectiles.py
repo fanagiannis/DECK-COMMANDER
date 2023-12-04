@@ -15,8 +15,8 @@ class Projectile(pygame.sprite.Sprite):
         self.body.fill(COLOR_RED)
         self.rect=self.body.get_rect()
         self.speed=30
-        self.posx=playerpositionx
-        self.posy=playerpositiony
+        self.posx=P.posx#playerpositionx
+        self.posy=P.posy#playerpositiony
         self.pos=(self.posx,self.posy)
 
         mousex,mousey=pygame.mouse.get_pos()
@@ -29,12 +29,13 @@ class Projectile(pygame.sprite.Sprite):
         DISPLAY_WINDOW.blit(self.body,self.rect)
 
     def update(self):
-        self.posx-=self.speed*self.direction[0]
-        self.posy-=self.speed*self.direction[1]
+        #self.posx-=self.speed*self.direction[0]
+        #self.posy-=self.speed*self.direction[1]
+        self.posy-=self.speed
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos
         if self.posy<-10:
             self.kill()
         if pygame.sprite.spritecollide(self,Target_spawn.group,True):
             self.kill()
-            P.score+=1000
+            P.score+=100
