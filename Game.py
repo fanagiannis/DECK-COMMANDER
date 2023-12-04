@@ -19,7 +19,7 @@ from assets.Sound_effects import shooting_sound,explosion_sound,game_over_sound
 from assets.Sprites import *
 
 pygame.init()
-
+pygame.display.set_caption("DECK COMMANDER V0.6B")
 pygame.mouse.set_visible(False)
     
 #+++++FUNCTIONS++++++
@@ -153,7 +153,6 @@ def mainmenu():
     def maingame():
         global username
         username=button_username.get_value()
-        pygame.display.set_caption("DECK COMMANDER V0.5B")
         pygame.mouse.set_visible(False)
         while run_main_game:
             eventhandler()
