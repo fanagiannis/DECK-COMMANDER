@@ -5,6 +5,8 @@ import sys
 from pygame.locals import *
 from pygame.sprite import *
 
+from Leaderboard import *
+
 from Classes.Scope import Aim
 from Classes.Player import Player
 from Classes.Target import Target
@@ -21,8 +23,6 @@ from assets.Sprites import *
 pygame.init()
 pygame.display.set_caption("DECK COMMANDER V0.6B")
 pygame.mouse.set_visible(False)
-    
-#+++++FUNCTIONS++++++
     
 def spawner():
     
@@ -44,6 +44,7 @@ def spawner():
     score_message_text = f"Score : {score_live}" #ADD ZEROES BEFORE SCORE
     hp_message_text = f"HP : {hp_live}" 
     game_over_message_text = "GAME OVER ! "
+    game_over_message_stats =f"{username}"+" "+f" Round :"f"{gameround_live}"+" "+f"Score : "f"{score_live}"
     energy_message_text = f"Energy : {ammo_live}"
     energy_no_message_text = "OUT OF AMMO! "
     gameround_message_text=f"Round : {gameround_live}"
@@ -56,6 +57,7 @@ def spawner():
         Target_spawn.group.empty()
         #game_over_sound.play(0)
         message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)
+        message(game_over_message_stats,COLOR_GREEN,game_over_message_stats_pos,FONT_STATS)
     
     #AIM,PLAYER SPAWN
 
@@ -165,9 +167,15 @@ def game():
         
     def leaderboards():
         leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)
-        leaderboard.set_border(1700,None,inflate=(0,0))#,position=(300,500,1000,1200))  
-        leaderboard.add_row(cells=['   TOP PLAYERS'],cell_border_color=COLOR_GREEN,cell_border_width=2)
-        leaderboard.add_row(cells=['ID' '  PLAYER' '  SCORE'],cell_border_color=COLOR_GREEN,cell_border_width=2)
+        leaderboard.set_border(1450,None,inflate=(0,0))#,position=(300,500,1000,1200))
+        leaderboard.add_row(cells=['  TOP PLAYERS '],cell_border_color=COLOR_GREEN,cell_border_width=2)  
+        leaderboard.add_row(cells=['    PLAYER ','SCORE','ROUND'],cell_border_color=COLOR_GREEN,cell_border_width=2)  
+        table_query="""
+        SELECT username,score,round FROM players ORDER BY score DESC;
+        """
+        columns,players=read_leaderboard(table_query)
+        for player in players:
+            leaderboard.add_row(cells=[ player[0] ,player[1], player[2]],cell_border_color=COLOR_GREEN,cell_border_width=2)
         leaderboard.set_float(float_status=True)    
         pass
     def mainmenu():

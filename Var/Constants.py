@@ -31,6 +31,7 @@ LINK_ASSETS_GUN="assets\\Gun.png"
 #+++++FONT+++++
 FONT_LCD="Fonts\\pixel_lcd_7.ttf"
 FONT_BASIC=pygame.font.Font(FONT_LCD,15)
+FONT_STATS=pygame.font.Font(FONT_LCD,25)
 FONT_GAME_OVER=pygame.font.Font(FONT_LCD,40)
 FONT_MENU_TITLE=pygame.font.Font(FONT_LCD,60)
 

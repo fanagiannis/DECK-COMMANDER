@@ -43,7 +43,8 @@ energy_no_message_pos=(DISPLAY_WIDTH-150,150)
 username_pos=(DISPLAY_WIDTH-180,DISPLAY_HEIGHT-60)
 
     #GAME OVER POS
-game_over_message_pos=(DISPLAY_WIDTH/2-75,DISPLAY_HEIGHT/2-75)
+game_over_message_pos=(DISPLAY_WIDTH/2-125,DISPLAY_HEIGHT/2-75)
+game_over_message_stats_pos=(DISPLAY_WIDTH/2-300,DISPLAY_HEIGHT/2)
 
     #SCREEN POS
 screen1_pos=(DISPLAY_WIDTH-200,0)

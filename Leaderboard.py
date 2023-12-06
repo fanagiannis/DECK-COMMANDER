@@ -37,7 +37,8 @@ def create_leaderboard():
     CREATE TABLE IF NOT EXISTS players (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
-    score INT
+    score INT,
+    round INT
     );
     """
     query_execution(connection,query_create_table)
@@ -50,20 +51,38 @@ def insert_leaderboard(query):
 def read_leaderboard(query):
     query_read_players=query
     players=query_read(connection,query_read_players)
-    for player in players:
-        print(player)
+    return players
 
 connection=create_connection("Database\\deckcommander_db.sql")
 
-#create_leaderboard()
-#insert_leaderboard()
 #query="""
-#SELECT id FROM players WHERE username='GIANNIS'
+#INSERT INTO players(username,score,round)
+#VALUES ('GIORGOS',1500,2),('NIKOS',3300,3),('KENOBI',200,1)
 #"""
-#read_leaderboard(query)
-user=input("Search user : ")
-query="SELECT id FROM players WHERE username = '"+user+"'"
-read_leaderboard(query)
+#query_execution(connection,create_leaderboard())
+#insert_leaderboard(query)
+#query="""
+#SELECT username,score FROM players ORDER BY score DESC;
+#"""
+#columns,res=read_leaderboard(query)
+#print(columns)
+#print(players)
+#for res in res:
+#    print (res[0])
+
+#user=input("Search user : ")
+#query="SELECT id FROM players WHERE username = '"+user+"'"
+#players,res=read_leaderboard(query)
+#for player in players:
+#    if res==[]:
+#        print("PLAYER NOT FOUND!")
+#        pass
+#    else:
+#        print(res)
+
+   
+
+
 
 
 
