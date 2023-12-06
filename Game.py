@@ -165,10 +165,10 @@ def game():
         
     def leaderboards():
         leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)
-        leaderboard.set_border(1700,None,inflate=(0,0))#,position=(300,500,1000,1200))
+        leaderboard.set_border(1700,None,inflate=(0,0))#,position=(300,500,1000,1200))  
         leaderboard.add_row(cells=['   TOP PLAYERS'],cell_border_color=COLOR_GREEN,cell_border_width=2)
         leaderboard.add_row(cells=['ID' '  PLAYER' '  SCORE'],cell_border_color=COLOR_GREEN,cell_border_width=2)
-        leaderboard.set_float(float_status=True)
+        leaderboard.set_float(float_status=True)    
         pass
     def mainmenu():
         menu_theme.widget_margin=(-600,0)
