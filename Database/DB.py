@@ -41,11 +41,11 @@ highscore INT
 """
 
 query_insert_players="""
-INSERT INTO players (username,score,highscore)
+INSERT INTO players (username,score)
 values
-('NICK','4000','4000'),
-('MPG','3000','3400'),
-('AFSASFA','200','2000')
+('AARON','4300'),
+('GIANNIS','3500'),
+('SOFIA','2100')
 """
 
 query_read_players="""
@@ -54,6 +54,6 @@ SELECT * from players;
 
 #query_execution(connection,query_create_table)
 
-#query_execution(connection,query_insert_users)
-cname,c=query_read(connection,query_read_players)
-print(cname,c)
+query_execution(connection,query_insert_players)
+#cname,c=query_read(connection,query_read_players)
+#print(cname,c)

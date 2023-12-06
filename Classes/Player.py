@@ -5,6 +5,7 @@ from pygame.locals import *
 from Var.Constants import *
 from assets.Sound_effects import reload_sound
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -53,13 +54,13 @@ class Player(pygame.sprite.Sprite):
     def movement(self):
         pressed_key=pygame.key.get_pressed()
         if pressed_key[K_d]:
-            if self.posx<DISPLAY_WIDTH:
+            if self.posx<DISPLAY_WIDTH-self.offset:
                 self.posx+=self.speed
         if pressed_key[K_a]:
-            if self.posx>0:
+            if self.posx>(self.offset/2-10):
                 self.posx-=self.speed
         self.pos=(self.posx,self.posy)
-        self.rect.center=self.pos
+        self.rect.center=self.pos                
 
     def update(self):
         self.movement()

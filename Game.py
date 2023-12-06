@@ -139,26 +139,50 @@ def eventhandler():
         if event.type == MOUSEBUTTONUP:
             if event.button == 1:       #LEFT CLICK
                 if hitbox.dead==False:
-                    ADS.fire()
+                    #ADS.fire()
                     fire()
+                    
         if event.type == KEYDOWN:
             pressed_key=pygame.key.get_pressed()
             if pressed_key[K_TAB]:
                 run_main_game=False
-                mainmenu()     
+                game()     
     for Projectile in projectiles_group:
         Projectile.update()
 
-def mainmenu():           
-    def maingame():
-        global username
-        username=button_username.get_value()
+def game():        
+    def maingame_solo():
         pygame.mouse.set_visible(False)
         while run_main_game:
             eventhandler()
             spawner()
             pygame.display.flip()
             GAME_CLOCK.tick(FPS)
+    def username():
+        global button_enterusername,button_username
+        button_username=menu.add.text_input(" Enter Username : ",default="Player",maxchar=12)
+        button_enterusername=menu.add.button(" Enter ",mainmenu)
+        
+    def leaderboards():
+        leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)
+        leaderboard.set_border(1700,None,inflate=(0,0))#,position=(300,500,1000,1200))
+        leaderboard.add_row(cells=['   TOP PLAYERS'],cell_border_color=COLOR_GREEN,cell_border_width=2)
+        leaderboard.add_row(cells=['ID' '  PLAYER' '  SCORE'],cell_border_color=COLOR_GREEN,cell_border_width=2)
+        leaderboard.set_float(float_status=True)
+        pass
+    def mainmenu():
+        menu_theme.widget_margin=(-600,0)
+        global username
+        username=button_username.get_value()
+        menu.remove_widget(button_username)
+        menu.remove_widget(button_enterusername)
+        leaderboards()
+        button_startgame=menu.add.button(" Singleplayer ",maingame_solo)
+        button_leaderboards=menu.add.button(" Multiplayer ",leaderboards)
+        
+        #button_leaderboards=menu.add.button(" Leaderboards ",leaderboards)
+        menu.add.button(" Quit ",pygame_menu.events.EXIT)
+
     pygame.mouse.set_visible(False)
     menu_theme=pygame_menu.themes.THEME_DARK
     menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
@@ -167,17 +191,10 @@ def mainmenu():
     menu_theme.title_background_color=(0,0,0,0)
     menu_theme.widget_font=FONT_LCD
     menu_theme.widget_font_color=COLOR_GREEN
-    #menu_theme.widget_margin=(-600,0)
     #menu_theme.title_color=COLOR_GREEN
     menu_title="    -----DECK COMMANDER-----"
     menu=pygame_menu.Menu(menu_title,DISPLAY_WIDTH,DISPLAY_HEIGHT,theme=menu_theme)
-
-    button_username=menu.add.text_input(" Enter Username : ",default="Uknown Player",maxchar=15)
-    button_startgame=menu.add.button(" Start Game ",maingame)
-    
-    menu.add.button(" Quit ",pygame_menu.events.EXIT) 
-    #button_enter=menu.add.button(" Enter ",mainmenu2)
-    
+    username()  
     while True:
         for event in pygame.event.get():
             if event.type == QUIT :
@@ -185,4 +202,4 @@ def mainmenu():
 
         menu.mainloop(DISPLAY_WINDOW)
 
-mainmenu()
+game()
