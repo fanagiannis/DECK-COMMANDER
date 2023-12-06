@@ -42,16 +42,31 @@ def create_leaderboard():
     """
     query_execution(connection,query_create_table)
 
-def read_leaderboard():
+def insert_leaderboard(query):
+    query_insert_players=query
+    players=query_execution(connection,query_insert_players)
     
-    read_query="""
-    SELECT * from players;
-    """
-    pass
+
+def read_leaderboard(query):
+    query_read_players=query
+    players=query_read(connection,query_read_players)
+    for player in players:
+        print(player)
 
 connection=create_connection("Database\\deckcommander_db.sql")
 
 #create_leaderboard()
+#insert_leaderboard()
+#query="""
+#SELECT id FROM players WHERE username='GIANNIS'
+#"""
+#read_leaderboard(query)
+user=input("Search user : ")
+query="SELECT id FROM players WHERE username = '"+user+"'"
+read_leaderboard(query)
+
+
+
 
 
 
