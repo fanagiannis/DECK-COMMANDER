@@ -19,6 +19,9 @@ class Spawner():
         T.speed=self.targetspeed
         self.group.add(T)
     
+    def reset(self):
+        self.group.empty()
+
     def reset_timer(self):
         self.spawn_time=self.time_set
         

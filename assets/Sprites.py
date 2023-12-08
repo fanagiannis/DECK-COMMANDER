@@ -20,10 +20,10 @@ def planets():
     DISPLAY_WINDOW.blit(PLANET2SCALED,(DISPLAY_WIDTH-250,100))
     DISPLAY_WINDOW.blit(PLANET3SCALED,(450,0))
 
-def power():
+def hp():
     energy_supply_left=DISPLAY_WIDTH-180
-    energy_supply_top=DISPLAY_HEIGHT-30
-    energy_supply_width=P.ammo_supplies
+    energy_supply_top=ui_posy+1
+    energy_supply_width=hitbox.hp/7
     energy_supply_height=15
     energy_supply_pos=(energy_supply_left,energy_supply_top,energy_supply_width,energy_supply_height)
     pygame.draw.rect(DISPLAY_WINDOW,COLOR_GREEN,energy_supply_pos)
@@ -39,3 +39,4 @@ def message(text,text_color,text_pos,font):
 def background(image):
     background=pygame.image.load(image)
     DISPLAY_WINDOW.blit(background,(0,0))
+    planets() 

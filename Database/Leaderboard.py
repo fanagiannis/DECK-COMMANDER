@@ -22,6 +22,7 @@ def query_execution(connection,query):
     except Error as e:
         print(f"Error '{e}' occured!")
         pass
+
 def query_read(connection,query):
     cursor=connection.cursor()
     try:
@@ -44,16 +45,21 @@ def create_leaderboard():
     query_execution(connection,query_create_table)
 
 def insert_leaderboard(query):
-    query_insert_players=query
-    players=query_execution(connection,query_insert_players)
+    players=query_execution(connection,query)
     
-
 def read_leaderboard(query):
     query_read_players=query
     players=query_read(connection,query_read_players)
     return players
 
+def game_over_add_leaderboard(username,score,round):
+    game_over_query="INSERT INTO players(username,score,round) VALUES ('"+ str(username) +"',"+str(score)+","+str(round)+")"
+    insert_leaderboard(game_over_query)
+
 connection=create_connection("Database\\deckcommander_db.sql")
+
+query = "DELETE FROM players WHERE id >= 4"
+query_execution(connection,query)
 
 #query="""
 #INSERT INTO players(username,score,round)
