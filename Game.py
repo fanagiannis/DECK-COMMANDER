@@ -25,7 +25,7 @@ pygame.mouse.set_visible(False)
     
 def spawner():
 
-    global game_over
+    #print(gm.t_speed,gm.t_Damage,gm.t_spawn_time)
     background(LINK_ASSETS_BACKGROUND)  #BACKGROUND SET
     hp()                                #POWER FEEDBACK
     messages()                          #MESSAGES 
@@ -130,18 +130,19 @@ def event_game_over():
     #game_over_sound.play(0)
     message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)
     message(game_over_message_stats,COLOR_GREEN,game_over_message_stats_pos,FONT_STATS)
-    game_over=True
     run_main_game=False
+    gm.game_over=True
 
-def game_over_stats(game_over):
-    if game_over:
+def game_over_stats():
         game_over_add_leaderboard(username,P.score,gm.round)
         print("GAME OVER")
+        
 
 def reset_game():
     P.reset()
     Target_spawn.reset()
     gm.reset()
+    hitbox.reset()
     projectiles_group.empty()
 
 def game():        
@@ -165,6 +166,8 @@ def game():
                     pressed_key=pygame.key.get_pressed()
                     if pressed_key[K_TAB]:
                         print("GAME EXITED!")
+                        if gm.game_over:
+                            game_over_stats()
                         run_main_game=False
             for Projectile in projectiles_group:
                 Projectile.update()
@@ -190,7 +193,7 @@ def game():
     def mainmenu():
         menu_theme.widget_margin=(-600,0)
         global button_username
-        if game_over:
+        if gm.game_over:
             game_over_stats(game_over)
         button_username=menu.add.text_input(" Enter Username : ",default="Player",maxchar=12)
         leaderboards()

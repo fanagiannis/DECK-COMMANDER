@@ -37,6 +37,13 @@ class Hitbox():
         else:
             self.dead=True
 
+    def reset(self):
+        self.base_hp=1000
+        self.hp=self.base_hp
+        self.IsRepairing=False
+        self.dead=False
+        self.repair_time=3000
+
     def update(self):
         self.check_if_dead()
         self.repair()

@@ -58,8 +58,8 @@ def game_over_add_leaderboard(username,score,round):
 
 connection=create_connection("Database\\deckcommander_db.sql")
 
-query = "DELETE FROM players WHERE id >= 4"
-query_execution(connection,query)
+#query = "DELETE FROM players WHERE id >= 4"
+#query_execution(connection,query)
 
 #query="""
 #INSERT INTO players(username,score,round)
