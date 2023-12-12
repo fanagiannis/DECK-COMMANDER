@@ -135,8 +135,7 @@ def event_game_over():
 
 def game_over_stats():
         game_over_add_leaderboard(username,P.score,gm.round)
-        print("GAME OVER")
-        
+        print("GAME OVER")       
 
 def reset_game():
     P.reset()
