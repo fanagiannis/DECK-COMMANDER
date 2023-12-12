@@ -20,7 +20,7 @@ from assets.Sound_effects import shooting_sound,explosion_sound,game_over_sound
 from assets.Sprites import *
 
 pygame.init()
-pygame.display.set_caption("DECK COMMANDER V0.6B")
+pygame.display.set_caption("DECK COMMANDER V0.7B")
 pygame.mouse.set_visible(False)
     
 def spawner():
