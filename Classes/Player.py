@@ -58,8 +58,6 @@ class Player(pygame.sprite.Sprite):
                 if self.IsReloading:
                     self.ammo=5
                     reload_sound.play() 
-                    #self.ammo_supplies-=0.05
-                    #self.ammo+=0.05
             else:
                 print("NO AMMO!")
 
