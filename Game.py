@@ -22,23 +22,20 @@ from assets.Sprites import *
 pygame.init()
 pygame.display.set_caption("DECK COMMANDER V0.7B")
 pygame.mouse.set_visible(False)
-    
+
+#SPAWNS SPRITES/EVENTS  
 def spawner():
 
-    #print(gm.t_speed,gm.t_Damage,gm.t_spawn_time)
-    background(LINK_ASSETS_BACKGROUND)  #BACKGROUND SET
-    hp()                                #POWER FEEDBACK
-    messages()                          #MESSAGES 
-    #screens()                          #SCREENS SPAWN
-
-    #TARGET SPAWN
+    background(LINK_ASSETS_BACKGROUND)          #BACKGROUND SET
+    hp()                                        #POWER FEEDBACK
+    messages()                                  #MESSAGES 
 
     if hitbox.dead==False:
-        Target_spawn.group.draw(DISPLAY_WINDOW)
+        Target_spawn.group.draw(DISPLAY_WINDOW)  #SET TARGET SPAWNER SPAWN
     else:
-        event_game_over()
+        event_game_over()                        #IF GAME OVER --> DISABLE SPAWNER 
 
-    #MESSAGES SPAWN
+    #SPAWN MESSAGES
 
     message(score_message_text,COLOR_GREEN,score_message_pos,FONT_BASIC)
     message(hp_message_text,COLOR_GREEN,hp_message_pos,FONT_BASIC)
@@ -48,59 +45,66 @@ def spawner():
     message(exit_game_message_text,COLOR_GREEN,game_over_return_mes_pos,FONT_BASIC)
 
     if P.ammo<1:
-        message(energy_no_message_text,COLOR_GREEN,energy_no_message_pos,FONT_BASIC)
+        message(energy_no_message_text,COLOR_GREEN,energy_no_message_pos,FONT_BASIC)   #SPAWN NO AMMO MESSAGE (IF NO AMMO)
     
-    event_ally_hit()                    #ALLY HIT
-    event_repair()                      #REPAIR
+    #EVENTS
+        
+    event_ally_hit()                            #ALLY HIT
+    event_repair()                              #REPAIR
 
     DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PLAYER SPAWN
 
     #UPDATES
-    P.reload()
-    ADS.update()
-    Target_spawn.update()
-    hitbox.update()
-    rounds()
-    for projectile in projectiles_group:
-        projectile.draw()
+    P.reload()              #UPDATE PLAYER
+    ADS.update()            #UPDATE AIM
+    Target_spawn.update()   #UPDATE TARGET SPAWNER
+    hitbox.update()         #UPDATE HITBOX
 
+    #ROUND MANIPULATION
+    rounds()           
+
+    for projectile in projectiles_group:    #DRAW PROJECTILES
+        projectile.draw()            
+#SET MESSAGES
 def messages():
     global hp_live,score_message_text,hp_message_text,game_over_message_text,game_over_message_stats,energy_message_text,energy_no_message_text,gameround_message_text,exit_game_message_text
-    score_live="%06d" % P.score
-    ammo_live="%02d" % int(P.ammo)
-    hp_live="%04d" % int(hitbox.hp)
-    gameround_live="%02d" % gm.round
-    score_message_text = f"Score : {score_live}" #ADD ZEROES BEFORE SCORE
-    hp_message_text = "HP " 
-    game_over_message_text = "GAME OVER ! "
-    game_over_message_stats =f" Round :"f"{gameround_live}"+" "+f"Score : "f"{score_live}"
-    energy_message_text = f"Energy : {ammo_live}"
-    energy_no_message_text = "OUT OF AMMO! "
-    gameround_message_text=f"Round : {gameround_live}"
-    exit_game_message_text="PRESS TAB TO RETURN TO THE MAIN MENU"
-
+    #STATS MESSAGES
+    score_live="%06d" % P.score                  #SCORE MESSAGE
+    ammo_live="%02d" % int(P.ammo)               #PLAYER AMMO MESSAGE
+    hp_live="%04d" % int(hitbox.hp)              #PLAYER HP MESSAGE
+    gameround_live="%02d" % gm.round             #GAME ROUND MESSAGE
+    #STATIC MESSAGES
+    score_message_text = f"Score : {score_live}" #STATIC SCORE MESSAGE
+    hp_message_text = "HP "                      #STATIC HP MESSAGE
+    game_over_message_text = "GAME OVER ! "      #STATIC GAME OVER MESSAGE
+    game_over_message_stats =f" Round :"f"{gameround_live}"+" "+f"Score : "f"{score_live}"  #STATIC GAME OVER MESSAGE WITH STATS
+    energy_message_text = f"Energy : {ammo_live}"        #STATIC ENERGY MESSAGE
+    energy_no_message_text = "OUT OF AMMO! "             #STATIC NO ENERGY MESSAGE
+    gameround_message_text=f"Round : {gameround_live}"   #STATIC ROUND MESSAGE
+    exit_game_message_text="PRESS TAB TO RETURN TO THE MAIN MENU"     #EXIT GAME MESSAGE  
+#ROUND MANIPULATION
 def rounds():
-    if P.score==gm.game_round_change_score:
-        gm.round_inc()
-    if gm.round==gm.round_change:
-        gm.round_difficulty_inc()
-        if P.scoreinc<1000:
-            P.scoreinc+=100
-        Target_spawn.time_set=gm.t_spawn_time
-        Target_spawn.targetdmg=gm.t_Damage
-        Target_spawn.targetspeed=gm.t_speed
-
+    if P.score==gm.game_round_change_score:         #IF PLAYER SCORE EQUALS SCORE-CHANGING ROUND
+        gm.round_inc()                              #CALL FUNCTION FOR ROUND INCREASE FROM GAMEMODE CLASS    
+    if gm.round==gm.round_change:                   #IF ROUND REACHES A THRESHHOLD INCREASE DIFFICULTY
+        gm.round_difficulty_inc()                   #CALL FUNCTION FOR DIFFICULTY INCREASE FROM GAMEMODE CLASS (INCREASES TARGET DAMAGE,SPEED AND DECREASES SPAWNTIME)   
+        if P.scoreinc<1000:                         #IF PLAYER SCORE IS LESS THAN 1000 THEN IT INCREASES FOR 100 PRE KILL
+            P.scoreinc+=100                         #PLAYER SCORE INCREASE PER KILL
+        Target_spawn.time_set=gm.t_spawn_time       #SET NEW TARGET SPAWNTIME PARAMETER
+        Target_spawn.targetdmg=gm.t_Damage          #SET NEW TARGET DAMAGE PARAMETER
+        Target_spawn.targetspeed=gm.t_speed         #SET NEW TARGET SPEED PARAMETER
+#FIRE FUNCTION EVENTS
 def fire():
-    if hitbox.IsRepairing:
-        print("REPAIRING...")
+    if hitbox.IsRepairing:             #IF PLAYER IS REPAIRING THEN FIRE IS DISABLED
+        print("REPAIRING...")          #CONSOLE REPAIRING MESSAGE             
     else:
-        if P.ammo>=1:
-            if hitbox.hp>0:
-                pygame.draw.line(DISPLAY_WINDOW,COLOR_RED,(P.posx,P.posy),pygame.mouse.get_pos())
-                shooting_sound.play()
-                P.ammo-=1
-                ADS.Fired=False
-                projectiles_group.add(Projectile(gunpos))
+        if P.ammo>=1:                  #IF PLAYER IS AMMO BIGGER THAN 1 THEN CHECK IF HITBOX IS ALIVE 
+            if hitbox.hp>0:            #CHECK IF HITBOX IS ALIVE 
+                pygame.draw.line(DISPLAY_WINDOW,COLOR_RED,(P.posx,P.posy),pygame.mouse.get_pos())       #DRAW BULLET(PROJECTILE)
+                shooting_sound.play()                                                                   #PLAY FIRE SOUND
+                P.ammo-=1                                                                               #DECREASE AMMO PER FIRE            
+                ADS.Fired=False                                                                         #CHECK IF PLAYER HAS FIRED (AIM CLASS)        
+                projectiles_group.add(Projectile(gunpos))                                               #ADD PROJECTILE TO PROJECTILE GROUP (PROJECTILE CLASS)
 
 def event_ally_hit():
     if hitbox.dead==False:
@@ -144,7 +148,9 @@ def reset_game():
     hitbox.reset()
     projectiles_group.empty()
 
-def game():        
+#MAIN GAME
+def game():   
+    #SOLO PLAY     
     def maingame_solo():
         reset_game()
         pygame.mouse.set_visible(False)
@@ -174,7 +180,8 @@ def game():
             pygame.display.flip()
             GAME_CLOCK.tick(FPS)
         
-        #button_enterusername=menu.add.button(" Enter ",mainmenu)       
+        #button_enterusername=menu.add.button(" Enter ",mainmenu)     
+    #LEADERBOARDS  
     def leaderboards():
         leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)
         leaderboard.set_border(1450,None,inflate=(0,0))#,position=(300,500,1000,1200))
@@ -188,7 +195,7 @@ def game():
             leaderboard.add_row(cells=[ player[0] ,player[1], player[2]],cell_border_color=COLOR_GREEN,cell_border_width=2)
         leaderboard.set_float(float_status=True)    
         pass
-
+    #MAIN MENU
     def mainmenu():
         menu_theme.widget_margin=(-600,0)
         global button_username
@@ -199,12 +206,16 @@ def game():
         button_startgame=menu.add.button(" Singleplayer ",maingame_solo)
         button_leaderboards=menu.add.button(" Multiplayer ",leaderboards)
         menu.add.button(" Quit ",exit)
-
+    #EXIT GAME
     def exit():
         pygame.quit()
         sys.exit(0)    
 
-    pygame.mouse.set_visible(False)
+    #MAIN PROGRAM
+        
+    pygame.mouse.set_visible(False) #SET MOUSE VISIBILITY --> FALSE
+
+    #MENU CUSTOMIZATION 
     menu_theme=pygame_menu.themes.THEME_DARK
     menu_theme.background_color=pygame_menu.BaseImage(LINK_ASSETS_BACKGROUND)
     menu_theme.title_font=FONT_MENU_TITLE
@@ -214,10 +225,11 @@ def game():
     menu_theme.widget_font_color=COLOR_GREEN
     menu_title="    -----DECK COMMANDER-----"
     menu=pygame_menu.Menu(menu_title,DISPLAY_WIDTH,DISPLAY_HEIGHT,theme=menu_theme)
-    mainmenu() 
-    mainmenuloop=menu.mainloop(DISPLAY_WINDOW)
+
+    mainmenu()                                   #LOAD MAIN MENU
+    mainmenuloop=menu.mainloop(DISPLAY_WINDOW)   #SET MAIN MENU LOOP
     
     print("QUIT!")
-    game_over_stats(game_over)
+    game_over_stats(game_over)                   #DISPLAY GAME STATS
 
-game()
+game() #CALL MAIN GAME
