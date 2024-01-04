@@ -7,19 +7,19 @@ from Classes.Spawner_Targets import Spawner
 from Classes.Hitbox import Hitbox
 from Classes.Gamemode import Gamemode
 
-ADS=Aim()
+ADS=Aim()                                                       #SCOPE OBJECT DECLARATION
 
 global P,gm,Target_spawn
-P=Player()
-gunpos=P.pos
-gm=Gamemode()
-Target_spawn=Spawner(gm.t_spawn_time,gm.t_Damage,gm.t_speed)
+P=Player()                                                      #PLAYER OBJECT DECLARATION
+gunpos=P.pos                                                    #//CUT// GUN POSITION SET  
+gm=Gamemode()                                                   #GAMEMODE OBJECT DECLARATION  
+Target_spawn=Spawner(gm.t_spawn_time,gm.t_Damage,gm.t_speed)    #ENEMY SPAWNER DECLARATION
 
-projectiles_group=pygame.sprite.Group()
-hit=False
-global run_game,run_main_game,run_main_menu,game_over
+projectiles_group=pygame.sprite.Group()                         #SET PROJECTILE GROUP     
+hit=False                                                       #//CUT//
 
-run_main_menu=True
+global run_game,run_main_game,run_main_menu,game_over           #BASIC BOOLEANS TO RUN THE GAME
+run_main_menu=True                                              
 run_main_game=True
 run_game=False
 game_over=False
@@ -28,7 +28,7 @@ global score_live,gameround_live
 
 #HITBOX
 
-hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH) #REVERSE!
+hitbox = Hitbox(DISPLAY_HEIGHT,DISPLAY_WIDTH)                   #ALLY OBJECT DECLARATION (REVERSE!)
 
 #UI
 

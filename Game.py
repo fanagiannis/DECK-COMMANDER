@@ -105,48 +105,47 @@ def fire():
                 P.ammo-=1                                                                               #DECREASE AMMO PER FIRE            
                 ADS.Fired=False                                                                         #CHECK IF PLAYER HAS FIRED (AIM CLASS)        
                 projectiles_group.add(Projectile(gunpos))                                               #ADD PROJECTILE TO PROJECTILE GROUP (PROJECTILE CLASS)
-
+#DEFINES EVENT AFTER ALLY HIT
 def event_ally_hit():
-    if hitbox.dead==False:
-        Ally_Hit=pygame.sprite.spritecollide(hitbox,Target_spawn.group,True)
-        if Ally_Hit:
-            screen_effect(COLOR_RED)
-            explosion_sound.play()
-            hitbox.hp-=gm.t_Damage
-            if P.score>0:
-                P.score-=10
-            if hitbox.hp<0:
+    if hitbox.dead==False:                                                          #CHECKS IF ALLY IS DEAD (FUNCTION RUNS ONLY IF ALLY IS ALIVE) 
+        Ally_Hit=pygame.sprite.spritecollide(hitbox,Target_spawn.group,True)        #BOOL Ally_Hit CHECKS COLLISION OF ENEMY WITH ALLY
+        if Ally_Hit:                                                                #IF THE ALLY IS HIT THEN ... 
+            screen_effect(COLOR_RED)                                                #HIT SCREEN EFFECT 
+            explosion_sound.play()                                                  #HIT SOUND EFFECT
+            hitbox.hp-=gm.t_Damage                                                  #ALLY TAKE DAMAGE
+            if P.score>0:                                                           #IF PLAYER SCORE IS GREATER THAN 0 
+                P.score-=10                                                         #THEN SUBTRACT 10 FROM SCORE AFTER ALLY HIT
+            if hitbox.hp<0:                                                         #DISPLAY HP ONLY GREATER THAN 0                            
                 hitbox.hp=0
-
+#DEFINES REPAIR EVENT
 def event_repair():
-    if hitbox.IsRepairing==False:
-        
-        ADS.icon_reset()
-        if hitbox.dead==False:
-            P.update()
-    else:
-        DISPLAY_WINDOW.blit(ADS.image,ADS.rect)
-        ADS.repair()
-        P.ammo_supplies-=0.1
-
+    if hitbox.IsRepairing==False:                   #CHECKS IF ALLY IS NOT REPAIRING 
+        ADS.icon_reset()                            #SET AIM ICON TO INVISIBLE 
+        if hitbox.dead==False:                      #CHECKS IF ALLY IS ALIVE
+            P.update()                              #IF ALLY IS ALIVE THEN KEEP UPDATING THE PLAYER
+    else:                                           #IF ALLY IS REPAIRING                
+        DISPLAY_WINDOW.blit(ADS.image,ADS.rect)     #SET REPAIR ICON TO VISIBLE
+        ADS.repair()                                #RUNS REPAIR FUNCTION FROM AIM CLASS
+        P.ammo_supplies-=0.1                        #SUBTRACTS ENERGY SUPPLIES    
+#DEFINES GAME OVER EVENT
 def event_game_over():
-    Target_spawn.group.empty()
-    #game_over_sound.play(0)
-    message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)
+    Target_spawn.group.empty()                                                              #DELETE ALL ENEMY INSTANCES FROM ENEMY GROUP
+    #game_over_sound.play(0)                                                                #//CUT//GAME OVER SOUND
+    message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)        #DISPLAY GAME OVER MESSAGES    
     message(game_over_message_stats,COLOR_GREEN,game_over_message_stats_pos,FONT_STATS)
-    run_main_game=False
-    gm.game_over=True
-
+    run_main_game=False                                                                     #SET RUN GAME BOOLEAN TO FALSE    
+    gm.game_over=True                                                                       #SET GAME OVER BOOLEAN TO TRUE        
+#GAME OVER STATS LOAD
 def game_over_stats():
-        game_over_add_leaderboard(username,P.score,gm.round)
+        game_over_add_leaderboard(username,P.score,gm.round)                                #ADDS STATS TO LEADERBOARD AFTER GAME OVER
         print("GAME OVER")       
-
+#GAME RESET TO DEFAULT
 def reset_game():
-    P.reset()
-    Target_spawn.reset()
-    gm.reset()
-    hitbox.reset()
-    projectiles_group.empty()
+    P.reset()                                      #RESET PLAYER TO DEFAULT 
+    Target_spawn.reset()                           #RESET ENEMY SPAWNER TO DEFAULT 
+    gm.reset()                                     #RESET GAMEMODE TO DEFAULT     
+    hitbox.reset()                                 #RESET ALLY TO DEFAULT     
+    projectiles_group.empty()                      #RESET PROJECTILES TO DEFAULT
 
 #MAIN GAME
 def game():   
