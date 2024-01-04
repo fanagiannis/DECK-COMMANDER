@@ -10,7 +10,7 @@ class Aim(pygame.sprite.Sprite):
         self.y = y
         self.screen_width = screen_width
         self.screen_height = screen_height             
-        self.image = pygame.image.load("aim.png") 
+        self.image = pygame.image.load("command_deck/aim.png") 
         self.image = pygame.transform.scale(self.image,(40,40))  
         self.rect = self.image.get_rect(midbottom = (self.screen_width/2 ,self.screen_height/2 ))
         self.speed = speed # how quickly the aim moves --> velocity in other words

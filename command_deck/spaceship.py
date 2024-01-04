@@ -17,7 +17,7 @@ class Spaceship (pygame.sprite.Sprite): #organises code and gives attributes to 
 
         
         #IMAGE OF SHIP 
-        self.image = pygame.image.load("spaceship.png").convert_alpha()
+        self.image = pygame.image.load("command_deck/spaceship.png").convert_alpha()
         self.image = pygame.transform.scale(self.image,(100,100))
         self.rect = self.image.get_rect(midbottom = (self.screen_width / 2 ,self.screen_height / 1.5 ))   # a rect with the dimensions of the image
 
