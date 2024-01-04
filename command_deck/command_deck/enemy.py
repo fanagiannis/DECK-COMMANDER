@@ -11,7 +11,7 @@ class Enemy (pygame.sprite.Sprite):
         self.y = y
         
         #IMAGE
-        self.image = pygame.image.load('enemyship.png')
+        self.image = pygame.image.load('command_deck/command_deck/enemyship.png')
         self.image = pygame.transform.scale(self.image,(100,100))
         self.rect = self.image.get_rect()
         self.rect.center = (x,y)

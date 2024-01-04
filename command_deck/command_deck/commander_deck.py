@@ -29,11 +29,11 @@ caption = pygame.display.set_caption('Deck Commander')
 
     #GAME BACKGROUND
 
-planet = pygame.image.load('planet.png').convert_alpha()
+planet = pygame.image.load('command_deck/command_deck/planet.png').convert_alpha()
 
 planet_ = pygame.transform.scale(planet,(500,500))
 
-planet2 =pygame.image.load('planet2.png').convert_alpha()
+planet2 =pygame.image.load('command_deck/command_deck/planet2.png').convert_alpha()
    
 planet_2 = pygame.transform.scale(planet2,(500,500))     
            
