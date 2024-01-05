@@ -63,12 +63,12 @@ Clock = pygame.time.Clock()
     #SPACESHIP
    
     #1
-spaceship = Spaceship(x,y,screen_width,screen_height,speed) #spaceship obj
+spaceship = Spaceship(x,y,screen_width,screen_height,speed,1) #spaceship obj
 spaceship_group = pygame.sprite.GroupSingle() #Contains the sprite of the obj
 spaceship_group.add(spaceship)
     
     #2
-player2 = Player2(x,y,screen_width,screen_height,speed)
+player2 = Spaceship(x,y,screen_width,screen_height,speed,2)#:::::Player2(x,y,screen_width,screen_height,speed):::::
 player2_group  = pygame.sprite.GroupSingle() 
 player2_group.add(player2)
 

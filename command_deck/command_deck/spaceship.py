@@ -8,7 +8,7 @@ from lazer import Lazer
 class Spaceship (pygame.sprite.Sprite): #organises code and gives attributes to object    
     
 
-    def __init__ (self,x,y,screen_width,screen_height,speed): #initialise Spaceship        
+    def __init__ (self,x,y,screen_width,screen_height,speed,playercount): #initialise Spaceship        
         super().__init__() #inherites all attributes of Sprite Class                  
             
         #BASIC ATTRIBUTES
@@ -29,24 +29,44 @@ class Spaceship (pygame.sprite.Sprite): #organises code and gives attributes to 
         self.image = pygame.image.load('command_deck/command_deck/spaceship.png').convert_alpha()
         self.image = pygame.transform.scale(self.image,(100,100))   
         self.rect = self.image.get_rect(midbottom = (self.screen_width - 840 ,self.screen_height - 50 ))   # a rect with the dimensions of the image
+
+    #::::::CHECK PLAYER:::::::
+        self.playercount=playercount                       #::::::::::::::::::::::::::::::::::::::::::::::
         
     #SHIP'S MOVEMENT
     def get_user_input(self): # user input --> movement
         
         # PLAYER 1
         keys = pygame.key.get_pressed()        
+        if self.playercount==1:
+            if keys[pygame.K_a]:
+                self.rect.x -= self.speed
         
-        if keys[pygame.K_a]:
-            self.rect.x -= self.speed
-    
-        if keys[pygame.K_d]:
-            self.rect.x += self.speed
+            if keys[pygame.K_d]:
+                self.rect.x += self.speed
 
-        if keys[pygame.K_w] and self.lazer_ready:
-            self.lazer_ready = False
-            lazer = Lazer(self.rect.center,5,self.screen_height)
-            self.lazer_group.add(lazer)
-            self.lazer_time = pygame.time.get_ticks()
+            if keys[pygame.K_w] and self.lazer_ready:
+                self.lazer_ready = False
+                lazer = Lazer(self.rect.center,5,self.screen_height)
+                self.lazer_group.add(lazer)
+                self.lazer_time = pygame.time.get_ticks()
+        elif self.playercount==2:                           #::::::::::::::::::::::::::::::::::::::::::::::
+            keys = pygame.key.get_pressed()        
+        
+            if keys[pygame.K_LEFT]:
+                self.rect.x -= self.speed
+        
+            if keys[pygame.K_RIGHT]:
+                self.rect.x += self.speed
+
+            if keys[pygame.K_UP] and self.lazer_ready:
+                self.lazer_ready = False
+                lazer = Lazer(self.rect.center,5,self.screen_height)
+                self.lazer_group.add(lazer)
+                self.lazer_time = pygame.time.get_ticks() 
+            self.image = pygame.image.load('command_deck/command_deck/spaceship_2.png').convert_alpha()
+            self.image = pygame.transform.scale(self.image,(100,100))    #:::::::::::::::::::::::::::::::::::::::::::::: 
+
     
     #REMAIN AT THE WINDOW
     def constrain_movement(self): #limit the aim movement within the game window
