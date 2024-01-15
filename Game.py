@@ -25,7 +25,7 @@ pygame.mouse.set_visible(False)
 
 #SPAWNS SPRITES/EVENTS  
 def set_game():
-
+    #
     background(LINK_ASSETS_BACKGROUND)          #BACKGROUND SET
     hp()                                        #POWER FEEDBACK
     messages()                                  #MESSAGES 
@@ -148,6 +148,8 @@ def game_over_stats():
 #GAME RESET TO DEFAULT
 def reset_game():
     P.reset()                                      #RESET PLAYER TO DEFAULT 
+    if (multiplayer):
+        P2.reset()
     Target_spawn.reset()                           #RESET ENEMY SPAWNER TO DEFAULT 
     gm.reset()                                     #RESET GAMEMODE TO DEFAULT     
     hitbox.reset()                                 #RESET ALLY TO DEFAULT     
@@ -187,35 +189,38 @@ def game():
         #button_enterusername=menu.add.button(" Enter ",mainmenu)    
     def maingame_multiplayer():
         #reset_game()
-        multiplayer=True
-        #P2=Player()
-       # pygame.mouse.set_visible(False)
-       # global username
-        #username=button_username.get_value()
-       # run_main_game=True
-       # while run_main_game:
-           # for event in pygame.event.get():
-             #   if event.type==QUIT :
-             #           pygame.quit()
-             #           sys.exit(0)
-              #  if event.type == MOUSEBUTTONUP:
-             #       if event.button == 1:       #LEFT CLICK
-              #          if hitbox.dead==False:
-             #               #ADS.fire()
-              #              fire()      
-              #  if event.type == KEYDOWN:
-              #      pressed_key=pygame.key.get_pressed()
-              #      if pressed_key[K_TAB]:
-              #          print("GAME EXITED!")
-              #          if gm.game_over:
-             #               game_over_stats()
-           #             run_main_game=False
-           # for Projectile in projectiles_group:
-           #     Projectile.update()
-           # set_game()
-           #P2.update()
-           # pygame.display.flip()
-            #GAME_CLOCK.tick(FPS)
+        reset_game()
+        global P2
+        P2=Player(2)
+
+       
+        pygame.mouse.set_visible(False)
+        global username
+        username=button_username.get_value()
+        run_main_game=True
+        while run_main_game:
+            for event in pygame.event.get():
+                if event.type==QUIT :
+                        pygame.quit()
+                        sys.exit(0)
+                if event.type == MOUSEBUTTONUP:
+                    if event.button == 1:       #LEFT CLICK
+                        if hitbox.dead==False:
+                            #ADS.fire()
+                            fire()      
+                if event.type == KEYDOWN:
+                    pressed_key=pygame.key.get_pressed()
+                    if pressed_key[K_TAB]:
+                        print("GAME EXITED!")
+                        if gm.game_over:
+                            game_over_stats()
+                        run_main_game=False
+            for Projectile in projectiles_group:
+                Projectile.update()
+            set_game()
+            P2.update()
+            pygame.display.flip()
+            GAME_CLOCK.tick(FPS)
     #LEADERBOARDS  
     def leaderboards():
         leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)

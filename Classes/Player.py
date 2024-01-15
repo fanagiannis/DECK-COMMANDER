@@ -7,19 +7,25 @@ from assets.Sound_effects import reload_sound
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self,playernumber):
+    def __init__(self,playerID):
+        
         super().__init__()
-        if (playernumber==1):
+        self.playerID=playerID
+        if (self.playerID==1):
             self.image=pygame.image.load(LINK_ASSETS_SPACESHIP)
-        elif():
-            self.image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+            self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+            self.posx=DISPLAY_WIDTH/2 + 50
+        elif(self.playerID==2):
+            self.image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
+            self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
+            self.posx=DISPLAY_WIDTH/2 - 50
         #self.image=pygame.transform.scale(self.imageload,(100,100))
-        self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+        
         self.image_rotated=self.image
         self.rect=self.body_image.get_rect()
         self.rect_rotated=self.rect
         self.offset=self.body_image.get_height()-30
-        self.posx=DISPLAY_WIDTH/2
+        
         self.posy=DISPLAY_HEIGHT-self.offset
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos  
@@ -31,7 +37,6 @@ class Player(pygame.sprite.Sprite):
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10
-        self.playernumber=playernumber
 
     def reset(self):
         self.posx=DISPLAY_WIDTH/2
@@ -67,12 +72,20 @@ class Player(pygame.sprite.Sprite):
 
     def movement(self):
         pressed_key=pygame.key.get_pressed()
-        if pressed_key[K_d]:
-            if self.posx<DISPLAY_WIDTH-self.offset:
-                self.posx+=self.speed
-        if pressed_key[K_a]:
-            if self.posx>(self.offset/2-10):
-                self.posx-=self.speed
+        if(self.playerID==1):
+            if pressed_key[K_d]:
+                if self.posx<DISPLAY_WIDTH-self.offset:
+                    self.posx+=self.speed
+            if pressed_key[K_a]:
+                if self.posx>(self.offset/2-10):
+                    self.posx-=self.speed
+        elif(self.playerID==2):
+            if pressed_key[K_LEFT]:
+                if self.posx<DISPLAY_WIDTH-self.offset:
+                    self.posx+=self.speed
+            if pressed_key[K_RIGHT]:
+                if self.posx>(self.offset/2-10):
+                    self.posx-=self.speed
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos                
 

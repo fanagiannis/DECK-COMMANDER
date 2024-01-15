@@ -26,7 +26,7 @@ LINK_ASSETS_PLANET="assets\\Planet4.png"#Planet_8bit.png"
 LINK_ASSETS_PLANET2="assets\\Planet2_8bit.png"
 LINK_ASSETS_PLANET3="assets\\Planet3_8bit.png"
 LINK_ASSETS_SPACESHIP="assets\\Spaceship.png"
-LINK_ASSETS_SPACESHIP="assets\\Spaceship2.png"
+LINK_ASSETS_SPACESHIP2="assets\\Spaceship2.png"
 LINK_ASSETS_GUN="assets\\Gun.png"
 
 #+++++FONT+++++
