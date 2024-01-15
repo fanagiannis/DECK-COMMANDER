@@ -7,15 +7,18 @@ from assets.Sound_effects import reload_sound
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self,playernumber):
         super().__init__()
-        self.imageload=pygame.image.load(LINK_ASSETS_SPACESHIP)
-        self.image=pygame.transform.scale(self.imageload,(100,100))
+        if (playernumber==1):
+            self.image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+        elif():
+            self.image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+        #self.image=pygame.transform.scale(self.imageload,(100,100))
         self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP)
         self.image_rotated=self.image
         self.rect=self.body_image.get_rect()
         self.rect_rotated=self.rect
-        self.offset=self.body_image.get_height()
+        self.offset=self.body_image.get_height()-30
         self.posx=DISPLAY_WIDTH/2
         self.posy=DISPLAY_HEIGHT-self.offset
         self.pos=(self.posx,self.posy)
@@ -28,6 +31,7 @@ class Player(pygame.sprite.Sprite):
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10
+        self.playernumber=playernumber
 
     def reset(self):
         self.posx=DISPLAY_WIDTH/2

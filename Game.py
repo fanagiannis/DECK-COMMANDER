@@ -24,7 +24,7 @@ pygame.display.set_caption("DECK COMMANDER V0.7B")
 pygame.mouse.set_visible(False)
 
 #SPAWNS SPRITES/EVENTS  
-def spawner():
+def set_game():
 
     background(LINK_ASSETS_BACKGROUND)          #BACKGROUND SET
     hp()                                        #POWER FEEDBACK
@@ -64,17 +64,23 @@ def spawner():
     rounds()           
 
     for projectile in projectiles_group:    #DRAW PROJECTILES
-        projectile.draw()            
+        projectile.draw()                     
 #SET MESSAGES
 def messages():
     global hp_live,score_message_text,hp_message_text,game_over_message_text,game_over_message_stats,energy_message_text,energy_no_message_text,gameround_message_text,exit_game_message_text
     #STATS MESSAGES
     score_live="%06d" % P.score                  #SCORE MESSAGE
+
+    #score2_live="%06d" % P2.score    
+
     ammo_live="%02d" % int(P.ammo)               #PLAYER AMMO MESSAGE
     hp_live="%04d" % int(hitbox.hp)              #PLAYER HP MESSAGE
     gameround_live="%02d" % gm.round             #GAME ROUND MESSAGE
     #STATIC MESSAGES
     score_message_text = f"Score : {score_live}" #STATIC SCORE MESSAGE
+
+    #score2_message_text=f"Score : {score2_live}"
+
     hp_message_text = "HP "                      #STATIC HP MESSAGE
     game_over_message_text = "GAME OVER ! "      #STATIC GAME OVER MESSAGE
     game_over_message_stats =f" Round :"f"{gameround_live}"+" "+f"Score : "f"{score_live}"  #STATIC GAME OVER MESSAGE WITH STATS
@@ -146,7 +152,6 @@ def reset_game():
     gm.reset()                                     #RESET GAMEMODE TO DEFAULT     
     hitbox.reset()                                 #RESET ALLY TO DEFAULT     
     projectiles_group.empty()                      #RESET PROJECTILES TO DEFAULT
-
 #MAIN GAME
 def game():   
     #SOLO PLAY     
@@ -175,11 +180,42 @@ def game():
                         run_main_game=False
             for Projectile in projectiles_group:
                 Projectile.update()
-            spawner()
+            set_game()
             pygame.display.flip()
             GAME_CLOCK.tick(FPS)
         
-        #button_enterusername=menu.add.button(" Enter ",mainmenu)     
+        #button_enterusername=menu.add.button(" Enter ",mainmenu)    
+    def maingame_multiplayer():
+        #reset_game()
+        multiplayer=True
+        #P2=Player()
+       # pygame.mouse.set_visible(False)
+       # global username
+        #username=button_username.get_value()
+       # run_main_game=True
+       # while run_main_game:
+           # for event in pygame.event.get():
+             #   if event.type==QUIT :
+             #           pygame.quit()
+             #           sys.exit(0)
+              #  if event.type == MOUSEBUTTONUP:
+             #       if event.button == 1:       #LEFT CLICK
+              #          if hitbox.dead==False:
+             #               #ADS.fire()
+              #              fire()      
+              #  if event.type == KEYDOWN:
+              #      pressed_key=pygame.key.get_pressed()
+              #      if pressed_key[K_TAB]:
+              #          print("GAME EXITED!")
+              #          if gm.game_over:
+             #               game_over_stats()
+           #             run_main_game=False
+           # for Projectile in projectiles_group:
+           #     Projectile.update()
+           # set_game()
+           #P2.update()
+           # pygame.display.flip()
+            #GAME_CLOCK.tick(FPS)
     #LEADERBOARDS  
     def leaderboards():
         leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)
@@ -203,7 +239,7 @@ def game():
         button_username=menu.add.text_input(" Enter Username : ",default="Player",maxchar=12)
         leaderboards()
         button_startgame=menu.add.button(" Singleplayer ",maingame_solo)
-        button_leaderboards=menu.add.button(" Multiplayer ",leaderboards)
+        button_leaderboards=menu.add.button(" Multiplayer ",maingame_multiplayer)
         menu.add.button(" Quit ",exit)
     #EXIT GAME
     def exit():
