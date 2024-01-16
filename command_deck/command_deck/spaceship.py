@@ -26,7 +26,7 @@ class Spaceship (pygame.sprite.Sprite): #organises code and gives attributes to 
         self.lazer_delay = 300
           
     # SHIP'S IMAGE
-        self.image = pygame.image.load('command_deck/command_deck/spaceship.png').convert_alpha()
+        self.image = pygame.image.load('assets/Spaceship.png').convert_alpha()
         self.image = pygame.transform.scale(self.image,(100,100))   
         self.rect = self.image.get_rect(midbottom = (self.screen_width - 840 ,self.screen_height - 50 ))   # a rect with the dimensions of the image
 
@@ -64,7 +64,7 @@ class Spaceship (pygame.sprite.Sprite): #organises code and gives attributes to 
                 lazer = Lazer(self.rect.center,5,self.screen_height)
                 self.lazer_group.add(lazer)
                 self.lazer_time = pygame.time.get_ticks() 
-            self.image = pygame.image.load('command_deck/command_deck/spaceship_2.png').convert_alpha()
+            self.image = pygame.image.load('assets/Spaceship2.png').convert_alpha()
             self.image = pygame.transform.scale(self.image,(100,100))    #:::::::::::::::::::::::::::::::::::::::::::::: 
 
     
@@ -96,7 +96,7 @@ class Player2(Spaceship):
     def __init__(self, x, y, screen_width, screen_height, speed):
         super().__init__(x, y, screen_width, screen_height, speed) 
         
-        self.image = pygame.image.load('command_deck/command_deck/spaceship_2.png').convert_alpha()
+        self.image = pygame.image.load('assets/Spaceship_2.png').convert_alpha()
         self.image = pygame.transform.scale(self.image,(100,100))   
         self.rect = self.image.get_rect(midbottom = (self.screen_width - 440 ,self.screen_height - 50 ))
     

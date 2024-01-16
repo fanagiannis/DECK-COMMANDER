@@ -71,8 +71,9 @@ class Player(pygame.sprite.Sprite):
                 print("NO AMMO!")
 
     def movement(self):
-        pressed_key=pygame.key.get_pressed()
+        
         if(self.playerID==1):
+            pressed_key=pygame.key.get_pressed()
             if pressed_key[K_d]:
                 if self.posx<DISPLAY_WIDTH-self.offset:
                     self.posx+=self.speed
@@ -80,10 +81,11 @@ class Player(pygame.sprite.Sprite):
                 if self.posx>(self.offset/2-10):
                     self.posx-=self.speed
         elif(self.playerID==2):
-            if pressed_key[K_LEFT]:
+            pressed_key=pygame.key.get_pressed()
+            if pressed_key[pygame.K_RIGHT]:
                 if self.posx<DISPLAY_WIDTH-self.offset:
                     self.posx+=self.speed
-            if pressed_key[K_RIGHT]:
+            if pressed_key[pygame.K_LEFT]:
                 if self.posx>(self.offset/2-10):
                     self.posx-=self.speed
         self.pos=(self.posx,self.posy)

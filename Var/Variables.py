@@ -10,7 +10,10 @@ from Classes.Gamemode import Gamemode
 ADS=Aim()                                                       #SCOPE OBJECT DECLARATION
 
 global P,gm,Target_spawn
-P=Player(1)                                                      #PLAYER OBJECT DECLARATION
+P=Player(1)
+global P2
+P2=Player(2)                                                    #PLAYER OBJECT DECLARATION
+
 gunpos=P.pos                                                    #//CUT// GUN POSITION SET  
 gm=Gamemode()                                                   #GAMEMODE OBJECT DECLARATION  
 Target_spawn=Spawner(gm.t_spawn_time,gm.t_Damage,gm.t_speed)    #ENEMY SPAWNER DECLARATION
@@ -41,6 +44,10 @@ ui_right_posx=DISPLAY_WIDTH-220
     #UI LEFT
 score_message_pos=(ui_left_posx,ui_posy*2)
 gameround_pos=(ui_left_posx,ui_posy*3)
+multiplayer_gameround_pos=(ui_left_posx,ui_posy*5)
+
+P2_score_message_pos=(ui_left_posx,ui_posy*4)
+P2_energy_message_pos=(ui_right_posx,ui_posy*3)
 
     #UI RIGHT
 hp_message_pos=(ui_right_posx,ui_posy)
