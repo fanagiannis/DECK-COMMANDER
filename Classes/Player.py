@@ -58,17 +58,31 @@ class Player(pygame.sprite.Sprite):
 
     def reload(self):
         pressed_key=pygame.key.get_pressed()
-        if pressed_key[K_r]:
-            if self.ammo_supplies>1:
-                if self.ammo<self.maxammo:
-                    self.IsReloading=True
+        if(self.playerID==1):
+            if pressed_key[K_s]:
+                if self.ammo_supplies>1:
+                    if self.ammo<self.maxammo:
+                        self.IsReloading=True
+                    else:
+                        self.IsReloading=False 
+                    if self.IsReloading:
+                        self.ammo=5
+                        reload_sound.play() 
                 else:
-                    self.IsReloading=False 
-                if self.IsReloading:
-                    self.ammo=5
-                    reload_sound.play() 
-            else:
-                print("NO AMMO!")
+                    print("NO AMMO!")
+        elif(self.playerID==2):
+            if pressed_key[K_DOWN]:
+                if self.ammo_supplies>1:
+                    if self.ammo<self.maxammo:
+                        self.IsReloading=True
+                    else:
+                        self.IsReloading=False 
+                    if self.IsReloading:
+                        self.ammo=5
+                        reload_sound.play() 
+                else:
+                    print("NO AMMO!")
+        
 
     def movement(self):
         
@@ -93,6 +107,4 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         self.movement()
-        #DISPLAY_WINDOW.blit(self.body_image,self.pos)
-        #self.rotation()
         pass

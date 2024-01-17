@@ -22,7 +22,9 @@ from assets.Sprites import *
 pygame.init()
 pygame.display.set_caption("DECK COMMANDER V0.7B")
 pygame.mouse.set_visible(False)
+
 print(P.playerID,P2.playerID)
+
 #SPAWNS SPRITES/EVENTS  
 def set_game_solo():
     background(LINK_ASSETS_BACKGROUND)          #BACKGROUND SET
@@ -92,7 +94,7 @@ def set_game_multiplayer():
     if P.ammo<1:
         message(energy_no_message_text,COLOR_GREEN,energy_no_message_pos,FONT_BASIC)   #SPAWN NO AMMO MESSAGE (IF NO AMMO)
     if P2.ammo<1:
-         message(energy_no_message_text,COLOR_GREEN,energy_no_message_pos-(100,0),FONT_BASIC)
+        message(energy_no_message_text2,COLOR_GREEN,energy_no_message_pos2,FONT_BASIC)
     
     #EVENTS
         
@@ -138,28 +140,15 @@ def messages():
     energy_no_message_text = "OUT OF AMMO! "             #STATIC NO ENERGY MESSAGE
     gameround_message_text=f"Round : {gameround_live}"   #STATIC ROUND MESSAGE
     exit_game_message_text="PRESS TAB TO RETURN TO THE MAIN MENU"     #EXIT GAME MESSAGE  
-
 def messages_multiplayer():
-    global p2_score_live,p2_ammo_live,p2_energy_message_text,p2_score_message_text
+    global p2_score_live,p2_ammo_live,p2_energy_message_text,p2_score_message_text,energy_no_message_text,energy_no_message_text2
     #STATS MESSAGES
     p2_score_live="%06d" % P2.score                          #SCORE MESSAGE
     p2_ammo_live="%02d" % int(P2.ammo)                       #PLAYER AMMO MESSAGE
     p2_energy_message_text = f"Energy 2: {p2_ammo_live}"      #STATIC ENERGY MESSAGE
     p2_score_message_text = f"Score 2: {p2_score_live}"       #STATIC SCORE MESSAGE
-
-def fire_multiplayer():
-    if hitbox.IsRepairing:             #IF PLAYER IS REPAIRING THEN FIRE IS DISABLED
-        print("REPAIRING...")          #CONSOLE REPAIRING MESSAGE             
-    else:
-        if P2.ammo>=1:                  #IF PLAYER IS AMMO BIGGER THAN 1 THEN CHECK IF HITBOX IS ALIVE 
-            if hitbox.hp>0:            #CHECK IF HITBOX IS ALIVE 
-                pygame.draw.line(DISPLAY_WINDOW,COLOR_RED,(P2.posx,P2.posy),pygame.mouse.get_pos())       #DRAW BULLET(PROJECTILE)
-                shooting_sound.play()                                                                   #PLAY FIRE SOUND
-                P2.ammo-=1                                                                               #DECREASE AMMO PER FIRE            
-                #ADS.Fired=False                                                                         #CHECK IF PLAYER HAS FIRED (AIM CLASS)        
-                projectiles_group.add(Projectile(gunpos))                                               #ADD PROJECTILE TO PROJECTILE GROUP (PROJECTILE CLASS)
-    pass
-
+    energy_no_message_text = "PLAYER 1 OUT OF AMMO! "             #STATIC NO ENERGY MESSAGE
+    energy_no_message_text2 = "PLAYER 2 OUT OF AMMO! "             #STATIC NO ENERGY MESSAGE
 #ROUND MANIPULATION
 def rounds():
     if P.score==gm.game_round_change_score:         #IF PLAYER SCORE EQUALS SCORE-CHANGING ROUND
@@ -178,11 +167,18 @@ def fire():
     else:
         if P.ammo>=1:                  #IF PLAYER IS AMMO BIGGER THAN 1 THEN CHECK IF HITBOX IS ALIVE 
             if hitbox.hp>0:            #CHECK IF HITBOX IS ALIVE 
-                pygame.draw.line(DISPLAY_WINDOW,COLOR_RED,(P.posx,P.posy),pygame.mouse.get_pos())       #DRAW BULLET(PROJECTILE)
                 shooting_sound.play()                                                                   #PLAY FIRE SOUND
-                P.ammo-=1                                                                               #DECREASE AMMO PER FIRE            
-                ADS.Fired=False                                                                         #CHECK IF PLAYER HAS FIRED (AIM CLASS)        
-                projectiles_group.add(Projectile(gunpos))                                               #ADD PROJECTILE TO PROJECTILE GROUP (PROJECTILE CLASS)
+                P.ammo-=1                                                                               #DECREASE AMMO PER FIRE               
+                projectiles_group.add(Projectile(P.pos,COLOR_RED))                                               #ADD PROJECTILE TO PROJECTILE GROUP (PROJECTILE CLASS)
+def fire_2():
+    if hitbox.IsRepairing:             #IF PLAYER IS REPAIRING THEN FIRE IS DISABLED
+        print("REPAIRING...")          #CONSOLE REPAIRING MESSAGE             
+    else:
+        if P2.ammo>=1:                  #IF PLAYER IS AMMO BIGGER THAN 1 THEN CHECK IF HITBOX IS ALIVE 
+            if hitbox.hp>0:            #CHECK IF HITBOX IS ALIVE 
+                shooting_sound.play()                                                                   #PLAY FIRE SOUND
+                P2.ammo-=1                                                                               #DECREASE AMMO PER FIRE                  
+                projectiles_group.add(Projectile(P2.pos,COLOR_GREEN))                                               #ADD PROJECTILE TO PROJECTILE GROUP (PROJECTILE CLASS)
 #DEFINES EVENT AFTER ALLY HIT
 def event_ally_hit():
     if hitbox.dead==False:                                                          #CHECKS IF ALLY IS DEAD (FUNCTION RUNS ONLY IF ALLY IS ALIVE) 
@@ -204,7 +200,7 @@ def event_repair():
     else:                                           #IF ALLY IS REPAIRING                
         DISPLAY_WINDOW.blit(ADS.image,ADS.rect)     #SET REPAIR ICON TO VISIBLE
         ADS.repair()                                #RUNS REPAIR FUNCTION FROM AIM CLASS
-        P.ammo_supplies-=0.1                        #SUBTRACTS ENERGY SUPPLIES    
+        #P.ammo_supplies-=0.1                        #SUBTRACTS ENERGY SUPPLIES    
 #DEFINES GAME OVER EVENT
 def event_game_over():
     Target_spawn.group.empty()                                                              #DELETE ALL ENEMY INSTANCES FROM ENEMY GROUP
@@ -220,6 +216,7 @@ def game_over_stats():
 #GAME RESET TO DEFAULT
 def reset_game():
     P.reset()                                      #RESET PLAYER TO DEFAULT 
+    P2.reset()
     Target_spawn.reset()                           #RESET ENEMY SPAWNER TO DEFAULT 
     gm.reset()                                     #RESET GAMEMODE TO DEFAULT     
     hitbox.reset()                                 #RESET ALLY TO DEFAULT     
@@ -242,7 +239,6 @@ def game():
                 if event.type == MOUSEBUTTONUP:
                     if event.button == 1:       #LEFT CLICK
                         if hitbox.dead==False:
-                            #ADS.fire()
                             fire()   
                 if event.type == KEYDOWN:
                     pressed_key=pygame.key.get_pressed()
@@ -260,29 +256,26 @@ def game():
         #button_enterusername=menu.add.button(" Enter ",mainmenu)    
             
     #MULTIPLAYER
-
     def maingame_multiplayer():
         pygame.mouse.set_visible(False)
-        #global username
-        #username=button_username.get_value()
+        global username
+        username=button_username.get_value()
         run_main_game=True
         while run_main_game:
             for event in pygame.event.get():
                 if event.type==QUIT :
                         pygame.quit()
                         sys.exit(0)
-                if event.type == MOUSEBUTTONUP:
-                    if event.button == 1:       #LEFT CLICK
+                if event.type == KEYUP:
+                    if event.key == K_w:       
                         if hitbox.dead==False:
-                            #ADS.fire()
-                            fire()  
-                    if event.type == K_SPACE:
+                            fire() 
+                    if event.key == K_UP:      
                         if hitbox.dead==False:
-                            fire_multiplayer()    
-                    if event.type == KEYDOWN:
-                        pressed_key=pygame.key.get_pressed()
-                    if pressed_key[K_TAB]:
+                            fire_2() 
+                    if event.key == K_TAB:
                         print("GAME EXITED!")
+                        reset_game()
                         if gm.game_over:
                             game_over_stats()
                         run_main_game=False
@@ -290,9 +283,8 @@ def game():
                 Projectile.update()
             set_game_multiplayer()
             pygame.display.flip()
-            GAME_CLOCK.tick(FPS)
-        
-        
+            GAME_CLOCK.tick(FPS)    
+             
     #LEADERBOARDS  
     def leaderboards():
         leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)

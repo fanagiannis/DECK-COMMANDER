@@ -2,23 +2,27 @@ import pygame
 import math
 import random
 
-from Var.Constants import LINK_ASSETS_PLAYER,COLOR_RED,DISPLAY_WINDOW
-from Var.Variables import P,Target_spawn
+from Var.Constants import LINK_ASSETS_PLAYER,COLOR_RED,COLOR_GREEN,DISPLAY_WINDOW
+from Var.Variables import P,P2,Target_spawn
 
 class Projectile(pygame.sprite.Sprite):
-    def __init__(self,spawn_point):
+    def __init__(self,spawn_point,color):
         super().__init__()
         self.width=5
         self.height=5
         self.size=(self.width,self.height)
         self.body=pygame.Surface(self.size)
-        self.body.fill(COLOR_RED)
+        self.body.fill(color)
+        if(color==COLOR_RED):
+            self.parentID=1
+        elif(color==COLOR_GREEN):
+            self.parentID=2
         self.rect=self.body.get_rect()
         self.speed=30
-        self.posx=P.posx#playerpositionx
-        self.posy=P.posy#playerpositiony
-        self.pos=(self.posx,self.posy)
+        self.posx,self.posy=spawn_point
 
+        self.pos=(self.posx,self.posy)
+       
         mousex,mousey=pygame.mouse.get_pos()
         self.direction=(self.posx-mousex,self.posy-mousey)
         distance=math.hypot(*self.direction)
@@ -38,4 +42,7 @@ class Projectile(pygame.sprite.Sprite):
             self.kill()
         if pygame.sprite.spritecollide(self,Target_spawn.group,True):
             self.kill()
-            P.score+=P.scoreinc
+            if(self.parentID==1):
+                P.score+=P.scoreinc
+            if(self.parentID==2):
+                P2.score+=P2.scoreinc

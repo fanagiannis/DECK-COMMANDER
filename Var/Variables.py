@@ -14,7 +14,9 @@ P=Player(1)
 global P2
 P2=Player(2)                                                    #PLAYER OBJECT DECLARATION
 
-gunpos=P.pos                                                    #//CUT// GUN POSITION SET  
+gunpos=P.pos                                                    # GUN POSITION SET
+gunpos_2=P2.pos                                                 # GUN 2 POSITION SET
+
 gm=Gamemode()                                                   #GAMEMODE OBJECT DECLARATION  
 Target_spawn=Spawner(gm.t_spawn_time,gm.t_Damage,gm.t_speed)    #ENEMY SPAWNER DECLARATION
 
@@ -53,7 +55,8 @@ P2_energy_message_pos=(ui_right_posx,ui_posy*3)
 hp_message_pos=(ui_right_posx,ui_posy)
 energy_message_pos=(ui_right_posx,ui_posy*2)
 
-energy_no_message_pos=(ui_right_posx,150)
+energy_no_message_pos=(ui_right_posx,100)
+energy_no_message_pos2=(ui_right_posx,130)
 username_pos=(ui_left_posx,ui_posy)
 
     #GAME OVER POS
