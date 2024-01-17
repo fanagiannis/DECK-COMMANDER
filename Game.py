@@ -75,7 +75,7 @@ def set_game_multiplayer():
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)  #SET TARGET SPAWNER SPAWN
     else:
-        event_game_over()                        #IF GAME OVER --> DISABLE SPAWNER 
+        event_game_over_multiplayer()                        #IF GAME OVER --> DISABLE SPAWNER 
 
     #SPAWN MESSAGES
 
@@ -87,7 +87,7 @@ def set_game_multiplayer():
     message(energy_message_text,COLOR_GREEN,energy_message_pos,FONT_BASIC)       #P1 AMMO
     message(p2_energy_message_text,COLOR_GREEN,P2_energy_message_pos,FONT_BASIC)    #P2 AMMO
 
-    message("username",COLOR_GREEN,username_pos,FONT_BASIC)                      #HOST USERNAME
+    message(username,COLOR_GREEN,username_pos,FONT_BASIC)                      #HOST USERNAME
     message(gameround_message_text,COLOR_GREEN,multiplayer_gameround_pos,FONT_BASIC)    #GANEROUND MESSAGE
     message(exit_game_message_text,COLOR_GREEN,game_over_return_mes_pos,FONT_BASIC)     #GAME OVER MESSAGE
 
@@ -113,13 +113,13 @@ def set_game_multiplayer():
     hitbox.update()         #UPDATE HITBOX
 
     #ROUND MANIPULATION
-    rounds()           
+    rounds_multiplayer()           
 
     for projectile in projectiles_group:    #DRAW PROJECTILES
         projectile.draw()                   
 #SET MESSAGES
 def messages():
-    global hp_live,score_message_text,hp_message_text,game_over_message_text,game_over_message_stats,energy_message_text,energy_no_message_text,gameround_message_text,exit_game_message_text
+    global hp_live,score_message_text,hp_message_text,game_over_message_text,game_over_message_stats,energy_message_text,energy_no_message_text,gameround_message_text,exit_game_message_text,gameround_live,score_live
     #STATS MESSAGES
     score_live="%06d" % P.score                  #SCORE MESSAGE
 
@@ -135,13 +135,13 @@ def messages():
 
     hp_message_text = "HP "                      #STATIC HP MESSAGE
     game_over_message_text = "GAME OVER ! "      #STATIC GAME OVER MESSAGE
-    game_over_message_stats =f" Round :"f"{gameround_live}"+" "+f"Score : "f"{score_live}"  #STATIC GAME OVER MESSAGE WITH STATS
+    game_over_message_stats =f" Round :"f"{gameround_live}"+" "+f"Player 1 Score : "f"{score_live}"  #STATIC GAME OVER MESSAGE WITH STATS
     energy_message_text = f"Energy : {ammo_live}"        #STATIC ENERGY MESSAGE
     energy_no_message_text = "OUT OF AMMO! "             #STATIC NO ENERGY MESSAGE
     gameround_message_text=f"Round : {gameround_live}"   #STATIC ROUND MESSAGE
     exit_game_message_text="PRESS TAB TO RETURN TO THE MAIN MENU"     #EXIT GAME MESSAGE  
 def messages_multiplayer():
-    global p2_score_live,p2_ammo_live,p2_energy_message_text,p2_score_message_text,energy_no_message_text,energy_no_message_text2
+    global p2_score_live,p2_ammo_live,p2_energy_message_text,p2_score_message_text,energy_no_message_text,energy_no_message_text2,game_over_message_stats2
     #STATS MESSAGES
     p2_score_live="%06d" % P2.score                          #SCORE MESSAGE
     p2_ammo_live="%02d" % int(P2.ammo)                       #PLAYER AMMO MESSAGE
@@ -149,14 +149,21 @@ def messages_multiplayer():
     p2_score_message_text = f"Score 2: {p2_score_live}"       #STATIC SCORE MESSAGE
     energy_no_message_text = "PLAYER 1 OUT OF AMMO! "             #STATIC NO ENERGY MESSAGE
     energy_no_message_text2 = "PLAYER 2 OUT OF AMMO! "             #STATIC NO ENERGY MESSAGE
+    game_over_message_stats2 =f" Round :"f"{gameround_live}"+" "+f"Player 2 Score : "f"{p2_score_live}"  #STATIC GAME OVER MESSAGE WITH STATS
 #ROUND MANIPULATION
 def rounds():
-    if P.score==gm.game_round_change_score:         #IF PLAYER SCORE EQUALS SCORE-CHANGING ROUND
+    if P.score>=gm.game_round_change_score:         #IF PLAYER SCORE EQUALS SCORE-CHANGING ROUND
         gm.round_inc()                              #CALL FUNCTION FOR ROUND INCREASE FROM GAMEMODE CLASS    
-    if gm.round==gm.round_change:                   #IF ROUND REACHES A THRESHHOLD INCREASE DIFFICULTY
+    if gm.round>=gm.round_change:                   #IF ROUND REACHES A THRESHHOLD INCREASE DIFFICULTY
         gm.round_difficulty_inc()                   #CALL FUNCTION FOR DIFFICULTY INCREASE FROM GAMEMODE CLASS (INCREASES TARGET DAMAGE,SPEED AND DECREASES SPAWNTIME)   
-        if P.scoreinc<1000:                         #IF PLAYER SCORE IS LESS THAN 1000 THEN IT INCREASES FOR 100 PRE KILL
-            P.scoreinc+=100                         #PLAYER SCORE INCREASE PER KILL
+        Target_spawn.time_set=gm.t_spawn_time       #SET NEW TARGET SPAWNTIME PARAMETER
+        Target_spawn.targetdmg=gm.t_Damage          #SET NEW TARGET DAMAGE PARAMETER
+        Target_spawn.targetspeed=gm.t_speed         #SET NEW TARGET SPEED PARAMETER
+def rounds_multiplayer():
+    if P.score+P2.score>=gm.game_round_change_score:         #IF PLAYER SCORE EQUALS SCORE-CHANGING ROUND
+        gm.round_inc()                              #CALL FUNCTION FOR ROUND INCREASE FROM GAMEMODE CLASS    
+    if gm.round>=gm.round_change:                   #IF ROUND REACHES A THRESHHOLD INCREASE DIFFICULTY
+        gm.round_difficulty_inc()                   #CALL FUNCTION FOR DIFFICULTY INCREASE FROM GAMEMODE CLASS (INCREASES TARGET DAMAGE,SPEED AND DECREASES SPAWNTIME)   
         Target_spawn.time_set=gm.t_spawn_time       #SET NEW TARGET SPAWNTIME PARAMETER
         Target_spawn.targetdmg=gm.t_Damage          #SET NEW TARGET DAMAGE PARAMETER
         Target_spawn.targetspeed=gm.t_speed         #SET NEW TARGET SPEED PARAMETER
@@ -209,10 +216,22 @@ def event_game_over():
     message(game_over_message_stats,COLOR_GREEN,game_over_message_stats_pos,FONT_STATS)
     run_main_game=False                                                                     #SET RUN GAME BOOLEAN TO FALSE    
     gm.game_over=True                                                                       #SET GAME OVER BOOLEAN TO TRUE        
+def event_game_over_multiplayer():
+    Target_spawn.group.empty()                                                              #DELETE ALL ENEMY INSTANCES FROM ENEMY GROUP
+    #game_over_sound.play(0)                                                                #//CUT//GAME OVER SOUND
+    message(game_over_message_text,COLOR_GREEN,game_over_message_pos,FONT_GAME_OVER)        #DISPLAY GAME OVER MESSAGES    
+    message(game_over_message_stats,COLOR_GREEN,game_over_message_stats_pos,FONT_STATS)
+    message(game_over_message_stats2,COLOR_GREEN,game_over_message_stats_pos2,FONT_STATS)
+    run_main_game=False                                                                     #SET RUN GAME BOOLEAN TO FALSE    
+    gm.game_over=True 
 #GAME OVER STATS LOAD
 def game_over_stats():
-        game_over_add_leaderboard(username,P.score,gm.round)                                #ADDS STATS TO LEADERBOARD AFTER GAME OVER
-        print("GAME OVER")       
+    game_over_add_leaderboard(username,P.score,gm.round)                                #ADDS STATS TO LEADERBOARD AFTER GAME OVER
+    print("GAME OVER")   
+def game_over_stats_multiplayer():
+    game_over_add_leaderboard(username,P.score,gm.round)                                #ADDS STATS TO LEADERBOARD AFTER GAME OVER
+    game_over_add_leaderboard(username+"(P2)",P2.score,gm.round)                        #ADDS STATS TO LEADERBOARD AFTER GAME OVER
+    print("GAME OVER")      
 #GAME RESET TO DEFAULT
 def reset_game():
     P.reset()                                      #RESET PLAYER TO DEFAULT 
@@ -254,7 +273,6 @@ def game():
             GAME_CLOCK.tick(FPS)
         
         #button_enterusername=menu.add.button(" Enter ",mainmenu)    
-            
     #MULTIPLAYER
     def maingame_multiplayer():
         pygame.mouse.set_visible(False)
@@ -277,14 +295,13 @@ def game():
                         print("GAME EXITED!")
                         reset_game()
                         if gm.game_over:
-                            game_over_stats()
+                            game_over_stats_multiplayer()
                         run_main_game=False
             for Projectile in projectiles_group:
                 Projectile.update()
             set_game_multiplayer()
             pygame.display.flip()
             GAME_CLOCK.tick(FPS)    
-             
     #LEADERBOARDS  
     def leaderboards():
         leaderboard=menu.add.table(table_id="leaderboards")#,bordercolor=COLOR_GREEN,)

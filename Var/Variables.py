@@ -61,7 +61,8 @@ username_pos=(ui_left_posx,ui_posy)
 
     #GAME OVER POS
 game_over_message_pos=(DISPLAY_WIDTH/2-125,DISPLAY_HEIGHT/2-75)
-game_over_message_stats_pos=(DISPLAY_WIDTH/2-225,DISPLAY_HEIGHT/2)
+game_over_message_stats_pos=(DISPLAY_WIDTH/2-275,DISPLAY_HEIGHT/2)
+game_over_message_stats_pos2=(DISPLAY_WIDTH/2-275,DISPLAY_HEIGHT/2+100)
 game_over_return_mes_pos=(DISPLAY_WIDTH/2-200,ui_posy)
 
     #SCREEN POS

@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         self.ammo_supplies=15000
         self.maxammo=5
         self.score=0
-        self.scoreinc=100
+        self.scoreinc=150
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10
@@ -45,7 +45,7 @@ class Player(pygame.sprite.Sprite):
         self.ammo_supplies=15000
         self.maxammo=5
         self.score=0
-        self.scoreinc=100
+        self.scoreinc=150
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10
@@ -83,7 +83,6 @@ class Player(pygame.sprite.Sprite):
                 else:
                     print("NO AMMO!")
         
-
     def movement(self):
         
         if(self.playerID==1):
