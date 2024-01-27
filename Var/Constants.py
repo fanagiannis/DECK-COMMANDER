@@ -28,6 +28,7 @@ LINK_ASSETS_PLANET3="assets\\Planet3_8bit.png"
 LINK_ASSETS_SPACESHIP="assets\\Spaceship.png"
 LINK_ASSETS_SPACESHIP2="assets\\Spaceship2.png"
 LINK_ASSETS_GUN="assets\\Gun.png"
+LINK_ASSETS_BASE="assets\\Base.png"
 
 #+++++FONT+++++
 FONT_LCD="Fonts\\pixel_lcd_7.ttf"

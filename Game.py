@@ -241,7 +241,6 @@ def reset_game():
     gm.reset()                                     #RESET GAMEMODE TO DEFAULT     
     hitbox.reset()                                 #RESET ALLY TO DEFAULT     
     projectiles_group.empty()                      #RESET PROJECTILES TO DEFAULT
-
 #MAIN GAME
 def game():   
     #SOLO PLAY     
