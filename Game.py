@@ -88,6 +88,7 @@ def set_game_multiplayer():
     message(p2_energy_message_text,COLOR_GREEN,P2_energy_message_pos,FONT_BASIC)    #P2 AMMO
 
     message(username,COLOR_GREEN,username_pos,FONT_BASIC)                      #HOST USERNAME
+    message(username2,COLOR_GREEN,username_pos2,FONT_BASIC)                   #PLAYER2 USERNAME
     message(gameround_message_text,COLOR_GREEN,multiplayer_gameround_pos,FONT_BASIC)    #GANEROUND MESSAGE
     message(exit_game_message_text,COLOR_GREEN,game_over_return_mes_pos,FONT_BASIC)     #GAME OVER MESSAGE
 
@@ -230,7 +231,7 @@ def game_over_stats():
     print("GAME OVER")   
 def game_over_stats_multiplayer():
     game_over_add_leaderboard(username,P.score,gm.round)                                #ADDS STATS TO LEADERBOARD AFTER GAME OVER
-    game_over_add_leaderboard(username+"(P2)",P2.score,gm.round)                        #ADDS STATS TO LEADERBOARD AFTER GAME OVER
+    game_over_add_leaderboard(username2,P2.score,gm.round)                              #ADDS STATS TO LEADERBOARD AFTER GAME OVER
     print("GAME OVER")      
 #GAME RESET TO DEFAULT
 def reset_game():
@@ -275,9 +276,11 @@ def game():
         #button_enterusername=menu.add.button(" Enter ",mainmenu)    
     #MULTIPLAYER
     def maingame_multiplayer():
+        reset_game()
         pygame.mouse.set_visible(False)
-        global username
+        global username,username2
         username=button_username.get_value()
+        username2=button_username2.get_value()
         run_main_game=True
         while run_main_game:
             for event in pygame.event.get():
@@ -293,7 +296,6 @@ def game():
                             fire_2() 
                     if event.key == K_TAB:
                         print("GAME EXITED!")
-                        reset_game()
                         if gm.game_over:
                             game_over_stats_multiplayer()
                         run_main_game=False
@@ -319,10 +321,11 @@ def game():
     #MAIN MENU
     def mainmenu():
         menu_theme.widget_margin=(-600,0)
-        global button_username
+        global button_username,button_username2
         if gm.game_over:
             game_over_stats(game_over)
         button_username=menu.add.text_input(" Enter Username : ",default="Player",maxchar=12)
+        button_username2=menu.add.text_input(" Enter Username 2: ",default="Player2",maxchar=12)
         leaderboards()
         button_startgame=menu.add.button(" Singleplayer ",maingame_solo)
         button_leaderboards=menu.add.button(" Multiplayer ",maingame_multiplayer)

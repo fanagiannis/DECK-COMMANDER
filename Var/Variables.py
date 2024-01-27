@@ -58,6 +58,7 @@ energy_message_pos=(ui_right_posx,ui_posy*2)
 energy_no_message_pos=(ui_right_posx,100)
 energy_no_message_pos2=(ui_right_posx,130)
 username_pos=(ui_left_posx,ui_posy)
+username_pos2=(ui_left_posx,ui_posy*3)
 
     #GAME OVER POS
 game_over_message_pos=(DISPLAY_WIDTH/2-125,DISPLAY_HEIGHT/2-75)
