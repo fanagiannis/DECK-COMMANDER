@@ -2,7 +2,7 @@ import pygame
 
 from pygame.locals import *
 
-from Var.Constants import DISPLAY_WINDOW,COLOR_RED
+from Var.Constants import DISPLAY_WINDOW,COLOR_RED,LINK_ASSETS_BASE
 
 class Hitbox():
     def __init__(self,a,b):
@@ -16,7 +16,6 @@ class Hitbox():
 
     def repair(self):
         pressed_key=pygame.key.get_pressed()
-
         if self.dead==False:
             if pressed_key[K_f]:
                 if self.repair_time>0:

@@ -1,6 +1,7 @@
 import pygame
 import pygame_menu
 import sys
+import time
 
 from pygame.locals import *
 from pygame.sprite import *
@@ -20,7 +21,7 @@ from assets.Sound_effects import shooting_sound,explosion_sound,game_over_sound
 from assets.Sprites import *
 
 pygame.init()
-pygame.display.set_caption("DECK COMMANDER V0.7B")
+pygame.display.set_caption("DECK COMMANDER V0.9")
 pygame.mouse.set_visible(False)
 
 print(P.playerID,P2.playerID)
@@ -33,6 +34,7 @@ def set_game_solo():
 
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)  #SET TARGET SPAWNER SPAWN
+        DISPLAY_WINDOW.blit(hitbox.image,hitbox.rect)
     else:
         event_game_over()                        #IF GAME OVER --> DISABLE SPAWNER 
 
@@ -245,6 +247,7 @@ def reset_game():
 def game():   
     #SOLO PLAY     
     def maingame_solo():
+   
         reset_game()
         pygame.mouse.set_visible(False)
         global username
@@ -354,5 +357,20 @@ def game():
     
     print("QUIT!")
     game_over_stats(game_over)                   #DISPLAY GAME STATS
-
+def introtext(string):
+    text=""
+    for i in range(len(string)):
+        background(LINK_ASSETS_BACKGROUND)
+        text += string[i]
+        text_surf=FONT_BASIC.render(text,True,COLOR_GREEN)
+        text_rect=text_surf.get_rect()
+        text_rect.center=(DISPLAY_WIDTH/2,DISPLAY_HEIGHT/2)
+        DISPLAY_WINDOW.blit(text_surf,text_rect)
+        pygame.display.update()
+        pygame.time.wait(100)
+   #for char in message:
+        FONT_BASIC.render(i,True,COLOR_GREEN)
+        time.sleep(0.1)
+intromessage="hola"
+#introtext(intromessage)
 game() #CALL MAIN GAME
