@@ -24,7 +24,7 @@ pygame.init()
 pygame.display.set_caption("DECK COMMANDER V0.9")
 pygame.mouse.set_visible(False)
 
-print(P.playerID,P2.playerID)
+#print(P.playerID,P2.playerID)
 
 #SPAWNS SPRITES/EVENTS  
 def set_game_solo():
@@ -357,5 +357,5 @@ def game():
     
     print("QUIT!")
     game_over_stats(game_over)                   #DISPLAY GAME STATS
-    
+
 game() #CALL MAIN GAME
