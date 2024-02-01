@@ -357,20 +357,5 @@ def game():
     
     print("QUIT!")
     game_over_stats(game_over)                   #DISPLAY GAME STATS
-def introtext(string):
-    text=""
-    for i in range(len(string)):
-        background(LINK_ASSETS_BACKGROUND)
-        text += string[i]
-        text_surf=FONT_BASIC.render(text,True,COLOR_GREEN)
-        text_rect=text_surf.get_rect()
-        text_rect.center=(DISPLAY_WIDTH/2,DISPLAY_HEIGHT/2)
-        DISPLAY_WINDOW.blit(text_surf,text_rect)
-        pygame.display.update()
-        pygame.time.wait(100)
-   #for char in message:
-        FONT_BASIC.render(i,True,COLOR_GREEN)
-        time.sleep(0.1)
-intromessage="hola"
-#introtext(intromessage)
+    
 game() #CALL MAIN GAME
