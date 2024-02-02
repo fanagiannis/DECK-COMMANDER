@@ -316,7 +316,7 @@ def game():
         leaderboard.add_row(cells=['  TOP PLAYERS '],cell_border_color=COLOR_GREEN,cell_border_width=2)  
         leaderboard.add_row(cells=['    PLAYER ','SCORE','ROUND'],cell_border_color=COLOR_GREEN,cell_border_width=2)  
         table_query="""
-        SELECT username,score,round FROM players ORDER BY score DESC;
+        SELECT username,score,round FROM players ORDER BY score DESC LIMIT 10;
         """
         columns,players=read_leaderboard(table_query)
         for player in players:
