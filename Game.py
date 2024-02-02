@@ -21,7 +21,10 @@ from assets.Sound_effects import shooting_sound,explosion_sound,game_over_sound
 from assets.Sprites import *
 
 pygame.init()
-pygame.display.set_caption("DECK COMMANDER V0.9")
+pygame.display.set_caption("DECK COMMANDER V1.0")
+icon=pygame.image.load(LINK_ASSETS_SPACESHIP)
+icon=pygame.transform.scale(icon,(30,30))
+pygame.display.set_icon(icon)
 pygame.mouse.set_visible(False)
 
 #print(P.playerID,P2.playerID)
