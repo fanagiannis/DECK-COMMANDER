@@ -8,6 +8,7 @@ class Hitbox():
     def __init__(self,a,b):
         self.rect=pygame.Rect(0,a-100,b,100)
         self.image=pygame.image.load(LINK_ASSETS_BASE)
+        self.image=self.image.convert_alpha()
         self.base_hp=1000
         self.hp=self.base_hp
         self.IsRepairing=False

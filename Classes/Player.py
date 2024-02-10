@@ -19,8 +19,8 @@ class Player(pygame.sprite.Sprite):
             self.image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
             self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
             self.posx=DISPLAY_WIDTH/2 - 50
-        #self.image=pygame.transform.scale(self.imageload,(100,100))
-        
+            
+        self.image=self.image.convert_alpha()
         self.image_rotated=self.image
         self.rect=self.body_image.get_rect()
         self.rect_rotated=self.rect
@@ -84,7 +84,6 @@ class Player(pygame.sprite.Sprite):
                     print("NO AMMO!")
         
     def movement(self):
-        
         if(self.playerID==1):
             pressed_key=pygame.key.get_pressed()
             if pressed_key[K_d]:
@@ -107,3 +106,4 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.movement()
         pass
+    

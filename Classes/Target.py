@@ -10,6 +10,7 @@ class Target (pygame.sprite.Sprite):
         super().__init__()
         self.image = pygame.image.load(LINK_ASSETS_TARGET)
         self.rect=self.image.get_rect()
+        self.image=self.image.convert_alpha()
         self.offset=self.image.get_height()
         self.speed=1
         self.posx=random.randint(40,DISPLAY_WIDTH-40)
@@ -36,3 +37,4 @@ class Target (pygame.sprite.Sprite):
 
     def update(self):
         self.move()
+        

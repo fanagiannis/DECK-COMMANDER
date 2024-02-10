@@ -8,11 +8,6 @@ class Aim (pygame.sprite.Sprite):
         self.image=pygame.image.load(LINK_ASSETS_AIMCURSOR)
         self.rect=self.image.get_rect()
         self.Fired=False
-    
-    #def fire(self):
-    #    if self.Fired==False:
-    #        self.Fired=True
-    #        self.pos = self.rect.center
         
     def repair(self):
         self.image=pygame.image.load(LINK_ASSETS_REPAIR)

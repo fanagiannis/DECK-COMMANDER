@@ -1,6 +1,5 @@
 import pygame
 
-
 class Gamemode():
     def __init__(self):
         self.title="Defend the ship at all costs!"
