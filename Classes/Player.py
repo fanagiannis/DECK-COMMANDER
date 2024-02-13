@@ -21,7 +21,7 @@ class Player(pygame.sprite.Sprite):
             self.posx=DISPLAY_WIDTH/2 - 50
             
         self.image=self.image.convert_alpha()
-        self.image_rotated=self.image
+        #self.image_rotated=self.image
         self.rect=self.body_image.get_rect()
         self.rect_rotated=self.rect
         self.offset=self.body_image.get_height()-30
@@ -50,11 +50,11 @@ class Player(pygame.sprite.Sprite):
         self.IsReloading=False
         self.speed=10
 
-    def rotation(self):
-        self.mouseposx,self.mouseposy=pygame.mouse.get_pos()
-        self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx))
-        self.image_rotated=pygame.transform.rotate(self.image,-self.angle+90)
-        self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
+   # def rotation(self):
+   #     self.mouseposx,self.mouseposy=pygame.mouse.get_pos()
+   #     self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx)) //CUT
+   #     self.image_rotated=pygame.transform.rotate(self.image,-self.angle+90)
+  #     self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
 
     def reload(self):
         pressed_key=pygame.key.get_pressed()

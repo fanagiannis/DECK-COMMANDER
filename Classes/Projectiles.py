@@ -20,13 +20,12 @@ class Projectile(pygame.sprite.Sprite):
         self.rect=self.body.get_rect()
         self.speed=30
         self.posx,self.posy=spawn_point
-
         self.pos=(self.posx,self.posy)
        
-        mousex,mousey=pygame.mouse.get_pos()
-        self.direction=(self.posx-mousex,self.posy-mousey)
-        distance=math.hypot(*self.direction)
-        self.direction=(self.direction[0]/distance,self.direction[1]/distance)
+       # mousex,mousey=pygame.mouse.get_pos()
+       # self.direction=(self.posx-mousex,self.posy-mousey)
+       # distance=math.hypot(*self.direction)
+       # self.direction=(self.direction[0]/distance,self.direction[1]/distance)
 
     def draw(self):
         self.rect=self.body.get_rect(center=self.pos)

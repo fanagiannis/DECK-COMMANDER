@@ -58,7 +58,7 @@ def set_game_solo():
     event_ally_hit()                            #ALLY HIT
     event_repair()                              #REPAIR
 
-    DISPLAY_WINDOW.blit(P.image_rotated,P.rect_rotated) #PLAYER SPAWN
+    DISPLAY_WINDOW.blit(P.image,P.rect_rotated) #PLAYER SPAWN
 
     #UPDATES
     P.reload()              #UPDATE PLAYER
