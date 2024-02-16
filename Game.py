@@ -17,8 +17,8 @@ from Classes.Gamemode import Gamemode
 from Database.Leaderboard import *
 from Var.Variables import * 
 from Var.Constants import *
-from assets.Sound_effects import shooting_sound,explosion_sound,game_over_sound
-from assets.Sprites import *
+from Assets.Sound_effects import shooting_sound,explosion_sound,game_over_sound
+from Assets.Sprites import *
 
 pygame.init()
 pygame.display.set_caption("DECK COMMANDER V1.0")

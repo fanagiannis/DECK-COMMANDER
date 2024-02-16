@@ -3,7 +3,7 @@ import math
 
 from pygame.locals import *
 from Var.Constants import *
-from assets.Sound_effects import reload_sound
+from Assets.Sound_effects import reload_sound
 
 
 class Player(pygame.sprite.Sprite):
