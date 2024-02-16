@@ -8,16 +8,19 @@ random.seed()
 class Target (pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load(LINK_ASSETS_TARGET)
-        self.rect=self.image.get_rect()
-        self.offset=self.image.get_height()
-        self.speed=1
-        self.posx=random.randint(40,DISPLAY_WIDTH-40)
-        self.posy=-100
-        self.pos=(self.posx,self.posy)
-        self.rect.center=self.pos
-        self.direction=random.choice([-1,1])
-        self.damage=0
+        try:
+            self.image = pygame.image.load(LINK_ASSETS_TARGET)
+            self.rect=self.image.get_rect()
+            self.offset=self.image.get_height()
+            self.speed=1
+            self.posx=random.randint(40,DISPLAY_WIDTH-40)
+            self.posy=-100
+            self.pos=(self.posx,self.posy)
+            self.rect.center=self.pos
+            self.direction=random.choice([-1,1])
+            self.damage=0
+        except pygame.error as e:
+            print(f"Error in object iniialization : {e}")
 
     def movement(self):
         if self.posx<25 or self.posx>DISPLAY_WIDTH-25:

@@ -27,8 +27,6 @@ icon=pygame.transform.scale(icon,(30,30))
 pygame.display.set_icon(icon)
 pygame.mouse.set_visible(False)
 
-#print(P.playerID,P2.playerID)
-
 #SPAWNS SPRITES/EVENTS  
 def set_game_solo():
     background(LINK_ASSETS_BACKGROUND)          #BACKGROUND SET
@@ -86,12 +84,9 @@ def set_game_multiplayer():
 
     message(score_message_text,COLOR_GREEN,score_message_pos,FONT_BASIC)         #P1 SCORE MESSAGE
     message(p2_score_message_text,COLOR_GREEN,P2_score_message_pos,FONT_BASIC)      #P2 SCORE MESSAGE
-
     message(hp_message_text,COLOR_GREEN,hp_message_pos,FONT_BASIC)
-
     message(energy_message_text,COLOR_GREEN,energy_message_pos,FONT_BASIC)       #P1 AMMO
     message(p2_energy_message_text,COLOR_GREEN,P2_energy_message_pos,FONT_BASIC)    #P2 AMMO
-
     message(username,COLOR_GREEN,username_pos,FONT_BASIC)                      #HOST USERNAME
     message(username2,COLOR_GREEN,username_pos2,FONT_BASIC)                   #PLAYER2 USERNAME
     message(gameround_message_text,COLOR_GREEN,multiplayer_gameround_pos,FONT_BASIC)    #GANEROUND MESSAGE
@@ -332,8 +327,8 @@ def game():
         button_username=menu.add.text_input(" Enter Username : ",default="Player",maxchar=12)
         button_username2=menu.add.text_input(" Enter Username 2: ",default="Player2",maxchar=12)
         leaderboards()
-        button_startgame=menu.add.button(" Singleplayer ",maingame_solo)
-        button_leaderboards=menu.add.button(" Multiplayer ",maingame_multiplayer)
+        button_startgame_solo=menu.add.button(" Singleplayer ",maingame_solo)
+        button_startgame_multi=menu.add.button(" Multiplayer ",maingame_multiplayer)
         menu.add.button(" Quit ",exit)
     #EXIT GAME
     def exit():

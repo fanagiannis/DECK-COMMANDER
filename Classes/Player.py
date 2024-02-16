@@ -8,17 +8,19 @@ from assets.Sound_effects import reload_sound
 
 class Player(pygame.sprite.Sprite):
     def __init__(self,playerID):
-        
         super().__init__()
-        self.playerID=playerID
-        if (self.playerID==1):
-            self.image=pygame.image.load(LINK_ASSETS_SPACESHIP)
-            self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP)
-            self.posx=DISPLAY_WIDTH/2 + 50
-        elif(self.playerID==2):
-            self.image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
-            self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
-            self.posx=DISPLAY_WIDTH/2 - 50
+        try:
+            self.playerID=playerID
+            if (self.playerID==1):
+                self.image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+                self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP)
+                self.posx=DISPLAY_WIDTH/2 + 50
+            elif(self.playerID==2):
+                self.image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
+                self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
+                self.posx=DISPLAY_WIDTH/2 - 50
+        except pygame.error as e:
+            print(f"Error in object iniialization : {e}")
         #self.image=pygame.transform.scale(self.imageload,(100,100))
         
         self.image_rotated=self.image
