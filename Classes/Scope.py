@@ -20,3 +20,4 @@ class Aim (pygame.sprite.Sprite):
 
     def update (self):
         self.rect.center=pygame.mouse.get_pos()
+

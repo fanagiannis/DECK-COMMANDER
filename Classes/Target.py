@@ -41,3 +41,4 @@ class Target (pygame.sprite.Sprite):
     def update(self):
         self.move()
         
+        

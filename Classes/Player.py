@@ -54,13 +54,6 @@ class Player(pygame.sprite.Sprite):
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10
-
-   # def rotation(self):
-   #     self.mouseposx,self.mouseposy=pygame.mouse.get_pos()
-   #     self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx)) //CUT
-   #     self.image_rotated=pygame.transform.rotate(self.image,-self.angle+90)
-  #     self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
-
     def reload(self):
         pressed_key=pygame.key.get_pressed()
         if(self.playerID==1):

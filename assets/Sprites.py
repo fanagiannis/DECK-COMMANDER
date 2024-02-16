@@ -41,3 +41,6 @@ def background(image):
     background=pygame.image.load(image)
     DISPLAY_WINDOW.blit(background,(0,0))
     planets() 
+
+
+    

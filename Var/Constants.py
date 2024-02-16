@@ -57,3 +57,4 @@ try:
 
 except pygame.error as e:   
     print(f"Error in assets loading : {e}")
+
