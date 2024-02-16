@@ -21,6 +21,7 @@ class Target (pygame.sprite.Sprite):
             self.damage=0
         except pygame.error as e:
             print(f"Error in object iniialization : {e}")
+        self.image=self.image.convert_alpha()
 
     def movement(self):
         if self.posx<25 or self.posx>DISPLAY_WIDTH-25:
