@@ -77,6 +77,7 @@ def set_game_multiplayer():
     
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)  #SET TARGET SPAWNER SPAWN
+        DISPLAY_WINDOW.blit(hitbox.image,hitbox.rect)
     else:
         event_game_over_multiplayer()                        #IF GAME OVER --> DISABLE SPAWNER 
 
