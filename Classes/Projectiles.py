@@ -34,8 +34,6 @@ class Projectile(pygame.sprite.Sprite):
         DISPLAY_WINDOW.blit(self.body,self.rect)
 
     def update(self):
-        #self.posx-=self.speed*self.direction[0]
-        #self.posy-=self.speed*self.direction[1]
         self.posy-=self.speed
         self.pos=(self.posx,self.posy)
         self.rect.center=self.pos

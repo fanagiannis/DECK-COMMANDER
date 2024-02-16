@@ -19,6 +19,9 @@ class Player(pygame.sprite.Sprite):
                 self.image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
                 self.body_image=pygame.image.load(LINK_ASSETS_SPACESHIP2)
                 self.posx=DISPLAY_WIDTH/2 - 50
+            self.image=self.image.convert_alpha()
+            self.body_image=self.body_image.convert_alpha()
+        
         except pygame.error as e:
             print(f"Error in object iniialization : {e}")
         #self.image=pygame.transform.scale(self.imageload,(100,100))
@@ -52,11 +55,11 @@ class Player(pygame.sprite.Sprite):
         self.IsReloading=False
         self.speed=10
 
-    def rotation(self):
-        self.mouseposx,self.mouseposy=pygame.mouse.get_pos()
-        self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx))
-        self.image_rotated=pygame.transform.rotate(self.image,-self.angle+90)
-        self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
+   # def rotation(self):
+   #     self.mouseposx,self.mouseposy=pygame.mouse.get_pos()
+   #     self.angle=math.degrees(math.atan2(self.posy-self.mouseposy,self.posx-self.mouseposx)) //CUT
+   #     self.image_rotated=pygame.transform.rotate(self.image,-self.angle+90)
+  #     self.rect_rotated=self.image_rotated.get_rect(center=self.rect.center)
 
     def reload(self):
         pressed_key=pygame.key.get_pressed()
@@ -86,7 +89,6 @@ class Player(pygame.sprite.Sprite):
                     print("NO AMMO!")
         
     def movement(self):
-        
         if(self.playerID==1):
             pressed_key=pygame.key.get_pressed()
             if pressed_key[K_d]:
@@ -109,3 +111,4 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.movement()
         pass
+    

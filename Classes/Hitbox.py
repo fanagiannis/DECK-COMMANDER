@@ -6,16 +6,14 @@ from Var.Constants import DISPLAY_WINDOW,COLOR_RED,LINK_ASSETS_BASE
 
 class Hitbox():
     def __init__(self,a,b):
-        try:
-            self.rect=pygame.Rect(0,a-100,b,100)
-            self.image=pygame.image.load(LINK_ASSETS_BASE)
-            self.base_hp=1000
-            self.hp=self.base_hp
-            self.IsRepairing=False
-            self.dead=False
-            self.repair_time=3000
-        except pygame.error as e:
-            print(f"Error in object iniialization : {e}")
+        self.rect=pygame.Rect(0,a-100,b,100)
+        self.image=pygame.image.load(LINK_ASSETS_BASE)
+        self.image=self.image.convert_alpha()
+        self.base_hp=1000
+        self.hp=self.base_hp
+        self.IsRepairing=False
+        self.dead=False
+        self.repair_time=3000
 
     def repair(self):
         pressed_key=pygame.key.get_pressed()

@@ -11,11 +11,6 @@ class Aim (pygame.sprite.Sprite):
             self.Fired=False
         except pygame.error as e:
             print(f"Error in object iniialization : {e}")
-    
-    #def fire(self):
-    #    if self.Fired==False:
-    #        self.Fired=True
-    #        self.pos = self.rect.center
         
     def repair(self):
         self.image=pygame.image.load(LINK_ASSETS_REPAIR)

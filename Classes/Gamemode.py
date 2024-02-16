@@ -1,6 +1,5 @@
 import pygame
 
-
 class Gamemode():
     def __init__(self):
         try:
