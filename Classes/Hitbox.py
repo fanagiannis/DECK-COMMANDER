@@ -14,7 +14,7 @@ class Hitbox():
             self.hp=self.base_hp
             self.IsRepairing=False
             self.dead=False
-            self.repair_time=3000
+            self.repair_time=1500
         except pygame.error as e:
             print(f"Error in object initialization : {e}")
 

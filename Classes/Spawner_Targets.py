@@ -30,8 +30,8 @@ class Spawner():
         
     def update(self):
         self.group.update()
-        if self.spawn_time==0:
+        if self.spawn_time<=0:
             self.spawn()
             self.reset_timer()
-        self.spawn_time-=1
+        self.spawn_time-=4
 

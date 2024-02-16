@@ -36,9 +36,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.center=self.pos  
         self.canfire=True
         self.ammo_supplies=15000
-        self.maxammo=5
+        self.maxammo=15
         self.score=0
-        self.scoreinc=150
+        self.scoreinc=25
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10
@@ -48,9 +48,9 @@ class Player(pygame.sprite.Sprite):
         self.posy=DISPLAY_HEIGHT-self.offset
         self.pos=(self.posx,self.posy)
         self.ammo_supplies=15000
-        self.maxammo=5
+        self.maxammo=15
         self.score=0
-        self.scoreinc=150
+        self.scoreinc=25
         self.ammo=self.maxammo
         self.IsReloading=False
         self.speed=10
@@ -64,7 +64,7 @@ class Player(pygame.sprite.Sprite):
                     else:
                         self.IsReloading=False 
                     if self.IsReloading:
-                        self.ammo=5
+                        self.ammo=self.maxammo
                         reload_sound.play() 
                 else:
                     print("NO AMMO!")
