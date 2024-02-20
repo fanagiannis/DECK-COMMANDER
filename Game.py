@@ -27,8 +27,13 @@ icon=pygame.transform.scale(icon,(30,30))
 pygame.display.set_icon(icon)
 pygame.mouse.set_visible(False)
 
+
+
 #SPAWNS SPRITES/EVENTS  
 def set_game_solo():
+
+    print(hitbox.rect)
+
     background(LINK_ASSETS_BACKGROUND)          #BACKGROUND SET
     hp()                                        #POWER FEEDBACK
     messages()                                  #MESSAGES 

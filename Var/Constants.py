@@ -17,7 +17,7 @@ try:
     LINK_ASSETS_AIMCURSOR="assets\\AimBig.png"
     LINK_ASSETS_BULLETS="assets\\Bullet.png"
     LINK_ASSETS_TARGET="assets\\Enemy.png"
-    LINK_ASSETS_TARGETEXPLOSION=""
+    LINK_ASSETS_TARGETEXPLOSION="assets\\Explosion.png"
     LINK_ASSETS_REPAIR="assets\\Repair.png"
     LINK_ASSETS_ROCKET="assets\\Rocket.png"
     LINK_ASSETS_BACKGROUND="assets\\Space.png"
