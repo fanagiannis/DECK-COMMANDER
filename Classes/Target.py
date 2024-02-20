@@ -1,7 +1,7 @@
 import pygame
 import random 
 
-from Var.Constants import LINK_ASSETS_TARGET,DISPLAY_WIDTH,DISPLAY_HEIGHT
+from Var.Constants import LINK_ASSETS_TARGET,DISPLAY_WIDTH,DISPLAY_HEIGHT,LINK_ASSETS_TARGETEXPLOSION
 
 random.seed()
 
@@ -10,6 +10,7 @@ class Target (pygame.sprite.Sprite):
         super().__init__()
         try:
             self.image = pygame.image.load(LINK_ASSETS_TARGET)
+            #self.image_destroyed = pygame.image.load(LINK_ASSETS_TARGETEXPLOSION)
             self.rect=self.image.get_rect()
             self.offset=self.image.get_height()
             self.speed=1
