@@ -31,16 +31,14 @@ pygame.mouse.set_visible(False)
 
 #SPAWNS SPRITES/EVENTS  
 def set_game_solo():
-
-    print(hitbox.rect)
-
     background(LINK_ASSETS_BACKGROUND)          #BACKGROUND SET
     hp()                                        #POWER FEEDBACK
     messages()                                  #MESSAGES 
 
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)  #SET TARGET SPAWNER SPAWN
-        DISPLAY_WINDOW.blit(hitbox.image,hitbox.rect)
+        #DISPLAY_WINDOW.blit(hitbox.image,hitbox.rect)
+        pygame.draw.rect(DISPLAY_WINDOW,COLOR_WHITE,hitbox.rect,width=5)
     else:
         event_game_over()                        #IF GAME OVER --> DISABLE SPAWNER 
 
@@ -82,7 +80,8 @@ def set_game_multiplayer():
     
     if hitbox.dead==False:
         Target_spawn.group.draw(DISPLAY_WINDOW)  #SET TARGET SPAWNER SPAWN
-        DISPLAY_WINDOW.blit(hitbox.image,hitbox.rect)
+       # DISPLAY_WINDOW.blit(hitbox.image,hitbox.rect)
+        pygame.draw.rect(DISPLAY_WINDOW,COLOR_WHITE,hitbox.rect,width=5)
     else:
         event_game_over_multiplayer()                        #IF GAME OVER --> DISABLE SPAWNER 
 

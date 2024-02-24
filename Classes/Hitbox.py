@@ -7,9 +7,9 @@ from Var.Constants import DISPLAY_WINDOW,COLOR_RED,LINK_ASSETS_BASE
 class Hitbox():
     def __init__(self,a,b):
         try:
-            self.rect=pygame.Rect(0,a-100,b,100)
-            self.image=pygame.image.load(LINK_ASSETS_BASE)
-            self.image=self.image.convert_alpha()
+            self.rect=pygame.Rect(-50,a-100,b+100,200)
+            #self.image=pygame.image.load(LINK_ASSETS_BASE)
+            #self.image=self.image.convert_alpha()
             self.base_hp=1000
             self.hp=self.base_hp
             self.IsRepairing=False
