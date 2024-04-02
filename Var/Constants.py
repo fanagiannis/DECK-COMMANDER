@@ -8,10 +8,6 @@ try:
 
 
     #+++++LINKS+++++
-
-    LINK_ASSETS_BASE_PC="H:\\My Drive\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\DECK COMMANDER\\assets"
-    LINK_ASSETS_BASE_LAPTOP="G:\\Το Drive μου\\Drive fanagiannis\\ΠΜΣ\\ΜΑΘΗΜΑΤΑ\\PYTHON\\assets"
-    LINK_ASSETS_BASE=LINK_ASSETS_BASE_PC
     LINK_ASSETS_PLAYER="assets\\Player.png"
     LINK_ASSETS_CURSOR="assets\\Aim.png"
     LINK_ASSETS_AIMCURSOR="assets\\AimBig.png"
